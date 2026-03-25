@@ -6,6 +6,9 @@
   "scripts": {
     "build": "tsc"
   },
+  "dependencies": {
+    "ltxmlts": "^1.0.2"
+  },
   "devDependencies": {
     "typescript": "^5.0.0"
   }

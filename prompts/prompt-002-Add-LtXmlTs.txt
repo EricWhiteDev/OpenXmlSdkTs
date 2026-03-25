@@ -1,0 +1,9 @@
+Add a reference to the ltxmlts project, on npmjs.
+
+Import the external classes into WmlDocument.ts
+
+Add an overload to the open method that takes an XDocument object. In the open method, validate that the root element exists.
+
+Add a unit test that parses a valid XML string into an XDocument object using XDocument.parse.  Then call the WmlDocument.open method with the XDocument object.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.
