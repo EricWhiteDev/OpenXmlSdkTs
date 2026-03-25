@@ -1,0 +1,15 @@
+Make a simple TypeScript module named OpenXmlSdkTs:
+  - The module should be able to be consumed in a browser app, or in a nodejs app.
+  - Name the module OpenXmlSdkTs
+  - The module should have one public class named WmlDocument
+  - The class WmlDocument should have a public method, open. This method should take an argument named fileName, which takes a string. For now, the implementation is to validate that the file at the given location actually exists. Throw an exception if the file does not exist.
+
+Create a sibling module to OpenXmlSdkTs that includes a Vitest unit test.
+  - The name of this module is OpenXmlSdkTs.test
+  - Create a unit test
+  - In the unit test, call the open method with a non-existant file, and validate that it throws.
+  - In another unit test, call the open method with an existant file, and validate that it does not throw. In this unit test, create a temporary file, and then validate that it exists by calling the open method.
+
+After creating these two modules, run the unit tests and validate that they pass.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.

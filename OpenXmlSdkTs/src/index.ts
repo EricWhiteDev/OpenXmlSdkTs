@@ -1,0 +1,1 @@
+export { WmlDocument } from './WmlDocument';

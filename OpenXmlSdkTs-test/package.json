@@ -1,0 +1,14 @@
+{
+  "name": "OpenXmlSdkTs-test",
+  "private": true,
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "OpenXmlSdkTs": "*"
+  },
+  "devDependencies": {
+    "vitest": "^2.0.0",
+    "typescript": "^5.0.0"
+  }
+}
