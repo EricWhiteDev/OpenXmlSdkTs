@@ -1,0 +1,41 @@
+In a similar way to generating the A class, generate typescript classes for all of the following:
+
+For example, for the following code "openXml.A14", create the A14 class.
+
+Follow the same pattern as for the A class.
+
+
+        openXml.ctNs = new XNamespace("http://schemas.openxmlformats.org/package/2006/content-types");
+        var ctNs = openXml.ctNs;
+        openXml.CT = {
+            Override: new XName(ctNs, "Override"),
+            Default: new XName(ctNs, "Default"),
+            Types: new XName(ctNs, "Types"),
+        }
+        var CT = openXml.CT;
+
+        openXml.pkgRelNs = new XNamespace("http://schemas.openxmlformats.org/package/2006/relationships");
+        var pkgRelNs = openXml.pkgRelNs;
+        openXml.PKGREL = {
+            Relationships: new XName(pkgRelNs, "Relationships"),
+            Relationship: new XName(pkgRelNs, "Relationship"),
+        }
+        var PKGREL = openXml.PKGREL;
+
+        openXml.flatOpcPkgNs = new XNamespace("http://schemas.microsoft.com/office/2006/xmlPackage");
+        var flatOpcPkgNs = openXml.flatOpcPkgNs;
+        openXml.FLATOPC = {
+            _package: new XName(flatOpcPkgNs + "package"),
+            part: new XName(flatOpcPkgNs + "part"),
+            name: new XName(flatOpcPkgNs + "name"),
+            contentType: new XName(flatOpcPkgNs + "contentType"),
+            padding: new XName(flatOpcPkgNs + "padding"),
+            xmlData: new XName(flatOpcPkgNs + "xmlData"),
+            binaryData: new XName(flatOpcPkgNs + "binaryData"),
+            compression: new XName(flatOpcPkgNs + "compression"),
+        }
+        var FLATOPC = openXml.FLATOPC;
+
+        return openXml;
+    }
+
