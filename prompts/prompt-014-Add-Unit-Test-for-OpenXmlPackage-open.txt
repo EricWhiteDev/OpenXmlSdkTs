@@ -1,0 +1,6 @@
+Make a unit test for OpenXmlPackage.open
+in test-files, you will find a file named 'New Microsoft Word Document.docx'
+in the unit test, copy this file to a temporary file.
+Get the file as a blob.
+Call the async open method.
+Validate that it does not throw an exception.

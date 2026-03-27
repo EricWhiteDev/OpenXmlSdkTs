@@ -8,7 +8,6 @@
  */
 
 import { XDocument } from 'ltxmlts';
-import { ContentTypeKey } from './ContentType';
 import { OpenXmlPackage } from './OpenXmlPackage';
 
 export type PartType =
@@ -18,9 +17,29 @@ export type PartType =
   | null;
 
 export class OpenXmlPart {
-  private pkg!: OpenXmlPackage;         // this is a reference to the parent OpenXmlPackage
-  private uri!: string;                 // this is the uri of the part
-  private contentType!: ContentTypeKey; // this is the content type of the part
-  private partType!: PartType;
-  private data: unknown;                // for now, this type is unknown.  May change later.
+    private pkg: OpenXmlPackage;
+    private uri: string;
+    private contentType: string | null;   // MIME type value, e.g. "application/vnd...+xml"
+    private partType: PartType;
+    private data: unknown;                // for now, this type is unknown.  May change later.
+
+    constructor(pkg: OpenXmlPackage, uri: string, contentType: string | null, partType: PartType, data: unknown) {
+        this.pkg = pkg;
+        this.uri = uri;
+        this.contentType = contentType;
+        this.partType = partType;
+        this.data = data;
+    }
+
+    getData(): unknown {
+        return this.data;
+    }
+
+    setContentType(ct: string): void {
+        this.contentType = ct;
+    }
+
+    setPartType(pt: PartType): void {
+        this.partType = pt;
+    }
 }

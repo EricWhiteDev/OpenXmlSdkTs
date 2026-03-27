@@ -7,9 +7,11 @@
     "build": "tsc"
   },
   "dependencies": {
+    "jszip": "^3.10.1",
     "ltxmlts": "^1.0.2"
   },
   "devDependencies": {
+    "@types/jszip": "^3.4.0",
     "typescript": "^5.0.0"
   }
 }
