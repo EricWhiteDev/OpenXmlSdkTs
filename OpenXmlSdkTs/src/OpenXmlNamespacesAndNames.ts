@@ -1,3 +1,12 @@
+/*
+ * OpenXmlSdkTs (Open XML SDK for TypeScript)
+ * Copyright (c) 2026 Eric White
+ * eric@ericwhite.com
+ * https://www.ericwhite.com
+ * linkedin.com/in/ericwhitedev
+ * Licensed under the MIT License
+ */
+
 import { XName, XNamespace } from 'ltxmlts';
 
 

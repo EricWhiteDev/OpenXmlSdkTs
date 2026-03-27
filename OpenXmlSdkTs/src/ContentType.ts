@@ -1,3 +1,12 @@
+/*
+ * OpenXmlSdkTs (Open XML SDK for TypeScript)
+ * Copyright (c) 2026 Eric White
+ * eric@ericwhite.com
+ * https://www.ericwhite.com
+ * linkedin.com/in/ericwhitedev
+ * Licensed under the MIT License
+ */
+
 export const ContentType = {
     calculationChain: "application/vnd.openxmlformats-officedocument.spreadsheetml.calcChain+xml",
     cellMetadata: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheetMetadata+xml",

@@ -1,0 +1,38 @@
+Make a constructor for the class OpenXmlPackage.
+
+Add a private static method, 
+
+The constructor takes one argument, document: unknown
+In the constructor, if document is of type string, then
+  - call OpenXmlUtility.isBase64.
+    - If it returns true, then call openFromBase64Internal(this, document);
+    - if it returns false, then call openFromFlatOpcInternal(this, document);
+
+If document is not of type string, then
+  - call openFromBlobInternal(this, document);
+
+Stub out openFromBase64Internal.  For now it does nothing.
+
+Stub out openFromFlatOpcInternal.  For now it does nothing.
+
+Stub out openFromBlobInternal.  For now it does nothing.
+
+Make an OpenXmlUtility class. Put in OpenXmlUtility.js
+
+Add a static method to the OpenXmlUtility class.  Here is the JavaScript for an isBase64 method.  Add this method to OpenXmlUtility
+
+        openXml.util.isBase64 = function (str) {
+            if (typeof str !== 'string') {
+                return false;
+            }
+            var sub = str.substring(0, 500);
+            for (var i = 0; i < sub.length; i++) {
+                var s = sub[i];
+                if (s >= 'A' && s <= 'Z') continue;
+                if (s >= 'a' && s <= 'z') continue;
+                if (s >= '0' && s <= '9') continue;
+                if (s === '+' || s === '/') continue;
+                return false;
+            }
+            return true;
+        }

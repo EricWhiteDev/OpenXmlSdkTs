@@ -1,3 +1,12 @@
+/*
+ * OpenXmlSdkTs (Open XML SDK for TypeScript)
+ * Copyright (c) 2026 Eric White
+ * eric@ericwhite.com
+ * https://www.ericwhite.com
+ * linkedin.com/in/ericwhitedev
+ * Licensed under the MIT License
+ */
+
 export const RelationshipType = {
     alternativeFormatImport: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/aFChunk",
     calculationChain: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/calcChain",
