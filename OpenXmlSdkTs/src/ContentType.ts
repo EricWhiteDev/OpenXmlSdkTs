@@ -1,4 +1,4 @@
-export const contentTypes = {
+export const ContentType = {
     calculationChain: "application/vnd.openxmlformats-officedocument.spreadsheetml.calcChain+xml",
     cellMetadata: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheetMetadata+xml",
     chart: "application/vnd.openxmlformats-officedocument.drawingml.chart+xml",
@@ -87,5 +87,5 @@ export const contentTypes = {
     xmlSignature: "application/vnd.openxmlformats-package.digital-signature-xmlsignature+xml",
 } as const;
 
-export type ContentTypeKey = keyof typeof contentTypes;
-export type ContentTypeValue = typeof contentTypes[ContentTypeKey];
+export type ContentTypeKey = keyof typeof ContentType;
+export type ContentTypeValue = typeof ContentType[ContentTypeKey];

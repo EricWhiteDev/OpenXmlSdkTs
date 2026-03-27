@@ -1,4 +1,4 @@
-export const relationshipTypes = {
+export const RelationshipType = {
     alternativeFormatImport: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/aFChunk",
     calculationChain: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/calcChain",
     cellMetadata: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sheetMetadata",
@@ -78,5 +78,5 @@ export const relationshipTypes = {
     xmlSignature: "http://schemas.openxmlformats.org/package/2006/relationships/digital-signature/signature",
 } as const;
 
-export type RelationshipTypeKey = keyof typeof relationshipTypes;
-export type RelationshipTypeValue = typeof relationshipTypes[RelationshipTypeKey];
+export type RelationshipTypeKey = keyof typeof RelationshipType;
+export type RelationshipTypeValue = typeof RelationshipType[RelationshipTypeKey];
