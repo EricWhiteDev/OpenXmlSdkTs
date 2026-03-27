@@ -1,3 +1,6 @@
+export { OpenXmlPackage } from './OpenXmlPackage';
+export { OpenXmlPart } from './OpenXmlPart';
+export type { PartType } from './OpenXmlPart';
 export { WmlDocument } from './WmlDocument';
 export { contentTypes } from './contentTypes';
 export type { ContentTypeKey, ContentTypeValue } from './contentTypes';

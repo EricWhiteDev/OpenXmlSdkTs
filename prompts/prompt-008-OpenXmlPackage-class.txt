@@ -1,0 +1,19 @@
+Make a new class OpenXmlPackage
+- import the external classes from LtXmlTs
+- in this class, add a private property named parts: Map<string, OpenXmlPart> = new Map();
+- in this class, add a private property named ctXDoc: XDocument.  Add a comment: "This is the XDocument for the content types in the package"
+
+Make a new class OpenXmlPart
+- import the external classes from LtXmlTs
+- there are five private properties in this class.  Add comments to the source code, as detailed below:
+  - pkg: OpenXmlPackage // this is a reference to the parent OpenXmlPackage
+  - uri: string // this is the uri of the part
+  - contentType: ContentTypeKey // this is the content type of the part
+  - partType: PartType
+  - data: unknown // for now, this type is unknown.  May change later.
+
+export type PartType =
+  | 'binary'
+  | 'base64'
+  | 'xml'
+  | null;
