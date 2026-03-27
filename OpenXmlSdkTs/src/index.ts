@@ -12,7 +12,6 @@ export type { Base64String, FlatOpcString, DocxBinary } from './OpenXmlPackage';
 export { OpenXmlUtility } from './OpenXmlUtility';
 export { OpenXmlPart } from './OpenXmlPart';
 export type { PartType } from './OpenXmlPart';
-export { WmlDocument } from './WmlDocument';
 export { ContentType } from './ContentType';
 export type { ContentTypeKey, ContentTypeValue } from './ContentType';
 export { RelationshipType } from './RelationshipType';
