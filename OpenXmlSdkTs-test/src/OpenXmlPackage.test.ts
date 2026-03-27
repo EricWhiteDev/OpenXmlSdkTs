@@ -15,7 +15,7 @@ import * as path from 'path';
 
 describe('OpenXmlPackage', () => {
     it('does not throw when opening a docx blob', async () => {
-        const srcFile = path.resolve(__dirname, '../../test-files/New Microsoft Word Document.docx');
+        const srcFile = path.resolve(__dirname, '../../test-files/TemplateDocument.docx');
         const tmpFile = path.join(os.tmpdir(), `openxmlpackage-test-${Date.now()}.docx`);
         fs.copyFileSync(srcFile, tmpFile);
         try {

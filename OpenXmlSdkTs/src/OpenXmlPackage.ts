@@ -67,6 +67,9 @@ export class OpenXmlPackage {
     }
 
     private static async openFromBlobInternal(pkg: OpenXmlPackage, document: DocxBinary): Promise<void> {
+        const arrayBuffer = await document.arrayBuffer();
+        const zip = await JSZip.loadAsync(arrayBuffer);
+        await OpenXmlPackage.openFromZip(zip, pkg);
     }
 
     private static async openFromZip(zip: JSZip, pkg: OpenXmlPackage): Promise<void> {
