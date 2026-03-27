@@ -11,11 +11,15 @@ import { XDocument } from 'ltxmlts';
 import { OpenXmlPart } from './OpenXmlPart';
 import { OpenXmlUtility } from './OpenXmlUtility';
 
+export type Base64String = string;
+export type FlatOpcString = string;
+export type DocxBinary = Blob;
+
 export class OpenXmlPackage {
     private parts: Map<string, OpenXmlPart> = new Map();
     private ctXDoc!: XDocument; // This is the XDocument for the content types in the package
 
-    constructor(document: unknown) {
+    constructor(document: Base64String | FlatOpcString | DocxBinary) {
         if (typeof document === 'string') {
             if (OpenXmlUtility.isBase64(document)) {
                 OpenXmlPackage.openFromBase64Internal(this, document);
@@ -27,12 +31,12 @@ export class OpenXmlPackage {
         }
     }
 
-    private static openFromBase64Internal(pkg: OpenXmlPackage, document: string): void {
+    private static openFromBase64Internal(pkg: OpenXmlPackage, document: Base64String): void {
     }
 
-    private static openFromFlatOpcInternal(pkg: OpenXmlPackage, document: string): void {
+    private static openFromFlatOpcInternal(pkg: OpenXmlPackage, document: FlatOpcString): void {
     }
 
-    private static openFromBlobInternal(pkg: OpenXmlPackage, document: unknown): void {
+    private static openFromBlobInternal(pkg: OpenXmlPackage, document: DocxBinary): void {
     }
 }

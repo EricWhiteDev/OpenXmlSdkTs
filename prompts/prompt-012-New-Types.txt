@@ -1,0 +1,8 @@
+Add three new types to the module:
+- Base64String, which is a string
+- FlatOpcString, which is a string
+- DocxBinary, which is a blob
+
+Change the type of the constructor for OpenXmlPackage to take as an argument Base64String | FlatOpcString | DocxBinary
+
+Modify the code in the constructor accordingly.

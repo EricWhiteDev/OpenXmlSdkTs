@@ -4,3 +4,4 @@ dist/
 *.d.ts.map
 npm-debug.log*
 .DS_Store
+.claude/
