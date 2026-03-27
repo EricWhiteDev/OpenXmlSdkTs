@@ -1,5 +1,5 @@
 import { XDocument } from 'ltxmlts';
-import { ContentTypeKey } from './contentTypes';
+import { ContentTypeKey } from './ContentType';
 import { OpenXmlPackage } from './OpenXmlPackage';
 
 export type PartType =

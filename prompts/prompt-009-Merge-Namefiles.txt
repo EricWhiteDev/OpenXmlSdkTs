@@ -1,0 +1,56 @@
+A number of the source files consist of a class that contains a readonly field namespace:XNamespace, and a number of readonly fields of type XName, which are initialized using a call to A.namespace.getName(someLocalName);
+
+These files are:
+
+A.ts
+A14.ts
+C.ts
+CDR.ts
+COM.ts
+CP.ts
+CT.ts
+CUSTPRO.ts
+DC.ts
+DCTERMS.ts
+DGM.ts
+DGM14.ts
+DIGSIG.ts
+DS.ts
+DSP.ts
+EP.ts
+FLATOPC.ts
+LC.ts
+M.ts
+MC.ts
+MDSSI.ts
+MP.ts
+MV.ts
+NoNamespace.ts
+O.ts
+P.ts
+P14.ts
+P15.ts
+Pic.ts
+PKGREL.ts
+R.ts
+S.ts
+SL.ts
+SLE.ts
+VML.ts
+VT.ts
+W.ts
+W10.ts
+W14.ts
+W3DIGSIG.ts
+WP.ts
+WP14.ts
+WPS.ts
+X.ts
+XDR.ts
+XDR14.ts
+XM.ts
+XSI.ts
+
+Merge all these files into a single source module OpenXmlNamespacesAndNames.ts
+
+Don't make any changes to the classes or fields; just merge into a single source module so that I don't have so many modules. Put them in alphabetical order in OpenXmlNamespacesAndNames.ts
