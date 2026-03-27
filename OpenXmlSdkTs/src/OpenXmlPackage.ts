@@ -26,8 +26,10 @@ export class OpenXmlPackage {
             } else {
                 OpenXmlPackage.openFromFlatOpcInternal(this, document);
             }
-        } else {
+        } else if (document instanceof Blob) {
             OpenXmlPackage.openFromBlobInternal(this, document);
+        } else {
+            throw new Error('Invalid argument: document must be a Base64String, FlatOpcString, or DocxBinary (Blob).');
         }
     }
 
