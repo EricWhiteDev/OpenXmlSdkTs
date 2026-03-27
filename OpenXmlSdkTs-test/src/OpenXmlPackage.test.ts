@@ -7,8 +7,9 @@
  * Licensed under the MIT License
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { OpenXmlPackage } from 'OpenXmlSdkTs';
+import JSZip from 'jszip';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
@@ -21,7 +22,9 @@ describe('OpenXmlPackage', () => {
         try {
             const buffer = fs.readFileSync(tmpFile);
             const blob = new Blob([buffer]);
+            const spy = vi.spyOn(JSZip, 'loadAsync');
             await expect(OpenXmlPackage.open(blob)).resolves.toBeDefined();
+            expect(spy).toHaveBeenCalledWith(expect.any(ArrayBuffer));
         } finally {
             fs.unlinkSync(tmpFile);
         }
