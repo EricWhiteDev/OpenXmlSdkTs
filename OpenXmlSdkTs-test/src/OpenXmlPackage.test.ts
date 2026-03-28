@@ -9,7 +9,7 @@
 
 import { describe, it, expect, vi } from 'vitest';
 import { OpenXmlPackage } from 'OpenXmlSdkTs';
-import { blankDocument, blankDocumentFlatOpc } from './TestResources';
+import { blankDocumentBase64, blankDocumentFlatOpc } from './TestResources';
 import JSZip from 'jszip';
 import * as fs from 'fs';
 import * as os from 'os';
@@ -33,7 +33,7 @@ describe('OpenXmlPackage', () => {
 
     it('opens a base64-encoded docx via openFromBase64Internal', async () => {
         const spy = vi.spyOn(JSZip, 'loadAsync');
-        await expect(OpenXmlPackage.open(blankDocument)).resolves.toBeDefined();
+        await expect(OpenXmlPackage.open(blankDocumentBase64)).resolves.toBeDefined();
         expect(spy).toHaveBeenCalledWith(expect.any(String), { base64: true });
     });
 
