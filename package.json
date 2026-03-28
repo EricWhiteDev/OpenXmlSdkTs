@@ -1,9 +1,23 @@
 {
   "name": "openxmlsdkts-workspace",
   "private": true,
-  "workspaces": ["OpenXmlSdkTs", "OpenXmlSdkTs-test"],
+  "workspaces": [
+    "OpenXmlSdkTs",
+    "OpenXmlSdkTs-test"
+  ],
   "scripts": {
     "build": "npm run build -w OpenXmlSdkTs",
-    "test": "npm run test --workspaces --if-present"
+    "test": "npm run test --workspaces --if-present",
+    "lint": "eslint 'OpenXmlSdkTs/src/**/*.ts' 'OpenXmlSdkTs-test/src/**/*.ts'",
+    "format": "prettier --write 'OpenXmlSdkTs/src/**/*.ts' 'OpenXmlSdkTs-test/src/**/*.ts'",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.1",
+    "typescript-eslint": "^8.57.2"
   }
 }

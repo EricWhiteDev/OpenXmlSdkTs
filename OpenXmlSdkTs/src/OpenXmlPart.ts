@@ -7,51 +7,52 @@
  * Licensed under the MIT License
  */
 
-import { XDocument } from 'ltxmlts';
-import { OpenXmlPackage } from './OpenXmlPackage';
+import { OpenXmlPackage } from "./OpenXmlPackage";
 
-export type PartType =
-  | 'binary'
-  | 'base64'
-  | 'xml'
-  | null;
+export type PartType = "binary" | "base64" | "xml" | null;
 
 export class OpenXmlPart {
-    private pkg: OpenXmlPackage;
-    private uri: string;
-    private contentType: string | null;   // MIME type value, e.g. "application/vnd...+xml"
-    private partType: PartType;
-    private data: unknown;                // for now, this type is unknown.  May change later.
+  private pkg: OpenXmlPackage;
+  private uri: string;
+  private contentType: string | null; // MIME type value, e.g. "application/vnd...+xml"
+  private partType: PartType;
+  private data: unknown; // for now, this type is unknown.  May change later.
 
-    constructor(pkg: OpenXmlPackage, uri: string, contentType: string | null, partType: PartType, data: unknown) {
-        this.pkg = pkg;
-        this.uri = uri;
-        this.contentType = contentType;
-        this.partType = partType;
-        this.data = data;
-    }
+  constructor(
+    pkg: OpenXmlPackage,
+    uri: string,
+    contentType: string | null,
+    partType: PartType,
+    data: unknown,
+  ) {
+    this.pkg = pkg;
+    this.uri = uri;
+    this.contentType = contentType;
+    this.partType = partType;
+    this.data = data;
+  }
 
-    getUri(): string {
-        return this.uri;
-    }
+  getUri(): string {
+    return this.uri;
+  }
 
-    getContentType(): string | null {
-        return this.contentType;
-    }
+  getContentType(): string | null {
+    return this.contentType;
+  }
 
-    getData(): unknown {
-        return this.data;
-    }
+  getData(): unknown {
+    return this.data;
+  }
 
-    setContentType(ct: string): void {
-        this.contentType = ct;
-    }
+  setContentType(ct: string): void {
+    this.contentType = ct;
+  }
 
-    getPartType(): PartType {
-        return this.partType;
-    }
+  getPartType(): PartType {
+    return this.partType;
+  }
 
-    setPartType(pt: PartType): void {
-        this.partType = pt;
-    }
+  setPartType(pt: PartType): void {
+    this.partType = pt;
+  }
 }

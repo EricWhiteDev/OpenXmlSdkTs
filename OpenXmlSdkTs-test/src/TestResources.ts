@@ -7,8 +7,7 @@
  * Licensed under the MIT License
  */
 
-export const blankDocumentFlatOpc =
-`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+export const blankDocumentFlatOpc = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <?mso-application progid="Word.Document"?>
 <pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
     <pkg:part pkg:name="/_rels/.rels"
@@ -1570,10 +1569,9 @@ export const blankDocumentFlatOpc =
             </Properties>
         </pkg:xmlData>
     </pkg:part>
-</pkg:package>`
+</pkg:package>`;
 
-export const blankDocumentBase64 =
-    `UEsDBBQABgAIAAAAIQDfpNJsWgEAACAFAAATAAgCW0NvbnRlbnRfVHlwZXNdLnhtbCCiBAIooAAC\
+export const blankDocumentBase64 = `UEsDBBQABgAIAAAAIQDfpNJsWgEAACAFAAATAAgCW0NvbnRlbnRfVHlwZXNdLnhtbCCiBAIooAAC\
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\
@@ -1781,4 +1779,3 @@ AQAAywIAABAAAAAAAAAAAAAAAAAA/xgAAGRvY1Byb3BzL2FwcC54bWxQSwECLQAUAAYACAAAACEA\
 eMytLXIBAADrAgAAEQAAAAAAAAAAAAAAAACsGwAAZG9jUHJvcHMvY29yZS54bWxQSwECLQAUAAYA\
 CAAAACEAH0+xos4MAAAfewAADwAAAAAAAAAAAAAAAABVHgAAd29yZC9zdHlsZXMueG1sUEsFBgAA\
 AAALAAsAwQIAAFArAAAAAA==`;
-
