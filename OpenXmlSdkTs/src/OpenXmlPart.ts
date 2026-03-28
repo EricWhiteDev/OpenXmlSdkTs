@@ -31,6 +31,14 @@ export class OpenXmlPart {
         this.data = data;
     }
 
+    getUri(): string {
+        return this.uri;
+    }
+
+    getContentType(): string | null {
+        return this.contentType;
+    }
+
     getData(): unknown {
         return this.data;
     }

@@ -1,0 +1,3 @@
+in OpenXmlPackage.test.ts, there are three unit tests.
+
+Make new versions of each of these unit tests.  The new versions of these unit tests do not worry about which code path is followed.  Instead, when opening up the OpenXmlPackage, get the OpenXmlPackage object, then valicate that the parts in the package match up to an array of parts that are initialized in each test.  To write the code to initialize these arrays, run the code to open the OpenXmlPackage, get the list of parts, and write the code to initialize the array from the list of parts in the newly opened OpenXmlPackage.

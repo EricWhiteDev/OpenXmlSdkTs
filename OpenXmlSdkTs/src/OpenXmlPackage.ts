@@ -22,6 +22,10 @@ export class OpenXmlPackage {
     private parts: Map<string, OpenXmlPart> = new Map();
     private ctXDoc!: XDocument; // This is the XDocument for the content types in the package
 
+    getParts(): OpenXmlPart[] {
+        return Array.from(this.parts.values());
+    }
+
     static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<OpenXmlPackage> {
         const pkg = new OpenXmlPackage();
         if (typeof document === 'string') {
