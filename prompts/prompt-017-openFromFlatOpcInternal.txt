@@ -1,0 +1,52 @@
+Following is some JavaScript code:
+
+        function openFlatOpcFromXDoc(pkg, doc) {
+            var root = doc.getRoot();
+            pkg.ctXDoc = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XElement(CT.Types,
+                    new XAttribute("xmlns", ctNs.namespaceName),
+                    new XElement(CT.Default,
+                        new XAttribute("Extension", "rels"),
+                        new XAttribute("ContentType", openXml.contentTypes.relationships)),
+                    new XElement(CT.Default,
+                        new XAttribute("Extension", "xml"),
+                        new XAttribute("ContentType", "application/xml"))));
+            root.elements(FLATOPC.part).forEach(function (p) {
+                var uri = p.attribute(FLATOPC.name).value;
+                var contentType = p.attribute(FLATOPC.contentType).value;
+                var partType = "xml";
+                if (!openXml.util.endsWith(contentType, "xml"))
+                    partType = "base64";
+                if (partType === "xml") {
+                    var newPart = new openXml.OpenXmlPart(pkg, uri, contentType, partType,
+                        new XDocument(p.element(FLATOPC.xmlData).elements().firstOrDefault()));
+                    pkg.parts[uri] = newPart;
+                    if (contentType !== 'application/vnd.openxmlformats-package.relationships+xml') {
+                        pkg.ctXDoc.getRoot().add(
+                            new XElement(CT.Override,
+                                new XAttribute("PartName", uri),
+                                new XAttribute("ContentType", contentType)));
+                    }
+                }
+                if (partType === "base64") {
+                    var newPart = new openXml.OpenXmlPart(pkg, uri, contentType, partType, p.element(FLATOPC.binaryData).value);
+                    pkg.parts[uri] = newPart;
+                    pkg.ctXDoc.getRoot().add(
+                        new XElement(CT.Override,
+                            new XAttribute("PartName", uri),
+                            new XAttribute("ContentType", contentType)));
+                }
+            })
+            var newPart = new openXml.OpenXmlPart(pkg, "[Content_Types].xml", null, "xml", pkg.ctXDoc);
+            pkg.parts["[Content_Types].xml"] = newPart;
+        }
+
+        function openFromFlatOpcInternal(pkg, flatOpc) {
+            var xDoc = XDocument.parse(flatOpc);
+            openFlatOpcFromXDoc(pkg, xDoc);
+        }
+
+Use the above openFromFlatOpcInternal to write the code inside openFromFlatOpcInternal, which is in OpenXmlPackage class.
+
+Use the above implementation of openFlatOpcFromXDoc to make a corresponding private function in the OpenXmlPackage class.

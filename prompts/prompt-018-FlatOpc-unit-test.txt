@@ -1,0 +1,5 @@
+in TestResources.ts, there is an exported string blankDocumentFlatOpc
+
+Use that string and write a unit test for OpenXmlPackage.open, passing in the blankDocumentFlatOpc to it.
+
+Validate that it calls openFlatOpcFromXDoc when opening a document from a flatOpc string.

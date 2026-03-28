@@ -9,7 +9,7 @@
 
 import { describe, it, expect, vi } from 'vitest';
 import { OpenXmlPackage } from 'OpenXmlSdkTs';
-import { blankDocument } from './TestResources';
+import { blankDocument, blankDocumentFlatOpc } from './TestResources';
 import JSZip from 'jszip';
 import * as fs from 'fs';
 import * as os from 'os';
@@ -35,5 +35,11 @@ describe('OpenXmlPackage', () => {
         const spy = vi.spyOn(JSZip, 'loadAsync');
         await expect(OpenXmlPackage.open(blankDocument)).resolves.toBeDefined();
         expect(spy).toHaveBeenCalledWith(expect.any(String), { base64: true });
+    });
+
+    it('opens a FlatOPC string via openFlatOpcFromXDoc', async () => {
+        const spy = vi.spyOn(JSZip, 'loadAsync');
+        await expect(OpenXmlPackage.open(blankDocumentFlatOpc)).resolves.toBeDefined();
+        expect(spy).not.toHaveBeenCalled();
     });
 });
