@@ -1,0 +1,24 @@
+Here is some JavaScript code:
+
+        openXml.OpenXmlPackage.prototype.getParts = function () {
+            var parts = [];
+            for (var part in this.parts) {
+                if (this.parts[part].contentType !== openXml.contentTypes.relationships &&
+                    part !== "[Content_Types].xml") {
+                    parts.push(this.parts[part]);
+                }
+            }
+            return parts;
+        }
+
+This function iterates through all parts of a package.
+
+Add the getParts method to the OpenXmlPackage class.  Validate that the getParts() method does not include the [Content_Types].xml part, and that it does not include the relationship parts.
+
+Add a unit test - open the WithComments.docx file, and get its parts.
+
+When opening up the OpenXmlPackage, get the OpenXmlPackage object, then valicate that the parts in the package match up to an array of parts that are initialized in each test.  To write the code to initialize these arrays, run the code to open the OpenXmlPackage, get the list of parts, and write the code to initialize the array from the list of parts in the newly opened OpenXmlPackage.
+
+Note that some of the unit tests look for the relationship parts.  After moving this functionality into the getParts method, the relationship parts will no longer be returned, so will need to adjust those unit tests.
+
+Note that some of the unit tests specifically filter out the [Content_Types].xml part.  After filtering out the [Content_Types].xml part in the getParts method, you will no longer need to filter this part out in the unit tests.

@@ -54,14 +54,6 @@ describe("OpenXmlPackage", () => {
   it("opens a docx blob with the correct parts", async () => {
     const expectedParts = [
       {
-        uri: "/_rels/.rels",
-        contentType: "application/vnd.openxmlformats-package.relationships+xml",
-      },
-      {
-        uri: "/word/_rels/document.xml.rels",
-        contentType: "application/vnd.openxmlformats-package.relationships+xml",
-      },
-      {
         uri: "/word/document.xml",
         contentType:
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
@@ -109,14 +101,6 @@ describe("OpenXmlPackage", () => {
   it("opens a base64-encoded docx with the correct parts", async () => {
     const expectedParts = [
       {
-        uri: "/_rels/.rels",
-        contentType: "application/vnd.openxmlformats-package.relationships+xml",
-      },
-      {
-        uri: "/word/_rels/document.xml.rels",
-        contentType: "application/vnd.openxmlformats-package.relationships+xml",
-      },
-      {
         uri: "/word/document.xml",
         contentType:
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
@@ -161,17 +145,9 @@ describe("OpenXmlPackage", () => {
   it("opens a FlatOPC string with the correct parts", async () => {
     const expectedParts = [
       {
-        uri: "/_rels/.rels",
-        contentType: "application/vnd.openxmlformats-package.relationships+xml",
-      },
-      {
         uri: "/word/document.xml",
         contentType:
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
-      },
-      {
-        uri: "/word/_rels/document.xml.rels",
-        contentType: "application/vnd.openxmlformats-package.relationships+xml",
       },
       {
         uri: "/word/theme/theme1.xml",
@@ -202,9 +178,68 @@ describe("OpenXmlPackage", () => {
         uri: "/docProps/app.xml",
         contentType: "application/vnd.openxmlformats-officedocument.extended-properties+xml",
       },
-      { uri: "[Content_Types].xml", contentType: null },
     ];
     const pkg = await OpenXmlPackage.open(blankDocumentFlatOpc);
+    const actualParts = pkg
+      .getParts()
+      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    expect(actualParts).toEqual(expectedParts);
+  });
+
+  it("opens WithComments.docx with the correct parts", async () => {
+    const expectedParts = [
+      {
+        uri: "/word/document.xml",
+        contentType:
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
+      },
+      {
+        uri: "/word/comments.xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml",
+      },
+      {
+        uri: "/word/theme/theme1.xml",
+        contentType: "application/vnd.openxmlformats-officedocument.theme+xml",
+      },
+      {
+        uri: "/word/settings.xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml",
+      },
+      {
+        uri: "/word/fontTable.xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml",
+      },
+      {
+        uri: "/word/webSettings.xml",
+        contentType:
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml",
+      },
+      {
+        uri: "/docProps/app.xml",
+        contentType: "application/vnd.openxmlformats-officedocument.extended-properties+xml",
+      },
+      {
+        uri: "/docProps/core.xml",
+        contentType: "application/vnd.openxmlformats-package.core-properties+xml",
+      },
+      {
+        uri: "/word/styles.xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml",
+      },
+      {
+        uri: "/word/people.xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.people+xml",
+      },
+      {
+        uri: "/word/commentsExtended.xml",
+        contentType:
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.commentsExtended+xml",
+      },
+    ];
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
     const actualParts = pkg
       .getParts()
       .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
@@ -215,14 +250,12 @@ describe("OpenXmlPackage", () => {
     const pkg = await OpenXmlPackage.open(blankDocumentFlatOpc);
     const originalParts = pkg
       .getParts()
-      .filter((p) => p.getUri() !== "[Content_Types].xml")
       .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     const saved = await pkg.saveToFlatOpcAsync();
     const pkg2 = await OpenXmlPackage.open(saved);
     const roundTrippedParts = pkg2
       .getParts()
-      .filter((p) => p.getUri() !== "[Content_Types].xml")
       .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     expect(roundTrippedParts).toEqual(originalParts);
@@ -241,7 +274,6 @@ describe("OpenXmlPackage", () => {
     const pkg2 = await OpenXmlPackage.open(saved);
     const roundTrippedParts = pkg2
       .getParts()
-      .filter((p) => p.getUri() !== "[Content_Types].xml")
       .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     expect(roundTrippedParts).toEqual(originalParts);
@@ -251,7 +283,6 @@ describe("OpenXmlPackage", () => {
     const pkg = await OpenXmlPackage.open(blankDocumentFlatOpc);
     const originalParts = pkg
       .getParts()
-      .filter((p) => p.getUri() !== "[Content_Types].xml")
       .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     const saved = await pkg.saveToBase64Async();

@@ -31,7 +31,10 @@ export class OpenXmlPackage {
   private ctXDoc!: XDocument; // This is the XDocument for the content types in the package
 
   getParts(): OpenXmlPart[] {
-    return Array.from(this.parts.values());
+    return Array.from(this.parts.values()).filter(
+      (p) =>
+        p.getUri() !== "[Content_Types].xml" && p.getContentType() !== ContentType.relationships,
+    );
   }
 
   addPart(uri: string, contentType: string, partType: PartType, data: unknown): OpenXmlPart {
