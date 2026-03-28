@@ -1,0 +1,31 @@
+the following convenience methods were available for JavaScript:
+
+        // The following on OpenXmlPackage because they have a relationship from the package to the part.
+        openXml.OpenXmlPackage.prototype.mainDocumentPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.mainDocument);
+        };
+
+        openXml.OpenXmlPackage.prototype.coreFilePropertiesPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.coreFileProperties);
+        };
+
+        openXml.OpenXmlPackage.prototype.extendedFilePropertiesPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.extendedFileProperties);
+        };
+
+        openXml.OpenXmlPackage.prototype.workbookPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.workbook);
+        };
+
+        openXml.OpenXmlPackage.prototype.customFilePropertiesPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.customFileProperties);
+        };
+
+        openXml.OpenXmlPackage.prototype.presentationPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.presentation);
+        };
+
+
+Add the same methods to OpenXmlPackage for the TypeScript implementation.
+
+Add unit tests.

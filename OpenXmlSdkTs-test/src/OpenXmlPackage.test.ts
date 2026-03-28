@@ -676,6 +676,60 @@ describe("OpenXmlPackage", () => {
     expect(body!.element(W.sectPr)).not.toBeNull();
   });
 
+  it("mainDocumentPart returns the main document part", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    const part = await pkg.mainDocumentPart();
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/word/document.xml");
+  });
+
+  it("coreFilePropertiesPart returns the core properties part", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    const part = await pkg.coreFilePropertiesPart();
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/docProps/core.xml");
+  });
+
+  it("extendedFilePropertiesPart returns the app properties part", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    const part = await pkg.extendedFilePropertiesPart();
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/docProps/app.xml");
+  });
+
+  it("workbookPart returns undefined for a Word document", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    expect(await pkg.workbookPart()).toBeUndefined();
+  });
+
+  it("customFilePropertiesPart returns undefined when no custom properties exist", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    expect(await pkg.customFilePropertiesPart()).toBeUndefined();
+  });
+
+  it("presentationPart returns undefined for a Word document", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    expect(await pkg.presentationPart()).toBeUndefined();
+  });
+
   it("returns the content type for a known URI", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);

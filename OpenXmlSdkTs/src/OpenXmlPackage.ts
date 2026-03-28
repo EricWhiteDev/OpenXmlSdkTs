@@ -21,6 +21,7 @@ import { OpenXmlRelationship } from "./OpenXmlRelationship";
 import { OpenXmlUtility } from "./OpenXmlUtility";
 import { CT, FLATOPC, PKGREL } from "./OpenXmlNamespacesAndNames";
 import { ContentType } from "./ContentType";
+import { RelationshipType } from "./RelationshipType";
 
 export type Base64String = string;
 export type FlatOpcString = string;
@@ -148,6 +149,30 @@ export class OpenXmlPackage {
   async getPartByRelationshipType(relationshipType: string): Promise<OpenXmlPart | undefined> {
     const parts = await this.getPartsByRelationshipType(relationshipType);
     return parts[0];
+  }
+
+  async mainDocumentPart(): Promise<OpenXmlPart | undefined> {
+    return (await this.getPartsByContentType(ContentType.mainDocument))[0];
+  }
+
+  async coreFilePropertiesPart(): Promise<OpenXmlPart | undefined> {
+    return this.getPartByRelationshipType(RelationshipType.coreFileProperties);
+  }
+
+  async extendedFilePropertiesPart(): Promise<OpenXmlPart | undefined> {
+    return this.getPartByRelationshipType(RelationshipType.extendedFileProperties);
+  }
+
+  async workbookPart(): Promise<OpenXmlPart | undefined> {
+    return (await this.getPartsByContentType(ContentType.workbook))[0];
+  }
+
+  async customFilePropertiesPart(): Promise<OpenXmlPart | undefined> {
+    return this.getPartByRelationshipType(RelationshipType.customFileProperties);
+  }
+
+  async presentationPart(): Promise<OpenXmlPart | undefined> {
+    return (await this.getPartsByContentType(ContentType.presentation))[0];
   }
 
   async getRelationshipsForPart(part: OpenXmlPart): Promise<OpenXmlRelationship[]> {
