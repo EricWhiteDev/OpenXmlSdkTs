@@ -1,0 +1,5 @@
+Currently, there is a string named blankDocument in OpenXmlPackage.test.ts
+
+Put this string in a separate module named TestResources.ts
+
+Make sure that all unit tests run.
