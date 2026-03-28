@@ -100,4 +100,36 @@ describe('OpenXmlPackage', () => {
         const actualParts = pkg.getParts().map(p => ({ uri: p.getUri(), contentType: p.getContentType() }));
         expect(actualParts).toEqual(expectedParts);
     });
+
+    it('saves a FlatOPC-opened package back to FlatOPC with the correct parts', async () => {
+        const pkg = await OpenXmlPackage.open(blankDocumentFlatOpc);
+        const originalParts = pkg.getParts()
+            .filter(p => p.getUri() !== '[Content_Types].xml')
+            .map(p => ({ uri: p.getUri(), contentType: p.getContentType() }));
+
+        const saved = await pkg.saveToFlatOpcAsync();
+        const pkg2 = await OpenXmlPackage.open(saved);
+        const roundTrippedParts = pkg2.getParts()
+            .filter(p => p.getUri() !== '[Content_Types].xml')
+            .map(p => ({ uri: p.getUri(), contentType: p.getContentType() }));
+
+        expect(roundTrippedParts).toEqual(originalParts);
+    });
+
+    it('saves a blob-opened package to FlatOPC with the correct parts', async () => {
+        const srcFile = path.resolve(__dirname, '../../test-files/TemplateDocument.docx');
+        const buffer = fs.readFileSync(srcFile);
+        const blob = new Blob([buffer]);
+        const pkg = await OpenXmlPackage.open(blob);
+        const originalParts = pkg.getParts()
+            .map(p => ({ uri: p.getUri(), contentType: p.getContentType() }));
+
+        const saved = await pkg.saveToFlatOpcAsync();
+        const pkg2 = await OpenXmlPackage.open(saved);
+        const roundTrippedParts = pkg2.getParts()
+            .filter(p => p.getUri() !== '[Content_Types].xml')
+            .map(p => ({ uri: p.getUri(), contentType: p.getContentType() }));
+
+        expect(roundTrippedParts).toEqual(originalParts);
+    });
 });

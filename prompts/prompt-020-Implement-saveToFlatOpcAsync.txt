@@ -1,0 +1,122 @@
+here is a JavaScript function:
+
+        openXml.OpenXmlPackage.prototype.saveToFlatOpcAsync = function (cb) {
+            var xdec = new XDeclaration("1.0", "UTF-8", "yes");
+            var nsa = new XAttribute(XNamespace.xmlns + "pkg",
+                "http://schemas.microsoft.com/office/2006/xmlPackage");
+            var pkg = new XElement(FLATOPC._package, nsa);
+            var flatOpc = new XDocument(xdec,
+                new XProcessingInstruction('mso-application', 'progid="Word.Document"'),
+                pkg);
+
+            var partQueue = [];
+            for (var part in this.parts) {
+                if (part !== "[Content_Types].xml") {
+                    var thisPart = this.parts[part];
+                    // test for null because if the part was deleted, it will be set to null, not undefined
+                    if (thisPart !== null) {
+                        partQueue.push(thisPart);
+                    }
+                }
+            }
+
+            var count = 0;
+            var docpkg = this;
+            var partCount = partQueue.length;
+
+            var intervalId = setInterval(function () {
+                if (count < partCount) {
+                    for (var i = 0; i < 10; i++) {
+                        var thisPart = partQueue[count];
+                        var cte = docpkg.ctXDoc.getRoot().elements(CT.Override).firstOrDefault(function (e) {
+                            var ctpn = e.attribute("PartName").value;
+                            var thpn = thisPart.uri;
+                            var b = ctpn === thpn;
+                            return b;
+                        });
+                        var ct = null;
+                        if (cte === null) {
+                            var extension = thisPart.uri
+                                .substring(thisPart.uri.lastIndexOf('.') + 1).toLowerCase();
+                            var dct = docpkg.ctXDoc.getRoot().elements(CT.Default).firstOrDefault(function (e) {
+                                return e.attribute("Extension").value.toLowerCase() === extension;
+                            });
+                            if (!dct) {
+                                throw "internal error";
+                            }
+                            ct = dct.attribute("ContentType").value;
+                        }
+                        else {
+                            ct = cte.attribute("ContentType").value;
+                        }
+                        var compression = null;
+                        var partContent = null;
+
+                        if (thisPart.partType === "xml" && typeof thisPart.data === "string") {
+                            partContent = XDocument.parse(openXml.util.decode_utf8(thisPart.data)).root;
+                            partContent = transformToEntities(partContent);
+                        }
+                        if (thisPart.partType === "xml" && thisPart.data.nodeType) {
+                            if (thisPart.data.nodeType === "Document") {
+                                partContent = thisPart.data.getRoot();
+                            }
+                            else if (thisPart.data.nodeType === "Element") {
+                                partContent = thisPart.data;
+                            }
+                            else {
+                                throw "internal error";
+                            }
+                        }
+                        if (thisPart.partType === "base64") {
+                            var nsp = thisPart.data;
+                            var sp = [];
+                            var pos = 0;
+                            var len = nsp.length;
+                            while (true) {
+                                if (pos >= len) { break; }
+                                sp.push(nsp.substring(pos, pos + 76) + '\n');
+                                pos += 76;
+                            }
+                            partContent = sp.join('');
+                            compression = 'store';
+                        }
+                        if (thisPart.partType === "binary") {
+                            partContent = openXml.util.encode64(thisPart.data);
+                            compression = 'store';
+                        }
+
+                        var nameAtt = new XAttribute(FLATOPC.name, thisPart.uri);
+                        var ctAtt = new XAttribute(FLATOPC.contentType, ct);
+                        var compressionAtt = null;
+                        if (compression) {
+                            compressionAtt = new XAttribute(FLATOPC.compression, compression);
+                        }
+                        var dataElement = null;
+                        if (thisPart.partType === 'base64' || thisPart.partType === 'binary') {
+                            dataElement = new XElement(FLATOPC.binaryData, partContent);
+                        }
+                        if (thisPart.partType === 'xml') {
+                            dataElement = new XElement(FLATOPC.xmlData, partContent);
+                        }
+                        var partElement = new XElement(FLATOPC.part, nameAtt, ctAtt, compressionAtt, dataElement);
+                        pkg.add(partElement);
+                        count += 1;
+                        if (count >= partCount) {
+                            break;
+                        }
+                    }
+                    return;
+                }
+                else {
+                    clearInterval(intervalId);
+                    cb(flatOpc.toString(true));
+                    return;
+                }
+            }, 10);
+        };
+
+Implement a method in OpenXmlPackage class, saveToFlatOpcAsync
+
+The new method returns a string.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.

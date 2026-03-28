@@ -7,7 +7,7 @@
  * Licensed under the MIT License
  */
 
-import { XDocument, XDeclaration, XElement, XAttribute } from 'ltxmlts';
+import { XDocument, XDeclaration, XElement, XAttribute, XNamespace, XProcessingInstruction } from 'ltxmlts';
 import JSZip from 'jszip';
 import { OpenXmlPart } from './OpenXmlPart';
 import { OpenXmlUtility } from './OpenXmlUtility';
@@ -24,6 +24,55 @@ export class OpenXmlPackage {
 
     getParts(): OpenXmlPart[] {
         return Array.from(this.parts.values());
+    }
+
+    async saveToFlatOpcAsync(): Promise<FlatOpcString> {
+        const pkgElement = new XElement(FLATOPC._package,
+            new XAttribute(XNamespace.xmlns.getName("pkg"), FLATOPC.namespace.namespaceName));
+        const flatOpc = new XDocument(
+            new XDeclaration("1.0", "UTF-8", "yes"),
+            new XProcessingInstruction('mso-application', 'progid="Word.Document"'),
+            pkgElement);
+
+        for (const [uri, part] of this.parts) {
+            if (uri === "[Content_Types].xml") continue;
+
+            const ct = part.getContentType()!;
+            const partType = part.getPartType();
+            const data = part.getData();
+
+            let compression: string | null = null;
+            let dataElement: XElement;
+
+            if (partType === 'xml') {
+                let root: unknown;
+                if (data instanceof XDocument) {
+                    root = data.root;
+                } else {
+                    const xmlStr = await (data as { async(type: string): Promise<string> }).async('string');
+                    root = XDocument.parse(xmlStr).root;
+                }
+                dataElement = new XElement(FLATOPC.xmlData, root);
+            } else {
+                let content: string;
+                if (typeof data === 'string') {
+                    content = data;
+                } else {
+                    content = await (data as { async(type: string): Promise<string> }).async('base64');
+                }
+                compression = 'store';
+                dataElement = new XElement(FLATOPC.binaryData, content);
+            }
+
+            const partElement = new XElement(FLATOPC.part,
+                new XAttribute(FLATOPC._name, uri),
+                new XAttribute(FLATOPC.contentType, ct),
+                compression ? new XAttribute(FLATOPC.compression, compression) : null,
+                dataElement);
+            pkgElement.add(partElement);
+        }
+
+        return flatOpc.toStringWithIndentation() as FlatOpcString;
     }
 
     static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<OpenXmlPackage> {
