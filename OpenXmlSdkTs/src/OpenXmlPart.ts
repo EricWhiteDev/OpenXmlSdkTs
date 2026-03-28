@@ -78,4 +78,9 @@ export class OpenXmlPart {
       .map((r) => this.pkg.getPartByUri(r.getTargetFullName()))
       .filter((p): p is OpenXmlPart => p !== undefined);
   }
+
+  async getPartByRelationshipType(relationshipType: string): Promise<OpenXmlPart | undefined> {
+    const parts = await this.getPartsByRelationshipType(relationshipType);
+    return parts[0];
+  }
 }

@@ -115,6 +115,11 @@ export class OpenXmlPackage {
       .filter((p): p is OpenXmlPart => p !== undefined);
   }
 
+  async getPartByRelationshipType(relationshipType: string): Promise<OpenXmlPart | undefined> {
+    const parts = await this.getPartsByRelationshipType(relationshipType);
+    return parts[0];
+  }
+
   async getRelationshipsForPart(part: OpenXmlPart): Promise<OpenXmlRelationship[]> {
     const uri = part.getUri();
     const dir = uri.substring(0, uri.lastIndexOf("/") + 1);

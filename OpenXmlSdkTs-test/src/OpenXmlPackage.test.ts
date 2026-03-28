@@ -449,6 +449,43 @@ describe("OpenXmlPackage", () => {
     expect(parts[0].getUri()).toBe("/word/document.xml");
   });
 
+  it("gets part by relationship type from package level in WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const part = await pkg.getPartByRelationshipType(RelationshipType.mainDocument);
+
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/word/document.xml");
+  });
+
+  it("gets part by relationship type from part level in WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const part = await docPart.getPartByRelationshipType(RelationshipType.wordprocessingComments);
+
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/word/comments.xml");
+  });
+
+  it("returns undefined from getPartByRelationshipType when no match exists", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const part = await docPart.getPartByRelationshipType(RelationshipType.wordprocessingComments);
+
+    expect(part).toBeUndefined();
+  });
+
   it("gets parts by relationship type from part level in WithComments.docx", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);

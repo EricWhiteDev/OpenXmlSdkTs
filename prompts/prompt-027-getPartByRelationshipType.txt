@@ -1,0 +1,15 @@
+Here is some JavaScript code:
+
+        openXml.OpenXmlPackage.prototype.getPartByRelationshipType = function (relationshipType) {
+            var parts = this.getPartsByRelationshipType(relationshipType);
+            if (parts.length < 1) {
+                return null;
+            }
+            return parts[0];
+        }
+
+Add a method getPartByRelationshipType to the OpenXmlPackage class and the OpenXmlPart class.
+
+Add unit tests.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.
