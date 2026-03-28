@@ -1,0 +1,27 @@
+The following JS code returns all the parts that contain textual content:
+
+        openXml.OpenXmlPackage.prototype.contentParts = function () {
+            var main = this.mainDocumentPart();
+            var pa = [main];
+            var headers = main.headerParts();
+            for (var i = 0; i < headers.length; i++) {
+                pa.push(headers[i]);
+            }
+            var footers = main.footerParts();
+            for (var i = 0; i < footers.length; i++) {
+                pa.push(footers[i]);
+            }
+            var endNotes = main.endnotesPart();
+            var footNotes = main.footnotesPart();
+            if (endNotes) {
+                pa.push(endNotes);
+            }
+            if (footNotes) {
+                pa.push(footNotes);
+            }
+            return pa;
+        };
+
+Implement the same method for TypeScript.
+
+Add a unit test.  WithPageHeaderAndPageFooter.docx contains headers and footers, so can validate that the main document part, plus all headers and footers are returned by this method.

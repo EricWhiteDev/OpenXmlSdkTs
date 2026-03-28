@@ -9,6 +9,7 @@
 
 import { OpenXmlPackage } from "./OpenXmlPackage";
 import { OpenXmlRelationship } from "./OpenXmlRelationship";
+import { RelationshipType } from "./RelationshipType";
 
 export type PartType = "binary" | "base64" | "xml" | null;
 
@@ -95,6 +96,22 @@ export class OpenXmlPart {
 
   async deleteRelationship(id: string): Promise<boolean> {
     return this.pkg.deleteRelationshipForPart(this, id);
+  }
+
+  async headerParts(): Promise<OpenXmlPart[]> {
+    return this.getPartsByRelationshipType(RelationshipType.header);
+  }
+
+  async footerParts(): Promise<OpenXmlPart[]> {
+    return this.getPartsByRelationshipType(RelationshipType.footer);
+  }
+
+  async endnotesPart(): Promise<OpenXmlPart | undefined> {
+    return this.getPartByRelationshipType(RelationshipType.endnotes);
+  }
+
+  async footnotesPart(): Promise<OpenXmlPart | undefined> {
+    return this.getPartByRelationshipType(RelationshipType.footnotes);
   }
 
   async getRelationshipById(rId: string): Promise<OpenXmlRelationship | undefined> {

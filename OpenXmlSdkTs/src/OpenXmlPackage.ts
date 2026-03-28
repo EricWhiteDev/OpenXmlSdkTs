@@ -175,6 +175,25 @@ export class OpenXmlPackage {
     return (await this.getPartsByContentType(ContentType.presentation))[0];
   }
 
+  async contentParts(): Promise<OpenXmlPart[]> {
+    const main = await this.mainDocumentPart();
+    if (!main) {
+      return [];
+    }
+    const parts: OpenXmlPart[] = [main];
+    parts.push(...(await main.headerParts()));
+    parts.push(...(await main.footerParts()));
+    const endnotes = await main.endnotesPart();
+    if (endnotes) {
+      parts.push(endnotes);
+    }
+    const footnotes = await main.footnotesPart();
+    if (footnotes) {
+      parts.push(footnotes);
+    }
+    return parts;
+  }
+
   async getRelationshipsForPart(part: OpenXmlPart): Promise<OpenXmlRelationship[]> {
     const uri = part.getUri();
     const dir = uri.substring(0, uri.lastIndexOf("/") + 1);
