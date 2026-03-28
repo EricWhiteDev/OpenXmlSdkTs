@@ -1,0 +1,37 @@
+Following is some JavaScript code to getRelationships for a given part.
+
+        function getRelationshipsFromRelsXml(pkg, part, relationshipPart) {
+            var rxDoc = relationshipPart.getXDocument();
+            var rels = rxDoc.getRoot().elements(PKGREL.Relationship)
+                .select(function (r) {
+                    var targetMode = null;
+                    var tm = r.attribute("TargetMode");
+                    if (tm) {
+                        targetMode = tm.value;
+                    }
+                    var theRel = new openXml.OpenXmlRelationship(
+                        pkg,
+                        part,
+                        r.attribute("Id").value,
+                        r.attribute("Type").value,
+                        r.attribute("Target").value,
+                        targetMode);
+                    return theRel;
+                })
+                .toArray();
+            return rels;
+        }
+
+        openXml.OpenXmlPackage.prototype.getRelationships = function () {
+            var rootRelationshipsPart = this.getPartByUri("/_rels/.rels");
+            var rels = getRelationshipsFromRelsXml(this, null, rootRelationshipsPart);
+            return rels;
+        }
+
+The getRelationships method is a public method for the OpenXmlPackage class.  It calls a private function, getRelationshipsFromRelsXml.
+
+Both methods need converted to TypeScript, and added to the OpenXmlPart class.
+
+Write a unit test for this.  You can open the WithComments.docx file that is in test-files, get the mainDocument part, then get the relationships for the mainDocument part.  There should be a relationship to the comments part. The unit test should validate that it finds the relationship to the comments part.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.

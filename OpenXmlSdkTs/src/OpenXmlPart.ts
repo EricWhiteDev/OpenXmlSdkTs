@@ -8,6 +8,7 @@
  */
 
 import { OpenXmlPackage } from "./OpenXmlPackage";
+import { OpenXmlRelationship } from "./OpenXmlRelationship";
 
 export type PartType = "binary" | "base64" | "xml" | null;
 
@@ -58,5 +59,9 @@ export class OpenXmlPart {
 
   setPartType(pt: PartType): void {
     this.partType = pt;
+  }
+
+  async getRelationships(): Promise<OpenXmlRelationship[]> {
+    return this.pkg.getRelationshipsForPart(this);
   }
 }

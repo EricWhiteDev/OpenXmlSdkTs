@@ -8,7 +8,15 @@
  */
 
 import { describe, it, expect, vi } from "vitest";
-import { OpenXmlPackage, W, ContentType, XDocument, XElement, XAttribute } from "OpenXmlSdkTs";
+import {
+  OpenXmlPackage,
+  W,
+  ContentType,
+  RelationshipType,
+  XDocument,
+  XElement,
+  XAttribute,
+} from "OpenXmlSdkTs";
 import { blankDocumentBase64, blankDocumentFlatOpc } from "./TestResources";
 import JSZip from "jszip";
 import * as fs from "fs";
@@ -342,6 +350,33 @@ describe("OpenXmlPackage", () => {
     const commentEl = commentsXDoc2.root!.element(W.comment);
     expect(commentEl).toBeDefined();
     expect(commentEl!.attribute(W.id)?.value).toBe("0");
+  });
+
+  it("gets relationships for the document part from WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const rels = await docPart.getRelationships();
+
+    const commentsRel = rels.find((r) => r.getType() === RelationshipType.wordprocessingComments);
+    expect(commentsRel).toBeDefined();
+    expect(commentsRel!.getTarget()).toBe("comments.xml");
+  });
+
+  it("gets package-level relationships from WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const rels = await pkg.getRelationships();
+
+    const mainDocRel = rels.find((r) => r.getType() === RelationshipType.mainDocument);
+    expect(mainDocRel).toBeDefined();
+    expect(mainDocRel!.getTarget()).toBe("word/document.xml");
   });
 
   it("deletes the comments part from a document with comments and round-trips correctly", async () => {

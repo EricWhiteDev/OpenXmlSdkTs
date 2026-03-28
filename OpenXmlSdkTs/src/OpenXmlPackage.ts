@@ -17,8 +17,9 @@ import {
 } from "ltxmlts";
 import JSZip from "jszip";
 import { OpenXmlPart, PartType } from "./OpenXmlPart";
+import { OpenXmlRelationship } from "./OpenXmlRelationship";
 import { OpenXmlUtility } from "./OpenXmlUtility";
-import { CT, FLATOPC } from "./OpenXmlNamespacesAndNames";
+import { CT, FLATOPC, PKGREL } from "./OpenXmlNamespacesAndNames";
 import { ContentType } from "./ContentType";
 
 export type Base64String = string;
@@ -85,6 +86,26 @@ export class OpenXmlPackage {
     }
   }
 
+  async getRelationships(): Promise<OpenXmlRelationship[]> {
+    const relsPart = this.parts.get("/_rels/.rels");
+    if (!relsPart) {
+      return [];
+    }
+    return OpenXmlPackage.getRelationshipsFromRelsXml(this, null, relsPart);
+  }
+
+  async getRelationshipsForPart(part: OpenXmlPart): Promise<OpenXmlRelationship[]> {
+    const uri = part.getUri();
+    const dir = uri.substring(0, uri.lastIndexOf("/") + 1);
+    const filename = uri.substring(uri.lastIndexOf("/") + 1);
+    const relsUri = `${dir}_rels/${filename}.rels`;
+    const relsPart = this.parts.get(relsUri);
+    if (!relsPart) {
+      return [];
+    }
+    return OpenXmlPackage.getRelationshipsFromRelsXml(this, part, relsPart);
+  }
+
   async saveToFlatOpcAsync(): Promise<FlatOpcString> {
     const pkgElement = new XElement(
       FLATOPC._package,
@@ -149,6 +170,32 @@ export class OpenXmlPackage {
   async saveToBlobAsync(): Promise<DocxBinary> {
     const zip = await this.saveToZip();
     return zip.generateAsync({ type: "blob", compression: "DEFLATE" });
+  }
+
+  private static async getRelationshipsFromRelsXml(
+    pkg: OpenXmlPackage,
+    part: OpenXmlPart | null,
+    relsPart: OpenXmlPart,
+  ): Promise<OpenXmlRelationship[]> {
+    let relsXDoc: XDocument;
+    const data = relsPart.getData();
+    if (data instanceof XDocument) {
+      relsXDoc = data;
+    } else {
+      const xmlStr = await (data as { async(type: string): Promise<string> }).async("string");
+      relsXDoc = XDocument.parse(xmlStr);
+    }
+    return relsXDoc.root!.elements(PKGREL.Relationship).map((r) => {
+      const targetMode = r.attribute("TargetMode")?.value ?? null;
+      return new OpenXmlRelationship(
+        pkg,
+        part,
+        r.attribute("Id")!.value,
+        r.attribute("Type")!.value,
+        r.attribute("Target")!.value,
+        targetMode,
+      );
+    });
   }
 
   private async saveToZip(): Promise<JSZip> {

@@ -8,6 +8,7 @@
  */
 
 export { OpenXmlPackage } from "./OpenXmlPackage";
+export { OpenXmlRelationship } from "./OpenXmlRelationship";
 export type { Base64String, FlatOpcString, DocxBinary } from "./OpenXmlPackage";
 export { OpenXmlUtility } from "./OpenXmlUtility";
 export { OpenXmlPart } from "./OpenXmlPart";
