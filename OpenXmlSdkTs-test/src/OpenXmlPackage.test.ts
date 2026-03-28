@@ -676,6 +676,24 @@ describe("OpenXmlPackage", () => {
     expect(body!.element(W.sectPr)).not.toBeNull();
   });
 
+  it("returns the content type for a known URI", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    expect(pkg.getContentType("/word/document.xml")).toBe(ContentType.mainDocument);
+  });
+
+  it("throws when getting the content type for an unknown URI", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    expect(() => pkg.getContentType("/word/doesNotExist.xyz")).toThrow(
+      "Content type not found for part: /word/doesNotExist.xyz",
+    );
+  });
+
   it("deletes a package-level relationship and verifies it is gone after round-trip", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);

@@ -1,0 +1,32 @@
+Following is some JavaScript code:
+
+        openXml.OpenXmlPackage.prototype.getContentType = function (uri) {
+            var ctfile, ct, c;
+                
+            ct = this.ctXDoc.descendants(CT.Override)
+                .firstOrDefault(function (o) {
+                    return o.attribute("PartName").value === uri;
+                });
+            if (ct === null) {
+                var exti = uri.lastIndexOf(".");
+                var ext = uri.substring(exti + 1);
+                var dct = this.ctXDoc.descendants(CT.Default)
+                    .firstOrDefault(function (d) {
+                        return d.attribute("Extension").value === ext;
+                    });
+                if (dct !== null) {
+                    return dct.attribute("ContentType").value;
+                }
+                return null;
+            }
+            c = ct.attribute("ContentType").value;
+            return c;
+        };
+
+This method returns the content type for a given uri.
+
+Add the same method to the OpenXmlPackage class.
+
+Add unit test(s)
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.

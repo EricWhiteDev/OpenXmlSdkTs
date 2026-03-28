@@ -112,7 +112,7 @@ export class OpenXmlPart {
     return rels.filter(
       (r) =>
         r.getTargetMode() !== "External" &&
-        this.pkg.getContentTypeForUri(r.getTargetFullName()) === contentType,
+        this.pkg.getContentType(r.getTargetFullName()) === contentType,
     );
   }
 

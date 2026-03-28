@@ -93,7 +93,7 @@ export class OpenXmlPackage {
     return this.parts.get(uri);
   }
 
-  getContentTypeForUri(uri: string): string {
+  getContentType(uri: string): string {
     return OpenXmlPackage.getContentType(uri, this.ctXDoc);
   }
 
@@ -134,7 +134,7 @@ export class OpenXmlPackage {
     return rels.filter(
       (r) =>
         r.getTargetMode() !== "External" &&
-        this.getContentTypeForUri(r.getTargetFullName()) === contentType,
+        this.getContentType(r.getTargetFullName()) === contentType,
     );
   }
 
