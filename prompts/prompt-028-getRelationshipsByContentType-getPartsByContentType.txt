@@ -1,0 +1,37 @@
+Here is some JavaScript code:
+
+        openXml.OpenXmlPackage.prototype.getRelationshipsByContentType = function (contentType) {
+            var rootRelationshipsPart = this.getPartByUri("/_rels/.rels");
+            if (rootRelationshipsPart) {
+                var allRels = getRelationshipsFromRelsXml(this, null, rootRelationshipsPart);
+                var rels = [];
+                for (var i = 0; i < allRels.length; ++i) {
+                    if (allRels[i].targetMode === "External") {
+                        continue;
+                    }
+                    var ct = this.getContentType(allRels[i].targetFullName);
+                    if (ct !== contentType) {
+                        continue;
+                    }
+                    rels.push(allRels[i]);
+                }
+                return rels;
+            }
+            return [];
+        }
+        
+        openXml.OpenXmlPackage.prototype.getPartsByContentType = function (contentType) {
+            var rels = this.getRelationshipsByContentType(contentType);
+            var parts = [];
+            for (var i = 0; i < rels.length; ++i) {
+                var part = this.getPartByUri(rels[i].targetFullName);
+                parts.push(part);
+            }
+            return parts;
+        };
+
+Implement both of these methods on the OpenXmlPackage class and on the OpenXmlPart class.
+
+Add unit tests for both methods, for both classes.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.

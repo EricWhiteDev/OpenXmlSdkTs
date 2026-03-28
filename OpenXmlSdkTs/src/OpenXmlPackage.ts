@@ -93,6 +93,10 @@ export class OpenXmlPackage {
     return this.parts.get(uri);
   }
 
+  getContentTypeForUri(uri: string): string {
+    return OpenXmlPackage.getContentType(uri, this.ctXDoc);
+  }
+
   async getRelationships(): Promise<OpenXmlRelationship[]> {
     const relsPart = this.parts.get("/_rels/.rels");
     if (!relsPart) {
@@ -110,6 +114,22 @@ export class OpenXmlPackage {
 
   async getPartsByRelationshipType(relationshipType: string): Promise<OpenXmlPart[]> {
     const rels = await this.getRelationshipsByRelationshipType(relationshipType);
+    return rels
+      .map((r) => this.getPartByUri(r.getTargetFullName()))
+      .filter((p): p is OpenXmlPart => p !== undefined);
+  }
+
+  async getRelationshipsByContentType(contentType: string): Promise<OpenXmlRelationship[]> {
+    const rels = await this.getRelationships();
+    return rels.filter(
+      (r) =>
+        r.getTargetMode() !== "External" &&
+        this.getContentTypeForUri(r.getTargetFullName()) === contentType,
+    );
+  }
+
+  async getPartsByContentType(contentType: string): Promise<OpenXmlPart[]> {
+    const rels = await this.getRelationshipsByContentType(contentType);
     return rels
       .map((r) => this.getPartByUri(r.getTargetFullName()))
       .filter((p): p is OpenXmlPart => p !== undefined);

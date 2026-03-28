@@ -83,4 +83,20 @@ export class OpenXmlPart {
     const parts = await this.getPartsByRelationshipType(relationshipType);
     return parts[0];
   }
+
+  async getRelationshipsByContentType(contentType: string): Promise<OpenXmlRelationship[]> {
+    const rels = await this.getRelationships();
+    return rels.filter(
+      (r) =>
+        r.getTargetMode() !== "External" &&
+        this.pkg.getContentTypeForUri(r.getTargetFullName()) === contentType,
+    );
+  }
+
+  async getPartsByContentType(contentType: string): Promise<OpenXmlPart[]> {
+    const rels = await this.getRelationshipsByContentType(contentType);
+    return rels
+      .map((r) => this.pkg.getPartByUri(r.getTargetFullName()))
+      .filter((p): p is OpenXmlPart => p !== undefined);
+  }
 }
