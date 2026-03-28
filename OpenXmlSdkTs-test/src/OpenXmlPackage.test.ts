@@ -676,6 +676,61 @@ describe("OpenXmlPackage", () => {
     expect(body!.element(W.sectPr)).not.toBeNull();
   });
 
+  it("deletes a package-level relationship and verifies it is gone after round-trip", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const result = await pkg.deleteRelationship("rId1");
+    expect(result).toBe(true);
+    expect(await pkg.getRelationshipById("rId1")).toBeUndefined();
+
+    const saved = await pkg.saveToBase64Async();
+    const pkg2 = await OpenXmlPackage.open(saved);
+    expect(await pkg2.getRelationshipById("rId1")).toBeUndefined();
+  });
+
+  it("throws when deleting a package-level relationship that does not exist", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    await expect(pkg.deleteRelationship("rIdDoesNotExist")).rejects.toThrow(
+      "Relationship not found: rIdDoesNotExist",
+    );
+  });
+
+  it("deletes a part-level relationship and verifies it is gone after round-trip", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const result = await docPart.deleteRelationship("rId4");
+    expect(result).toBe(true);
+    expect(await docPart.getRelationshipById("rId4")).toBeUndefined();
+
+    const saved = await pkg.saveToBase64Async();
+    const pkg2 = await OpenXmlPackage.open(saved);
+    const docPart2 = pkg2.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    expect(await docPart2.getRelationshipById("rId4")).toBeUndefined();
+  });
+
+  it("throws when deleting a part-level relationship that does not exist", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    await expect(docPart.deleteRelationship("rIdDoesNotExist")).rejects.toThrow(
+      "Relationship not found: rIdDoesNotExist",
+    );
+  });
+
   it("deletes the comments part from a document with comments and round-trips correctly", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);

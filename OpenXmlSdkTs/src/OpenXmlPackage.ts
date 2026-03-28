@@ -203,6 +203,26 @@ export class OpenXmlPackage {
     );
   }
 
+  async deleteRelationship(id: string): Promise<boolean> {
+    const relsPart = this.parts.get("/_rels/.rels");
+    if (!relsPart) {
+      throw new Error(`Relationship not found: ${id}`);
+    }
+    return OpenXmlPackage.deleteRelationshipFromRelPart(relsPart, id);
+  }
+
+  async deleteRelationshipForPart(part: OpenXmlPart, id: string): Promise<boolean> {
+    const uri = part.getUri();
+    const dir = uri.substring(0, uri.lastIndexOf("/") + 1);
+    const filename = uri.substring(uri.lastIndexOf("/") + 1);
+    const relsUri = `${dir}_rels/${filename}.rels`;
+    const relsPart = this.parts.get(relsUri);
+    if (!relsPart) {
+      throw new Error(`Relationship not found: ${id}`);
+    }
+    return OpenXmlPackage.deleteRelationshipFromRelPart(relsPart, id);
+  }
+
   async saveToFlatOpcAsync(): Promise<FlatOpcString> {
     const pkgElement = new XElement(
       FLATOPC._package,
@@ -280,6 +300,30 @@ export class OpenXmlPackage {
     const newPart = new OpenXmlPart(this, relsUri, ContentType.relationships, "xml", relsXDoc);
     this.parts.set(relsUri, newPart);
     return newPart;
+  }
+
+  private static async deleteRelationshipFromRelPart(
+    relsPart: OpenXmlPart,
+    id: string,
+  ): Promise<boolean> {
+    let relsXDoc: XDocument;
+    const data = relsPart.getData();
+    if (data instanceof XDocument) {
+      relsXDoc = data;
+    } else {
+      const xmlStr = await (data as { async(type: string): Promise<string> }).async("string");
+      relsXDoc = XDocument.parse(xmlStr);
+      relsPart.setData(relsXDoc);
+      relsPart.setPartType("xml");
+    }
+    const el = relsXDoc
+      .root!.elements(PKGREL.Relationship)
+      .find((r) => r.attribute("Id")?.value === id);
+    if (!el) {
+      throw new Error(`Relationship not found: ${id}`);
+    }
+    el.remove();
+    return true;
   }
 
   private static async addRelationshipToRelPart(

@@ -1,0 +1,19 @@
+Here is some JavaScript code:
+
+        openXml.OpenXmlPackage.prototype.deleteRelationship = function (relationshipId) {
+            var rootRelationshipsPart = this.getPartByUri("/_rels/.rels");
+            var rxDoc = rootRelationshipsPart.getXDocument();
+            var rxe = rxDoc.getRoot().elements(PKGREL.Relationship)
+                .firstOrDefault(function (r) {
+                    return r.attribute("Id").value == relationshipId;
+                });
+            if (rxe) {
+                rxe.remove();
+            }
+        }
+
+Add a deleteRelationship method to both the OpenXmlPackage and OpenXmlPart classes.
+
+Add unit tests for both.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.
