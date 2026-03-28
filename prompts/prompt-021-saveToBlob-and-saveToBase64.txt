@@ -1,0 +1,113 @@
+The following javascript needs to be converted to typescript, and added to OpenXmlPackage class:
+
+        function saveToZip(that) {
+            var zip = new JSZip();
+            for (var part in that.parts) {
+                var ct;
+                var thisPart = that.parts[part];
+                // test for null because if the part was deleted, it will be set to null, not undefined
+                if (thisPart !== null) {
+                    if (part === "[Content_Types].xml") {
+                        zip.file("[Content_Types].xml", that.ctXDoc.toString(false));
+                    }
+                    else {
+                        var cte = that.ctXDoc.getRoot().elements(CT.Override).firstOrDefault(function (e) {
+                            return e.attribute("PartName").value === part;
+                        });
+                        if (cte === null) {
+                            var extension = part
+                                .substring(part.lastIndexOf('.') + 1)
+                                .toLowerCase();
+                            var dct = that.ctXDoc.getRoot().elements(CT.Default).firstOrDefault(function (e) {
+                                return e.attribute("Extension").value.toLowerCase() === extension;
+                            });
+                            if (!dct) {
+                                throw "internal error";
+                            }
+                            ct = dct.attribute("ContentType").value;
+                        }
+                        else {
+                            ct = cte.attribute("ContentType").value;
+                        }
+
+                        var name = part;
+                        if (name.charAt(0) === "/") {
+                            name = name.substring(1);
+                        }
+
+                        if (thisPart.partType === "binary") {
+                            zip.file(name, thisPart.data, { binary: true});
+                        }
+                        if (thisPart.partType === "xml" && typeof thisPart.data === "string") {
+                            var data = thisPart.data;
+                            var utf8 = openXml.util.decode_utf8(data);
+                            zip.file(name, utf8);
+                        }
+                        if (thisPart.partType === "xml" && thisPart.data.nodeType) {
+                            zip.file(name, thisPart.data.toString(false));
+                        }
+                        if (thisPart.partType === "base64") {
+                            var nsp = thisPart.data;
+                            var sp = [];
+                            var pos = 0;
+                            var len = nsp.length;
+                            while (true) {
+                                if (pos >= len) { break; }
+                                sp.push(nsp.substring(pos, pos + 76) + '\n');
+                                pos += 76;
+                            }
+                            zip.file(name, sp.join(''), { base64: true });
+                        }
+                    }
+                }
+            }
+            return zip;
+        }
+
+        openXml.OpenXmlPackage.prototype.saveToBase64Async = function (cb) {
+            var zip = null;
+            var state = 1;
+            var pkg = this;
+            var intervalId = setInterval(function () {
+                if (state === 1) {
+                    zip = saveToZip(pkg);
+                    state = 2;
+                    return;
+                }
+                if (state === 2) {
+                    var b64 = zip.generate({
+                        base64: true,
+                        compression: "deflate",
+                        type: "base64"
+                    });
+                    clearInterval(intervalId);
+                    cb(b64);
+                    return;
+                }
+            }, 10);
+        };
+
+        openXml.OpenXmlPackage.prototype.saveToBlobAsync = function (cb) {
+            var zip = null;
+            var state = 1;
+            var pkg = this;
+            var intervalId = setInterval(function () {
+                if (state === 1) {
+                    zip = saveToZip(pkg);
+                    state = 2;
+                    return;
+                }
+                if (state === 2) {
+                    var blob = zip.generate({
+                        blob: true,
+                        base64: false,
+                        type: "blob"
+                    });
+                    clearInterval(intervalId);
+                    cb(blob);
+                    return;
+                }
+            }, 10);
+        };
+
+Implement the async methods saveToBase64Async and saveToBlobAsync.  These two methods use the saveToZip method, so convert that to typescript and include in the OpenXmlPackage class.

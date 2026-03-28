@@ -238,4 +238,56 @@ describe("OpenXmlPackage", () => {
 
     expect(roundTrippedParts).toEqual(originalParts);
   });
+
+  it("saves a FlatOPC-opened package to base64 and back", async () => {
+    const pkg = await OpenXmlPackage.open(blankDocumentFlatOpc);
+    const originalParts = pkg
+      .getParts()
+      .filter((p) => p.getUri() !== "[Content_Types].xml")
+      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+
+    const saved = await pkg.saveToBase64Async();
+    const pkg2 = await OpenXmlPackage.open(saved);
+    const roundTrippedParts = pkg2
+      .getParts()
+      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+
+    expect(roundTrippedParts).toEqual(originalParts);
+  });
+
+  it("saves a blob-opened package to base64 and back", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    const originalParts = pkg
+      .getParts()
+      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+
+    const saved = await pkg.saveToBase64Async();
+    const pkg2 = await OpenXmlPackage.open(saved);
+    const roundTrippedParts = pkg2
+      .getParts()
+      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+
+    expect(roundTrippedParts).toEqual(originalParts);
+  });
+
+  it("saves a blob-opened package to a Blob and back", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    const originalParts = pkg
+      .getParts()
+      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+
+    const saved = await pkg.saveToBlobAsync();
+    const pkg2 = await OpenXmlPackage.open(saved);
+    const roundTrippedParts = pkg2
+      .getParts()
+      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+
+    expect(roundTrippedParts).toEqual(originalParts);
+  });
 });

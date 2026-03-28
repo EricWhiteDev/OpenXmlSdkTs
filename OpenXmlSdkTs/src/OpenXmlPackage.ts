@@ -89,6 +89,51 @@ export class OpenXmlPackage {
     return flatOpc.toStringWithIndentation() as FlatOpcString;
   }
 
+  async saveToBase64Async(): Promise<Base64String> {
+    const zip = await this.saveToZip();
+    return zip.generateAsync({ type: "base64", compression: "DEFLATE" });
+  }
+
+  async saveToBlobAsync(): Promise<DocxBinary> {
+    const zip = await this.saveToZip();
+    return zip.generateAsync({ type: "blob", compression: "DEFLATE" });
+  }
+
+  private async saveToZip(): Promise<JSZip> {
+    const zip = new JSZip();
+    zip.file("[Content_Types].xml", this.ctXDoc.toString());
+
+    for (const [uri, part] of this.parts) {
+      if (uri === "[Content_Types].xml") {
+        continue;
+      }
+
+      const name = uri.startsWith("/") ? uri.substring(1) : uri;
+      const partType = part.getPartType();
+      const data = part.getData();
+
+      if (partType === "xml") {
+        if (data instanceof XDocument) {
+          zip.file(name, data.toString());
+        } else {
+          const xmlStr = await (data as { async(type: string): Promise<string> }).async("string");
+          zip.file(name, xmlStr);
+        }
+      } else {
+        if (typeof data === "string") {
+          zip.file(name, data, { base64: true });
+        } else {
+          const bytes = await (data as { async(type: string): Promise<Uint8Array> }).async(
+            "uint8array",
+          );
+          zip.file(name, bytes);
+        }
+      }
+    }
+
+    return zip;
+  }
+
   static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<OpenXmlPackage> {
     const pkg = new OpenXmlPackage();
     if (typeof document === "string") {
