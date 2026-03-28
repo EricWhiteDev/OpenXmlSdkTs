@@ -1,0 +1,20 @@
+Here is some JS code:
+
+        // returns all related parts of the source part
+        openXml.OpenXmlPart.prototype.getParts = function () {
+            var parts = [];
+            var rels = this.getRelationships();
+            for (var i = 0; i < rels.length; ++i) {
+                if (rels[i].targetMode === "Internal") {
+                    var part = this.pkg.getPartByUri(rels[i].targetFullName);
+                    parts.push(part);
+                }
+            }
+            return parts;
+        }
+
+Add a getParts method to OpenXmlPart.  It should return all related parts of the source part.
+
+Add unit test(s)
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.

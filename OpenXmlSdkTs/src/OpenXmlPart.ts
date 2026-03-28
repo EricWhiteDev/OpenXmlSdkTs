@@ -80,6 +80,19 @@ export class OpenXmlPart {
     return this.pkg.getRelationshipsForPart(this);
   }
 
+  async getParts(): Promise<OpenXmlPart[]> {
+    const rels = await this.getRelationships();
+    return rels
+      .filter((r) => r.getTargetMode() !== "External")
+      .map((r) => {
+        const part = this.pkg.getPartByUri(r.getTargetFullName());
+        if (!part) {
+          throw new Error(`Part not found for relationship target: ${r.getTargetFullName()}`);
+        }
+        return part;
+      });
+  }
+
   async getRelationshipsByRelationshipType(
     relationshipType: string,
   ): Promise<OpenXmlRelationship[]> {

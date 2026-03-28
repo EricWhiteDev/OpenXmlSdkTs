@@ -224,4 +224,31 @@ describe("OpenXmlPart", () => {
       "putXDocument: xDoc must not be null or undefined",
     );
   });
+
+  it("getParts returns related parts of document part from WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const parts = await docPart.getParts();
+
+    expect(parts.length).toBeGreaterThan(0);
+    expect(parts.some((p) => p.getUri() === "/word/comments.xml")).toBe(true);
+  });
+
+  it("getParts throws for a dangling internal relationship", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    await docPart.addRelationship("rId99", RelationshipType.wordprocessingComments, "missing.xml");
+
+    await expect(docPart.getParts()).rejects.toThrow(
+      "Part not found for relationship target: /word/missing.xml",
+    );
+  });
 });
