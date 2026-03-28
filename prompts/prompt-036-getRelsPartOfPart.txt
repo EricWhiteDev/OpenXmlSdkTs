@@ -1,0 +1,21 @@
+Here is some JS code:
+
+        function getRelsPartUriOfPart(part) {
+            var uri = part.uri;
+            var lastSlash = uri.lastIndexOf('/');
+            var partFileName = uri.substring(lastSlash + 1);
+            var relsFileName = uri.substring(0, lastSlash) + "/_rels/" + partFileName + ".rels";
+            return relsFileName;
+        }
+        
+        function getRelsPartOfPart(part) {
+            var relsFileName = getRelsPartUriOfPart(part);
+            var relsPart = part.pkg.getPartByUri(relsFileName);
+            return relsPart;
+        }
+        
+Implement these as private TypeScript methods for OpenXmlPart.
+
+If any of the other methods could be re-written to use these methods, then do so.
+
+Make sure all tests pass.

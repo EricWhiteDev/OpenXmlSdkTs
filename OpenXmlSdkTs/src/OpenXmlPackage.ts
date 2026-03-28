@@ -195,11 +195,7 @@ export class OpenXmlPackage {
   }
 
   async getRelationshipsForPart(part: OpenXmlPart): Promise<OpenXmlRelationship[]> {
-    const uri = part.getUri();
-    const dir = uri.substring(0, uri.lastIndexOf("/") + 1);
-    const filename = uri.substring(uri.lastIndexOf("/") + 1);
-    const relsUri = `${dir}_rels/${filename}.rels`;
-    const relsPart = this.parts.get(relsUri);
+    const relsPart = OpenXmlUtility.getRelsPart(part);
     if (!relsPart) {
       return [];
     }
@@ -231,10 +227,7 @@ export class OpenXmlPackage {
     target: string,
     targetMode: string = "Internal",
   ): Promise<OpenXmlRelationship> {
-    const uri = part.getUri();
-    const dir = uri.substring(0, uri.lastIndexOf("/") + 1);
-    const filename = uri.substring(uri.lastIndexOf("/") + 1);
-    const relsUri = `${dir}_rels/${filename}.rels`;
+    const relsUri = OpenXmlUtility.getRelsPartUri(part);
     const relsPart = this.getOrCreateRelsPartForUri(relsUri);
     return OpenXmlPackage.addRelationshipToRelPart(
       this,
@@ -256,11 +249,7 @@ export class OpenXmlPackage {
   }
 
   async deleteRelationshipForPart(part: OpenXmlPart, id: string): Promise<boolean> {
-    const uri = part.getUri();
-    const dir = uri.substring(0, uri.lastIndexOf("/") + 1);
-    const filename = uri.substring(uri.lastIndexOf("/") + 1);
-    const relsUri = `${dir}_rels/${filename}.rels`;
-    const relsPart = this.parts.get(relsUri);
+    const relsPart = OpenXmlUtility.getRelsPart(part);
     if (!relsPart) {
       throw new Error(`Relationship not found: ${id}`);
     }

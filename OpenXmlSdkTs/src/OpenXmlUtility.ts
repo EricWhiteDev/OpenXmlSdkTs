@@ -7,7 +7,19 @@
  * Licensed under the MIT License
  */
 
+import type { OpenXmlPart } from "./OpenXmlPart";
+
 export class OpenXmlUtility {
+  static getRelsPartUri(part: OpenXmlPart): string {
+    const uri = part.getUri();
+    const lastSlash = uri.lastIndexOf("/");
+    return uri.substring(0, lastSlash) + "/_rels/" + uri.substring(lastSlash + 1) + ".rels";
+  }
+
+  static getRelsPart(part: OpenXmlPart): OpenXmlPart | undefined {
+    return part.getPkg().getPartByUri(OpenXmlUtility.getRelsPartUri(part));
+  }
+
   static isBase64(str: unknown): boolean {
     if (typeof str !== "string") {
       return false;
