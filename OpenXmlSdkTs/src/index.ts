@@ -17,6 +17,15 @@ export type { ContentTypeKey, ContentTypeValue } from "./ContentType";
 export { RelationshipType } from "./RelationshipType";
 export type { RelationshipTypeKey, RelationshipTypeValue } from "./RelationshipType";
 export {
+  XDocument,
+  XDeclaration,
+  XElement,
+  XAttribute,
+  XName,
+  XNamespace,
+  XProcessingInstruction,
+} from "ltxmlts";
+export {
   A,
   A14,
   C,

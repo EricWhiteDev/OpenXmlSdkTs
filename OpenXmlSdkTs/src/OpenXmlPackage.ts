@@ -16,7 +16,7 @@ import {
   XProcessingInstruction,
 } from "ltxmlts";
 import JSZip from "jszip";
-import { OpenXmlPart } from "./OpenXmlPart";
+import { OpenXmlPart, PartType } from "./OpenXmlPart";
 import { OpenXmlUtility } from "./OpenXmlUtility";
 import { CT, FLATOPC } from "./OpenXmlNamespacesAndNames";
 import { ContentType } from "./ContentType";
@@ -31,6 +31,58 @@ export class OpenXmlPackage {
 
   getParts(): OpenXmlPart[] {
     return Array.from(this.parts.values());
+  }
+
+  addPart(uri: string, contentType: string, partType: PartType, data: unknown): OpenXmlPart {
+    const alreadyInCt = this.ctXDoc
+      .root!.elements(CT.Override)
+      .find((el) => el.attribute("PartName")?.value === uri);
+    if (alreadyInCt || this.parts.has(uri)) {
+      throw new Error(`Invalid operation: part already exists: ${uri}`);
+    }
+    const newPart = new OpenXmlPart(this, uri, contentType, partType, data);
+    this.parts.set(uri, newPart);
+    this.ctXDoc.root!.add(
+      new XElement(
+        CT.Override,
+        new XAttribute("PartName", uri),
+        new XAttribute("ContentType", contentType),
+      ),
+    );
+    return newPart;
+  }
+
+  async deletePart(part: OpenXmlPart): Promise<void> {
+    const uri = part.getUri();
+    this.parts.delete(uri);
+
+    this.ctXDoc
+      .root!.elements(CT.Override)
+      .find((el) => el.attribute("PartName")?.value === uri)
+      ?.remove();
+
+    const deletedFilename = uri.substring(uri.lastIndexOf("/") + 1);
+    const relsDir = uri.substring(0, uri.lastIndexOf("/") + 1) + "_rels/";
+
+    for (const [relsUri, relsPart] of this.parts) {
+      if (!relsUri.startsWith(relsDir)) {
+        continue;
+      }
+      let relsXDoc: XDocument;
+      const relsData = relsPart.getData();
+      if (relsData instanceof XDocument) {
+        relsXDoc = relsData;
+      } else {
+        const xmlStr = await (relsData as { async(type: string): Promise<string> }).async("string");
+        relsXDoc = XDocument.parse(xmlStr);
+        relsPart.setData(relsXDoc);
+        relsPart.setPartType("xml");
+      }
+      relsXDoc
+        .root!.elements()
+        .find((el) => el.attribute("Target")?.value === deletedFilename)
+        ?.remove();
+    }
   }
 
   async saveToFlatOpcAsync(): Promise<FlatOpcString> {

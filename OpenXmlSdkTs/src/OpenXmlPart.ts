@@ -52,6 +52,10 @@ export class OpenXmlPart {
     return this.partType;
   }
 
+  setData(data: unknown): void {
+    this.data = data;
+  }
+
   setPartType(pt: PartType): void {
     this.partType = pt;
   }

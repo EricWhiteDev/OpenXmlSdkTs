@@ -8,7 +8,7 @@
  */
 
 import { describe, it, expect, vi } from "vitest";
-import { OpenXmlPackage } from "OpenXmlSdkTs";
+import { OpenXmlPackage, W, ContentType, XDocument, XElement, XAttribute } from "OpenXmlSdkTs";
 import { blankDocumentBase64, blankDocumentFlatOpc } from "./TestResources";
 import JSZip from "jszip";
 import * as fs from "fs";
@@ -289,5 +289,95 @@ describe("OpenXmlPackage", () => {
       .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     expect(roundTrippedParts).toEqual(originalParts);
+  });
+
+  it("adds a comments part to a blank document and round-trips correctly", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/BlankDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const docData = docPart.getData() as { async(type: string): Promise<string> };
+    const docXDoc = XDocument.parse(await docData.async("string"));
+    docPart.setData(docXDoc);
+
+    const sectPr = docXDoc.root!.element(W.body)!.element(W.sectPr)!;
+    const paragraph = new XElement(
+      W.p,
+      new XElement(W.commentRangeStart, new XAttribute(W.id, "0")),
+      new XElement(W.r, new XElement(W.t, "Commented text")),
+      new XElement(W.commentRangeEnd, new XAttribute(W.id, "0")),
+      new XElement(
+        W.r,
+        new XElement(W.rPr, new XElement(W.rStyle, new XAttribute(W.val, "CommentReference"))),
+        new XElement(W.commentReference, new XAttribute(W.id, "0")),
+      ),
+    );
+    sectPr.addBeforeSelf(paragraph);
+
+    const commentsXDoc = new XDocument(
+      new XElement(
+        W.comments,
+        new XElement(
+          W.comment,
+          new XAttribute(W.id, "0"),
+          new XAttribute(W.author, "Test Author"),
+          new XAttribute(W.date, "2026-01-01T00:00:00Z"),
+          new XElement(W.p, new XElement(W.r, new XElement(W.t, "A comment"))),
+        ),
+      ),
+    );
+
+    pkg.addPart("/word/comments.xml", ContentType.wordprocessingComments, "xml", commentsXDoc);
+
+    const saved = await pkg.saveToBase64Async();
+    const pkg2 = await OpenXmlPackage.open(saved);
+
+    const commentsPart = pkg2.getParts().find((p) => p.getUri() === "/word/comments.xml");
+    expect(commentsPart).toBeDefined();
+
+    const commentsData = commentsPart!.getData() as { async(type: string): Promise<string> };
+    const commentsXDoc2 = XDocument.parse(await commentsData.async("string"));
+    const commentEl = commentsXDoc2.root!.element(W.comment);
+    expect(commentEl).toBeDefined();
+    expect(commentEl!.attribute(W.id)?.value).toBe("0");
+  });
+
+  it("deletes the comments part from a document with comments and round-trips correctly", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const docData = docPart.getData() as { async(type: string): Promise<string> };
+    const docXDoc = XDocument.parse(await docData.async("string"));
+
+    for (const el of docXDoc.root!.descendants(W.commentRangeStart)) {
+      el.remove();
+    }
+    for (const el of docXDoc.root!.descendants(W.commentRangeEnd)) {
+      el.remove();
+    }
+    for (const el of docXDoc.root!.descendants(W.r)) {
+      if (el.element(W.commentReference) !== null) {
+        el.remove();
+      }
+    }
+    docPart.setData(docXDoc);
+
+    const commentsPart = pkg.getParts().find((p) => p.getUri() === "/word/comments.xml")!;
+    await pkg.deletePart(commentsPart);
+
+    const saved = await pkg.saveToBase64Async();
+    const pkg2 = await OpenXmlPackage.open(saved);
+
+    expect(pkg2.getParts().find((p) => p.getUri() === "/word/comments.xml")).toBeUndefined();
+
+    const docPart2 = pkg2.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const docData2 = docPart2.getData() as { async(type: string): Promise<string> };
+    const docXDoc2 = XDocument.parse(await docData2.async("string"));
+    expect(docXDoc2.root!.descendants(W.commentRangeStart).length).toBe(0);
   });
 });

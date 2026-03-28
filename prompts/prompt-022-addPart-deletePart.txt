@@ -1,0 +1,54 @@
+The following JavaScript code adds and deletes parts from a DOCX:
+
+        openXml.OpenXmlPackage.prototype.addPart = function (uri, contentType, partType, data) {
+            var ctEl = this.ctXDoc.getRoot().elements(CT.Override)
+                .firstOrDefault(function (or) {
+                    var orn = or.attribute("PartName").value;
+                    if (uri === orn) {
+                        return true;
+                    }
+                    return false;
+                });
+            if (ctEl || this.parts[uri]) {
+                throw "Invalid operation, trying to add a part that already exists";
+            }
+
+            var newPart = new openXml.OpenXmlPart(this, uri, contentType, partType, data);
+            this.parts[uri] = newPart;
+
+            // update [Content_Types].xml
+            this.ctXDoc.getRoot().add(
+                new XElement(CT.Override,
+                    new XAttribute("PartName", uri),
+                    new XAttribute("ContentType", contentType)));
+
+            return newPart;
+        }
+        
+        openXml.OpenXmlPackage.prototype.deletePart = function (part) {
+            var uri = part.uri;
+            this.parts[uri] = null;
+
+            // update [Content_Types].xml
+            var ctEl = this.ctXDoc.getRoot().elements(CT.Override)
+                .firstOrDefault(function (or) {
+                    var orn = or.attribute("PartName").value;
+                    if (uri === orn) {
+                        return true;
+                    }
+                    return false;
+                });
+            if (ctEl) {
+                ctEl.remove();
+            }
+        }
+        
+Convert these methods to TypeScript, and add to the OpenXmlPackage class.
+
+Add unit tests.
+
+To add unit test for addPart, you can open the BlankDocument.docx file that is in test-files.  Add a comments part.  Add a a bit of content to the mainDocument part, and then add a comment reference to it.
+
+To add unit test for deletePart, you can open the WithComments.docx file that is in test-files.  Remove the comments part.  Make sure that you remove the comments markup from the main document part.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.
