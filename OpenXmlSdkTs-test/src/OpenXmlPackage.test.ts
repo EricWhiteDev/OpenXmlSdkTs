@@ -337,9 +337,7 @@ describe("OpenXmlPackage", () => {
     const pkg = await OpenXmlPackage.open(blob);
 
     const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
-    const docData = docPart.getData() as { async(type: string): Promise<string> };
-    const docXDoc = XDocument.parse(await docData.async("string"));
-    docPart.setData(docXDoc);
+    const docXDoc = await docPart.getXDocument();
 
     const sectPr = docXDoc.root!.element(W.body)!.element(W.sectPr)!;
     const paragraph = new XElement(
@@ -376,8 +374,7 @@ describe("OpenXmlPackage", () => {
     const commentsPart = pkg2.getParts().find((p) => p.getUri() === "/word/comments.xml");
     expect(commentsPart).toBeDefined();
 
-    const commentsData = commentsPart!.getData() as { async(type: string): Promise<string> };
-    const commentsXDoc2 = XDocument.parse(await commentsData.async("string"));
+    const commentsXDoc2 = await commentsPart!.getXDocument();
     const commentEl = commentsXDoc2.root!.element(W.comment);
     expect(commentEl).toBeDefined();
     expect(commentEl!.attribute(W.id)?.value).toBe("0");
@@ -656,8 +653,8 @@ describe("OpenXmlPackage", () => {
     const saved = await pkg.saveToFlatOpcAsync();
     const pkg2 = await OpenXmlPackage.open(saved);
     const docPart = pkg2.getParts().find((p) => p.getUri() === "/word/document.xml")!;
-    const docData = docPart.getData() as XDocument;
-    const body = docData.root!.element(W.body);
+    const docXDoc = await docPart.getXDocument();
+    const body = docXDoc.root!.element(W.body);
     expect(body).not.toBeNull();
     expect(body!.element(W.sectPr)).not.toBeNull();
   });
@@ -670,8 +667,8 @@ describe("OpenXmlPackage", () => {
     const saved = await pkg.saveToFlatOpcAsync();
     const pkg2 = await OpenXmlPackage.open(saved);
     const docPart = pkg2.getParts().find((p) => p.getUri() === "/word/document.xml")!;
-    const docData = docPart.getData() as XDocument;
-    const body = docData.root!.element(W.body);
+    const docXDoc = await docPart.getXDocument();
+    const body = docXDoc.root!.element(W.body);
     expect(body).not.toBeNull();
     expect(body!.element(W.sectPr)).not.toBeNull();
   });
@@ -823,8 +820,7 @@ describe("OpenXmlPackage", () => {
     const pkg = await OpenXmlPackage.open(blob);
 
     const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
-    const docData = docPart.getData() as { async(type: string): Promise<string> };
-    const docXDoc = XDocument.parse(await docData.async("string"));
+    const docXDoc = await docPart.getXDocument();
 
     for (const el of docXDoc.root!.descendants(W.commentRangeStart)) {
       el.remove();
@@ -837,8 +833,6 @@ describe("OpenXmlPackage", () => {
         el.remove();
       }
     }
-    docPart.setData(docXDoc);
-
     const commentsPart = pkg.getParts().find((p) => p.getUri() === "/word/comments.xml")!;
     await pkg.deletePart(commentsPart);
 
@@ -848,8 +842,43 @@ describe("OpenXmlPackage", () => {
     expect(pkg2.getParts().find((p) => p.getUri() === "/word/comments.xml")).toBeUndefined();
 
     const docPart2 = pkg2.getParts().find((p) => p.getUri() === "/word/document.xml")!;
-    const docData2 = docPart2.getData() as { async(type: string): Promise<string> };
-    const docXDoc2 = XDocument.parse(await docData2.async("string"));
+    const docXDoc2 = await docPart2.getXDocument();
     expect(docXDoc2.root!.descendants(W.commentRangeStart).length).toBe(0);
+  });
+
+  it("getXDocument materializes a lazy blob-opened part", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const xDoc = await docPart.getXDocument();
+    expect(xDoc).toBeDefined();
+    expect(xDoc.root).not.toBeNull();
+    expect(xDoc.root!.element(W.body)).not.toBeNull();
+  });
+
+  it("getXDocument returns the XDocument directly for a FlatOPC-opened part", async () => {
+    const pkg = await OpenXmlPackage.open(blankDocumentFlatOpc);
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const xDoc = await docPart.getXDocument();
+    expect(xDoc).toBeDefined();
+    expect(xDoc.root!.element(W.body)).not.toBeNull();
+  });
+
+  it("getXDocument throws for a non-xml part", async () => {
+    const pkg = await OpenXmlPackage.open(blankDocumentBase64);
+    const imgPart = pkg.addPart("/word/media/img.png", "image/png", "binary", "fakedata");
+    await expect(imgPart.getXDocument()).rejects.toThrow(
+      "Cannot get XDocument for non-xml part: /word/media/img.png",
+    );
+  });
+
+  it("putXDocument throws when xDoc is null", async () => {
+    const pkg = await OpenXmlPackage.open(blankDocumentBase64);
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    expect(() => docPart.putXDocument(null as unknown as XDocument)).toThrow(
+      "putXDocument: xDoc must not be null or undefined",
+    );
   });
 });

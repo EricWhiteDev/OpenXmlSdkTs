@@ -7,6 +7,7 @@
  * Licensed under the MIT License
  */
 
+import { XDocument } from "ltxmlts";
 import { OpenXmlPackage } from "./OpenXmlPackage";
 import { OpenXmlRelationship } from "./OpenXmlRelationship";
 import { RelationshipType } from "./RelationshipType";
@@ -96,6 +97,27 @@ export class OpenXmlPart {
 
   async deleteRelationship(id: string): Promise<boolean> {
     return this.pkg.deleteRelationshipForPart(this, id);
+  }
+
+  async getXDocument(): Promise<XDocument> {
+    if (this.partType !== "xml") {
+      throw new Error(`Cannot get XDocument for non-xml part: ${this.uri}`);
+    }
+    if (this.data instanceof XDocument) {
+      return this.data;
+    }
+    const xmlStr = await (this.data as { async(type: string): Promise<string> }).async("string");
+    const xDoc = XDocument.parse(xmlStr);
+    this.data = xDoc;
+    return xDoc;
+  }
+
+  putXDocument(xDoc: XDocument): void {
+    if (!xDoc) {
+      throw new Error("putXDocument: xDoc must not be null or undefined");
+    }
+    this.data = xDoc;
+    this.partType = "xml";
   }
 
   async headerParts(): Promise<OpenXmlPart[]> {

@@ -1,0 +1,25 @@
+Here is some JS code:
+
+        openXml.OpenXmlPart.prototype.getXDocument = function () {
+            if (this.partType === 'xml' && typeof this.data === 'string') {
+                var data = this.data;
+                var utf = openXml.util.decode_utf8(data);
+                this.data = XDocument.parse(utf);
+                this.partType = 'xml';
+            }
+            return this.data;
+        };
+
+        openXml.OpenXmlPart.prototype.putXDocument = function (xDoc) {
+            if (xDoc) {
+                this.data = xDoc;
+            }
+        };
+
+Implement getXDocument and putXDocument for OpenXmlPart class.
+
+Add unit tests.
+
+If any of the existing unit tests should be using getXDocument and putXDocument, update them accordingly.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.
