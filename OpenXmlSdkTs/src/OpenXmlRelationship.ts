@@ -57,4 +57,16 @@ export class OpenXmlRelationship {
   getTargetMode(): string | null {
     return this.targetMode;
   }
+
+  getTargetFullName(): string {
+    if (this.targetMode === "External" || this.target.startsWith("/")) {
+      return this.target;
+    }
+    if (this.part === null) {
+      return "/" + this.target;
+    }
+    const uri = this.part.getUri();
+    const dir = uri.substring(0, uri.lastIndexOf("/") + 1);
+    return dir + this.target;
+  }
 }

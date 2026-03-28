@@ -1,0 +1,17 @@
+Here is some JavaScript code:
+
+        openXml.OpenXmlPackage.prototype.getPartsByRelationshipType = function (relationshipType) {
+            var rels = this.getRelationshipsByRelationshipType(relationshipType);
+            var parts = [];
+            for (var i = 0; i < rels.length; ++i) {
+                var part = this.getPartByUri(rels[i].targetFullName);
+                parts.push(part);
+            }
+            return parts;
+        }
+
+Add this method to both the OpenXmlPackage class and OpenXmlPart class.
+
+Add unit tests for both of the new methods.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.
