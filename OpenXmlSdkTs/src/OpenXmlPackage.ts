@@ -162,6 +162,47 @@ export class OpenXmlPackage {
     return OpenXmlPackage.getRelationshipsFromRelsXml(this, part, relsPart);
   }
 
+  async addRelationship(
+    id: string,
+    type: string,
+    target: string,
+    targetMode: string = "Internal",
+  ): Promise<OpenXmlRelationship> {
+    const relsPart = this.getOrCreateRelsPartForUri("/_rels/.rels");
+    return OpenXmlPackage.addRelationshipToRelPart(
+      this,
+      null,
+      relsPart,
+      id,
+      type,
+      target,
+      targetMode,
+    );
+  }
+
+  async addRelationshipForPart(
+    part: OpenXmlPart,
+    id: string,
+    type: string,
+    target: string,
+    targetMode: string = "Internal",
+  ): Promise<OpenXmlRelationship> {
+    const uri = part.getUri();
+    const dir = uri.substring(0, uri.lastIndexOf("/") + 1);
+    const filename = uri.substring(uri.lastIndexOf("/") + 1);
+    const relsUri = `${dir}_rels/${filename}.rels`;
+    const relsPart = this.getOrCreateRelsPartForUri(relsUri);
+    return OpenXmlPackage.addRelationshipToRelPart(
+      this,
+      part,
+      relsPart,
+      id,
+      type,
+      target,
+      targetMode,
+    );
+  }
+
   async saveToFlatOpcAsync(): Promise<FlatOpcString> {
     const pkgElement = new XElement(
       FLATOPC._package,
@@ -226,6 +267,51 @@ export class OpenXmlPackage {
   async saveToBlobAsync(): Promise<DocxBinary> {
     const zip = await this.saveToZip();
     return zip.generateAsync({ type: "blob", compression: "DEFLATE" });
+  }
+
+  private getOrCreateRelsPartForUri(relsUri: string): OpenXmlPart {
+    const existing = this.parts.get(relsUri);
+    if (existing) {
+      return existing;
+    }
+    const relsXDoc = new XDocument(
+      new XElement(PKGREL.Relationships, new XAttribute("xmlns", PKGREL.namespace.namespaceName)),
+    );
+    const newPart = new OpenXmlPart(this, relsUri, ContentType.relationships, "xml", relsXDoc);
+    this.parts.set(relsUri, newPart);
+    return newPart;
+  }
+
+  private static async addRelationshipToRelPart(
+    pkg: OpenXmlPackage,
+    part: OpenXmlPart | null,
+    relsPart: OpenXmlPart,
+    id: string,
+    type: string,
+    target: string,
+    targetMode: string,
+  ): Promise<OpenXmlRelationship> {
+    let relsXDoc: XDocument;
+    const data = relsPart.getData();
+    if (data instanceof XDocument) {
+      relsXDoc = data;
+    } else {
+      const xmlStr = await (data as { async(type: string): Promise<string> }).async("string");
+      relsXDoc = XDocument.parse(xmlStr);
+      relsPart.setData(relsXDoc);
+      relsPart.setPartType("xml");
+    }
+    relsXDoc.root!.add(
+      new XElement(
+        PKGREL.Relationship,
+        new XAttribute("Id", id),
+        new XAttribute("Type", type),
+        new XAttribute("Target", target),
+        targetMode !== "Internal" ? new XAttribute("TargetMode", targetMode) : null,
+      ),
+    );
+    const storedTargetMode = targetMode !== "Internal" ? targetMode : null;
+    return new OpenXmlRelationship(pkg, part, id, type, target, storedTargetMode);
   }
 
   private static async getRelationshipsFromRelsXml(

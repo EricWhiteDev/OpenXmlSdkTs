@@ -499,6 +499,56 @@ describe("OpenXmlPackage", () => {
     expect(parts[0].getUri()).toBe("/word/comments.xml");
   });
 
+  it("adds a package-level relationship and round-trips correctly", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const rel = await pkg.addRelationship(
+      "rId99",
+      RelationshipType.extendedFileProperties,
+      "docProps/custom.xml",
+    );
+    expect(rel.getId()).toBe("rId99");
+    expect(rel.getType()).toBe(RelationshipType.extendedFileProperties);
+    expect(rel.getTarget()).toBe("docProps/custom.xml");
+    expect(rel.getTargetMode()).toBeNull();
+
+    const saved = await pkg.saveToBase64Async();
+    const pkg2 = await OpenXmlPackage.open(saved);
+    const roundTrippedRel = await pkg2.getRelationshipById("rId99");
+    expect(roundTrippedRel).toBeDefined();
+    expect(roundTrippedRel!.getType()).toBe(RelationshipType.extendedFileProperties);
+    expect(roundTrippedRel!.getTarget()).toBe("docProps/custom.xml");
+  });
+
+  it("adds a part-level relationship and round-trips correctly", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const rel = await docPart.addRelationship(
+      "rId99",
+      RelationshipType.wordprocessingComments,
+      "comments.xml",
+    );
+    expect(rel.getId()).toBe("rId99");
+    expect(rel.getType()).toBe(RelationshipType.wordprocessingComments);
+    expect(rel.getTarget()).toBe("comments.xml");
+    expect(rel.getTargetMode()).toBeNull();
+
+    const saved = await pkg.saveToBase64Async();
+    const pkg2 = await OpenXmlPackage.open(saved);
+    const docPart2 = pkg2.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const roundTrippedRel = await docPart2.getRelationshipById("rId99");
+    expect(roundTrippedRel).toBeDefined();
+    expect(roundTrippedRel!.getType()).toBe(RelationshipType.wordprocessingComments);
+    expect(roundTrippedRel!.getTarget()).toBe("comments.xml");
+  });
+
   it("gets a package-level relationship by id from WithComments.docx", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
@@ -599,6 +649,31 @@ describe("OpenXmlPackage", () => {
 
     expect(parts).toHaveLength(1);
     expect(parts[0].getUri()).toBe("/word/comments.xml");
+  });
+
+  it("saves a FlatOPC-opened package to FlatOPC preserving document body content", async () => {
+    const pkg = await OpenXmlPackage.open(blankDocumentFlatOpc);
+    const saved = await pkg.saveToFlatOpcAsync();
+    const pkg2 = await OpenXmlPackage.open(saved);
+    const docPart = pkg2.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const docData = docPart.getData() as XDocument;
+    const body = docData.root!.element(W.body);
+    expect(body).not.toBeNull();
+    expect(body!.element(W.sectPr)).not.toBeNull();
+  });
+
+  it("saves a blob-opened package to FlatOPC preserving document body content", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+    const saved = await pkg.saveToFlatOpcAsync();
+    const pkg2 = await OpenXmlPackage.open(saved);
+    const docPart = pkg2.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const docData = docPart.getData() as XDocument;
+    const body = docData.root!.element(W.body);
+    expect(body).not.toBeNull();
+    expect(body!.element(W.sectPr)).not.toBeNull();
   });
 
   it("deletes the comments part from a document with comments and round-trips correctly", async () => {

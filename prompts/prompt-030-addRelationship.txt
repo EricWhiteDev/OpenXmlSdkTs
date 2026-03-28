@@ -1,0 +1,34 @@
+Here is some JavaScript code:
+
+        function addRelationshipToRelPart(part, relationshipId, relationshipType, target, targetMode) {
+            var rxDoc = part.getXDocument();
+            var tm = null;
+            if (targetMode !== "Internal")
+                tm = new XAttribute("TargetMode", "External");
+            rxDoc.getRoot().add(
+                new XElement(PKGREL.Relationship,
+                    new XAttribute("Id", relationshipId),
+                    new XAttribute("Type", relationshipType),
+                    new XAttribute("Target", target),
+                    tm));
+        }
+
+        openXml.OpenXmlPackage.prototype.addRelationship = function (relationshipId, relationshipType, target, targetMode) {
+            if (!targetMode) {
+                targetMode = "Internal";
+            }
+            var rootRelationshipPart = this.getPartByUri("/_rels/.rels");
+            if (!rootRelationshipPart) {
+                rootRelationshipsPart = this.addPart("/_rels/.rels", this.contentTypes.relationships, "xml",
+                    new XDocument(
+                        new XElement(PKGREL.Relationships,
+                            new XAttribute("xmlns", pkgRelNs.namespaceName))));
+            }
+            addRelationshipToRelPart(rootRelationshipPart, relationshipId, relationshipType, target, targetMode);
+        }
+
+Add this method to both OpenXmlPackage and OpenXmlPart.
+
+Add unit tests.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.

@@ -84,6 +84,15 @@ export class OpenXmlPart {
     return parts[0];
   }
 
+  async addRelationship(
+    id: string,
+    type: string,
+    target: string,
+    targetMode: string = "Internal",
+  ): Promise<OpenXmlRelationship> {
+    return this.pkg.addRelationshipForPart(this, id, type, target, targetMode);
+  }
+
   async getRelationshipById(rId: string): Promise<OpenXmlRelationship | undefined> {
     const rels = await this.getRelationships();
     return rels.find((r) => r.getId() === rId);
