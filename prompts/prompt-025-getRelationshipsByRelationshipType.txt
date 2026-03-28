@@ -1,0 +1,36 @@
+Following is some JavaScript code:
+
+        openXml.OpenXmlPackage.prototype.getRelationshipsByRelationshipType = function (relationshipType) {
+            var rootRelationshipsPart = this.getPartByUri("/_rels/.rels");
+            var rxDoc = rootRelationshipsPart.getXDocument();
+            var that = this;
+            var rels = rxDoc.getRoot().elements(PKGREL.Relationship)
+                .where(function (r) {
+                    return r.attribute("Type").value === relationshipType;
+                })
+                .select(function (r) {
+                    var targetMode = null;
+                    var tm = r.attribute("TargetMode");
+                    if (tm) {
+                        targetMode = tm.value;
+                    }
+                    var theRel = new openXml.OpenXmlRelationship(
+                        that,
+                        null,
+                        r.attribute("Id").value,
+                        relationshipType,
+                        r.attribute("Target").value,
+                        targetMode);
+                    return theRel;
+                })
+                .toArray();
+            return rels;
+        }
+
+This gets all relationships by relationshipType.
+
+Implement this functionality in a method getRelationshipsByRelationshipType in the OpenXmlPackage class and OpenXmlPart class.
+
+Add unit tests - call getRelationshipsByRelationshipType on an OpenXmlPackage, and add unit test - call getRelationshipsByRelationshipType on an OpenXmlPart
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.

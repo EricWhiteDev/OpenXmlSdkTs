@@ -410,6 +410,33 @@ describe("OpenXmlPackage", () => {
     expect(mainDocRel!.getTarget()).toBe("word/document.xml");
   });
 
+  it("gets package-level relationships by type from WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const rels = await pkg.getRelationshipsByRelationshipType(RelationshipType.mainDocument);
+
+    expect(rels).toHaveLength(1);
+    expect(rels[0].getTarget()).toBe("word/document.xml");
+  });
+
+  it("gets part-level relationships by type from WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const rels = await docPart.getRelationshipsByRelationshipType(
+      RelationshipType.wordprocessingComments,
+    );
+
+    expect(rels).toHaveLength(1);
+    expect(rels[0].getTarget()).toBe("comments.xml");
+  });
+
   it("deletes the comments part from a document with comments and round-trips correctly", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);

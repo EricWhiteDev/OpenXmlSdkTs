@@ -64,4 +64,11 @@ export class OpenXmlPart {
   async getRelationships(): Promise<OpenXmlRelationship[]> {
     return this.pkg.getRelationshipsForPart(this);
   }
+
+  async getRelationshipsByRelationshipType(
+    relationshipType: string,
+  ): Promise<OpenXmlRelationship[]> {
+    const rels = await this.getRelationships();
+    return rels.filter((r) => r.getType() === relationshipType);
+  }
 }

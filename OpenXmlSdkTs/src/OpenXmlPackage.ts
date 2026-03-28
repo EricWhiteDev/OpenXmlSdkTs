@@ -97,6 +97,13 @@ export class OpenXmlPackage {
     return OpenXmlPackage.getRelationshipsFromRelsXml(this, null, relsPart);
   }
 
+  async getRelationshipsByRelationshipType(
+    relationshipType: string,
+  ): Promise<OpenXmlRelationship[]> {
+    const rels = await this.getRelationships();
+    return rels.filter((r) => r.getType() === relationshipType);
+  }
+
   async getRelationshipsForPart(part: OpenXmlPart): Promise<OpenXmlRelationship[]> {
     const uri = part.getUri();
     const dir = uri.substring(0, uri.lastIndexOf("/") + 1);
