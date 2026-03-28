@@ -499,6 +499,58 @@ describe("OpenXmlPackage", () => {
     expect(parts[0].getUri()).toBe("/word/comments.xml");
   });
 
+  it("gets a package-level relationship by id from WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const rel = await pkg.getRelationshipById("rId1");
+
+    expect(rel).toBeDefined();
+    expect(rel!.getType()).toBe(RelationshipType.mainDocument);
+    expect(rel!.getTarget()).toBe("word/document.xml");
+  });
+
+  it("gets a package-level part by id from WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const part = await pkg.getPartById("rId1");
+
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/word/document.xml");
+  });
+
+  it("gets a part-level relationship by id from WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const rel = await docPart.getRelationshipById("rId4");
+
+    expect(rel).toBeDefined();
+    expect(rel!.getType()).toBe(RelationshipType.wordprocessingComments);
+    expect(rel!.getTarget()).toBe("comments.xml");
+  });
+
+  it("gets a part-level part by id from WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const part = await docPart.getPartById("rId4");
+
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/word/comments.xml");
+  });
+
   it("gets package-level relationships by content type from WithComments.docx", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);

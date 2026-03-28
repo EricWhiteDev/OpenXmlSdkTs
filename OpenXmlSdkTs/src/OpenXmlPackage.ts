@@ -119,6 +119,16 @@ export class OpenXmlPackage {
       .filter((p): p is OpenXmlPart => p !== undefined);
   }
 
+  async getRelationshipById(rId: string): Promise<OpenXmlRelationship | undefined> {
+    const rels = await this.getRelationships();
+    return rels.find((r) => r.getId() === rId);
+  }
+
+  async getPartById(rId: string): Promise<OpenXmlPart | undefined> {
+    const rel = await this.getRelationshipById(rId);
+    return rel ? this.getPartByUri(rel.getTargetFullName()) : undefined;
+  }
+
   async getRelationshipsByContentType(contentType: string): Promise<OpenXmlRelationship[]> {
     const rels = await this.getRelationships();
     return rels.filter(

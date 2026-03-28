@@ -1,0 +1,29 @@
+Here is some JavaScript code:
+
+        openXml.OpenXmlPackage.prototype.getRelationshipById = function (rId) {
+            var rel = Enumerable.from(this.getRelationships())
+                .firstOrDefault(function (r) {
+                    return r.relationshipId == rId;
+                });
+            return rel;
+        }
+        
+        openXml.OpenXmlPackage.prototype.getPartById = function (rId) {
+            var rel = Enumerable.from(this.getRelationships())
+                .firstOrDefault(function (r) {
+                    return r.relationshipId == rId;
+                });
+            if (!rel) {
+                return null;
+            }
+            var part = this.getPartByUri(rel.targetFullName);
+            return part;
+        }
+
+Add getRelationshipById method to both OpenXmlPackage and OpenXmlPart.
+
+Add getPartById method to both OpenXmlPackage and OpenXmlPart.
+
+Add four unit tests - test both methods on both classes.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.
