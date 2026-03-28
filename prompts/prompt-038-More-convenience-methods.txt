@@ -1,0 +1,169 @@
+the following convenience methods were available for JavaScript:
+
+        openXml.OpenXmlPart.prototype.wordprocessingCommentsPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.wordprocessingComments);
+        };
+
+        openXml.OpenXmlPart.prototype.fontTablePart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.fontTable);
+        };
+
+        openXml.OpenXmlPart.prototype.numberingDefinitionsPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.numberingDefinitions);
+        };
+
+        openXml.OpenXmlPart.prototype.headerParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.header);
+        };
+
+        openXml.OpenXmlPart.prototype.footerParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.footer);
+        };
+
+        openXml.OpenXmlPart.prototype.customXmlPropertiesPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.customXmlProperties);
+        };
+
+        openXml.OpenXmlPart.prototype.footnotesPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.footnotes);
+        };
+
+        openXml.OpenXmlPart.prototype.endnotesPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.endnotes);
+        };
+
+        openXml.OpenXmlPart.prototype.styleDefinitionsPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.styles);
+        };
+
+        openXml.OpenXmlPart.prototype.webSettingsPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.webSettings);
+        };
+
+        openXml.OpenXmlPart.prototype.documentSettingsPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.documentSettings);
+        };
+
+        openXml.OpenXmlPart.prototype.glossaryDocumentPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.glossaryDocument);
+        };
+
+        openXml.OpenXmlPart.prototype.calculationChainPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.calculationChain);
+        };
+
+        openXml.OpenXmlPart.prototype.cellMetadataPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.cellMetadata);
+        };
+
+        openXml.OpenXmlPart.prototype.chartsheetParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.chartsheet);
+        };
+
+        openXml.OpenXmlPart.prototype.sharedStringTablePart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.sharedStringTable);
+        };
+
+        openXml.OpenXmlPart.prototype.themePart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.theme);
+        };
+
+        openXml.OpenXmlPart.prototype.thumbnailPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.thumbnail);
+        };
+
+        openXml.OpenXmlPart.prototype.workbookRevisionHeaderPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.workbookRevisionHeader);
+        };
+
+        openXml.OpenXmlPart.prototype.workbookStylesPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.workbookStyles);
+        };
+
+        openXml.OpenXmlPart.prototype.worksheetParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.worksheet);
+        };
+
+        openXml.OpenXmlPart.prototype.drawingsPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.drawings);  // todo is this plural?
+        };
+
+        openXml.OpenXmlPart.prototype.imageParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.image);
+        };
+
+        openXml.OpenXmlPart.prototype.pivotTableParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.pivotTable);
+        };
+
+        openXml.OpenXmlPart.prototype.queryTableParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.queryTable);
+        };
+
+        openXml.OpenXmlPart.prototype.tableDefinitionParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.tableDefinition);
+        };
+
+        openXml.OpenXmlPart.prototype.timeLineParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.timeLine);
+        };
+
+        openXml.OpenXmlPart.prototype.worksheetCommentsPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.worksheetComments);
+        };
+
+        openXml.OpenXmlPart.prototype.commentAuthorsPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.commentAuthors);
+        };
+
+        openXml.OpenXmlPart.prototype.customXmlParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.customXml);
+        };
+
+        openXml.OpenXmlPart.prototype.fontParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.font);
+        };
+
+        openXml.OpenXmlPart.prototype.handoutMasterPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.handoutMaster);
+        };
+
+        openXml.OpenXmlPart.prototype.notesMasterPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.notesMaster);
+        };
+
+        openXml.OpenXmlPart.prototype.notesSlidePart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.notesSlide);
+        };
+
+        openXml.OpenXmlPart.prototype.presentationPropertiesPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.presentationProperties);
+        };
+
+        openXml.OpenXmlPart.prototype.slideMasterParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.slideMaster);
+        };
+
+        openXml.OpenXmlPart.prototype.slideParts = function () {
+            return this.getPartsByRelationshipType(openXml.relationshipTypes.slide);
+        };
+
+        openXml.OpenXmlPart.prototype.tableStylesPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.tableStyles);
+        };
+
+        openXml.OpenXmlPart.prototype.themePart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.theme);
+        };
+
+        openXml.OpenXmlPart.prototype.userDefinedTagsPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.userDefinedTags);
+        };
+
+        openXml.OpenXmlPart.prototype.viewPropertiesPart = function () {
+            return this.getPartByRelationshipType(openXml.relationshipTypes.viewProperties);
+        };
+
+Add the same methods to OpenXmlPart for the TypeScript implementation.
+
+Add unit tests.

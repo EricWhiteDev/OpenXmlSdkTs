@@ -63,6 +63,7 @@ export const RelationshipType = {
   image: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
   mainDocument:
     "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument",
+  notesMaster: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesMaster",
   notesSlide: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide",
   numberingDefinitions:
     "http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering",
@@ -91,6 +92,7 @@ export const RelationshipType = {
   styles: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles",
   tableDefinition: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/table",
   tableStyles: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/tableStyles",
+  timeLine: "http://schemas.microsoft.com/office/2011/relationships/timeline",
   theme: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme",
   themeOverride:
     "http://schemas.openxmlformats.org/officeDocument/2006/relationships/themeOverride",

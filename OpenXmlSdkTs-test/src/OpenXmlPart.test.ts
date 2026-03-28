@@ -238,6 +238,144 @@ describe("OpenXmlPart", () => {
     expect(parts.some((p) => p.getUri() === "/word/comments.xml")).toBe(true);
   });
 
+  it("wordprocessingCommentsPart returns comments part from WithComments.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const part = await docPart.wordprocessingCommentsPart();
+
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/word/comments.xml");
+  });
+
+  it("styleDefinitionsPart returns styles part from TemplateDocument.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const part = await docPart.styleDefinitionsPart();
+
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/word/styles.xml");
+  });
+
+  it("documentSettingsPart returns settings part from TemplateDocument.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const part = await docPart.documentSettingsPart();
+
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/word/settings.xml");
+  });
+
+  it("fontTablePart returns fontTable part from TemplateDocument.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const part = await docPart.fontTablePart();
+
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/word/fontTable.xml");
+  });
+
+  it("webSettingsPart returns webSettings part from TemplateDocument.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const part = await docPart.webSettingsPart();
+
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/word/webSettings.xml");
+  });
+
+  it("themePart returns theme part from TemplateDocument.docx", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const part = await docPart.themePart();
+
+    expect(part).toBeDefined();
+    expect(part!.getUri()).toBe("/word/theme/theme1.xml");
+  });
+
+  it("calculationChainPart returns undefined on a Word document", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const part = await docPart.calculationChainPart();
+
+    expect(part).toBeUndefined();
+  });
+
+  it("sharedStringTablePart returns undefined on a Word document", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const part = await docPart.sharedStringTablePart();
+
+    expect(part).toBeUndefined();
+  });
+
+  it("worksheetParts returns empty array on a Word document", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const parts = await docPart.worksheetParts();
+
+    expect(parts).toHaveLength(0);
+  });
+
+  it("slideParts returns empty array on a Word document", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const parts = await docPart.slideParts();
+
+    expect(parts).toHaveLength(0);
+  });
+
+  it("imageParts returns empty array on a Word document with no images", async () => {
+    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const buffer = fs.readFileSync(srcFile);
+    const blob = new Blob([buffer]);
+    const pkg = await OpenXmlPackage.open(blob);
+
+    const docPart = pkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const parts = await docPart.imageParts();
+
+    expect(parts).toHaveLength(0);
+  });
+
   it("getParts throws for a dangling internal relationship", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
