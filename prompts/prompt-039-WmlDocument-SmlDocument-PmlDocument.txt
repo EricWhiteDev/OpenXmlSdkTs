@@ -1,0 +1,34 @@
+Create three new classes that derive from OpenXmlPackage class:
+- WmlDocument - for processing WordprocessingML files (DOCX)
+- SmlDocument - for processing SpreadsheetML files (XLSX)
+- PmlDocument - for processing PresentationML files (PPTX)
+
+There are a number of methods in OpenXmlPackage class that are specific to a particular type of document.  For example, the convenience functions:
+- mainDocumentPart - this is associated only with WordprocessingML (DOCX)
+- workbookPart - this is associated only with SpreadsheetML (XLSX)
+- contentParts - this is associated only with WordprocessingML (DOCX)
+- presentationPart - this is associated only with PresentationML (PPTX)
+
+Some convenience methods are applicable to all three types of files:
+- coreFilePropertiesPart
+- extendedFilePropertiesPart
+
+The same is true for convenience methods in OpenXmlPart
+
+Move methods that are associated with only one file type to its appropriate class, i.e. WmlDocument, SmlDocument, and PmlDocument.  Leave methods that are applicable to all file types in OpenXmlPackage class.
+
+Adjust the unit tests
+- Move tests that are associated with one file type to their own test module:
+  - WmlDocument.test.ts
+  - SmlDocument.test.ts
+  - PmlDocument.test.ts
+
+Until now there have been no sample XLSX or PPTX files.  There are now:
+
+In the test-files directory, there are new sample files:
+- Sample.xlsx - this is a sample spreadsheet
+- Sample.pptx - this is a sample PowerPoint presentation
+
+Use those test files for the new unit tests in SmlDocument.test.ts and PmlDocument.test.ts
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.

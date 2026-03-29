@@ -151,10 +151,6 @@ export class OpenXmlPackage {
     return parts[0];
   }
 
-  async mainDocumentPart(): Promise<OpenXmlPart | undefined> {
-    return (await this.getPartsByContentType(ContentType.mainDocument))[0];
-  }
-
   async coreFilePropertiesPart(): Promise<OpenXmlPart | undefined> {
     return this.getPartByRelationshipType(RelationshipType.coreFileProperties);
   }
@@ -163,35 +159,8 @@ export class OpenXmlPackage {
     return this.getPartByRelationshipType(RelationshipType.extendedFileProperties);
   }
 
-  async workbookPart(): Promise<OpenXmlPart | undefined> {
-    return (await this.getPartsByContentType(ContentType.workbook))[0];
-  }
-
   async customFilePropertiesPart(): Promise<OpenXmlPart | undefined> {
     return this.getPartByRelationshipType(RelationshipType.customFileProperties);
-  }
-
-  async presentationPart(): Promise<OpenXmlPart | undefined> {
-    return (await this.getPartsByContentType(ContentType.presentation))[0];
-  }
-
-  async contentParts(): Promise<OpenXmlPart[]> {
-    const main = await this.mainDocumentPart();
-    if (!main) {
-      return [];
-    }
-    const parts: OpenXmlPart[] = [main];
-    parts.push(...(await main.headerParts()));
-    parts.push(...(await main.footerParts()));
-    const endnotes = await main.endnotesPart();
-    if (endnotes) {
-      parts.push(endnotes);
-    }
-    const footnotes = await main.footnotesPart();
-    if (footnotes) {
-      parts.push(footnotes);
-    }
-    return parts;
   }
 
   async getRelationshipsForPart(part: OpenXmlPart): Promise<OpenXmlRelationship[]> {
@@ -452,8 +421,10 @@ export class OpenXmlPackage {
     return zip;
   }
 
-  static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<OpenXmlPackage> {
-    const pkg = new OpenXmlPackage();
+  protected static async openInto<T extends OpenXmlPackage>(
+    pkg: T,
+    document: Base64String | FlatOpcString | DocxBinary,
+  ): Promise<T> {
     if (typeof document === "string") {
       if (OpenXmlUtility.isBase64(document)) {
         await OpenXmlPackage.openFromBase64Internal(pkg, document);
@@ -468,6 +439,10 @@ export class OpenXmlPackage {
       );
     }
     return pkg;
+  }
+
+  static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<OpenXmlPackage> {
+    return OpenXmlPackage.openInto(new OpenXmlPackage(), document);
   }
 
   private static getContentType(uri: string, ctXDoc: XDocument): string {
