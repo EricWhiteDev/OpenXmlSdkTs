@@ -1,6 +1,5 @@
 {
   "name": "openxmlsdkts-workspace",
-  "private": true,
   "workspaces": [
     "OpenXmlSdkTs",
     "OpenXmlSdkTs-test"

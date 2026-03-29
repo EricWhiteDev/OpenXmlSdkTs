@@ -1,14 +1,43 @@
 {
   "name": "OpenXmlSdkTs",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Open XML SDK for TypeScript — read, write, and manipulate Office Open XML documents (docx, xlsx, pptx)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc"
   },
+  "keywords": [
+    "openxml",
+    "docx",
+    "xlsx",
+    "pptx",
+    "word",
+    "excel",
+    "powerpoint",
+    "office",
+    "ooxml"
+  ],
+  "author": {
+    "name": "Eric White",
+    "email": "eric@ericwhite.com",
+    "url": "https://www.ericwhite.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EricWhiteDev/OpenXmlSdkTs.git"
+  },
+  "homepage": "https://github.com/EricWhiteDev/OpenXmlSdkTs#readme",
+  "bugs": {
+    "url": "https://github.com/EricWhiteDev/OpenXmlSdkTs/issues"
+  },
   "dependencies": {
     "jszip": "^3.10.1",
-    "ltxmlts": "^1.0.2"
+    "ltxmlts": "1.0.5"
   },
   "devDependencies": {
     "@types/jszip": "^3.4.0",
