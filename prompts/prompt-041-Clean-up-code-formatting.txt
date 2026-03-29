@@ -1,0 +1,8 @@
+In ContentType.ts and RelationshipType.ts, sometimes there is a line break after the ContentTypeKey and before the ContentTypeValue.  For instance:
+
+  diagramLayoutDefinition:
+    "application/vnd.openxmlformats-officedocument.drawingml.diagramLayout+xml",
+
+Get rid of the line break, so format like this:
+
+  diagramLayoutDefinition: "application/vnd.openxmlformats-officedocument.drawingml.diagramLayout+xml",

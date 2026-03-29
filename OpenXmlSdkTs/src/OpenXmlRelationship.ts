@@ -18,14 +18,7 @@ export class OpenXmlRelationship {
   private target: string;
   private targetMode: string | null;
 
-  constructor(
-    pkg: OpenXmlPackage,
-    part: OpenXmlPart | null,
-    id: string,
-    type: string,
-    target: string,
-    targetMode: string | null,
-  ) {
+  constructor(pkg: OpenXmlPackage, part: OpenXmlPart | null, id: string, type: string, target: string, targetMode: string | null) {
     this.pkg = pkg;
     this.part = part;
     this.id = id;

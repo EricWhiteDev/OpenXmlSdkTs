@@ -10,9 +10,7 @@
 import { XName, XNamespace } from "ltxmlts";
 
 export class A {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/drawingml/2006/main",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/main");
 
   static readonly accent1: XName = A.namespace.getName("accent1");
   static readonly accent2: XName = A.namespace.getName("accent2");
@@ -332,9 +330,7 @@ export class A {
 }
 
 export class A14 {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/drawing/2010/main",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/drawing/2010/main");
 
   static readonly artisticChalkSketch: XName = A14.namespace.getName("artisticChalkSketch");
   static readonly artisticGlass: XName = A14.namespace.getName("artisticGlass");
@@ -359,9 +355,7 @@ export class A14 {
   static readonly imgEffect: XName = A14.namespace.getName("imgEffect");
   static readonly imgLayer: XName = A14.namespace.getName("imgLayer");
   static readonly imgProps: XName = A14.namespace.getName("imgProps");
-  static readonly legacySpreadsheetColorIndex: XName = A14.namespace.getName(
-    "legacySpreadsheetColorIndex",
-  );
+  static readonly legacySpreadsheetColorIndex: XName = A14.namespace.getName("legacySpreadsheetColorIndex");
   static readonly m: XName = A14.namespace.getName("m");
   static readonly saturation: XName = A14.namespace.getName("saturation");
   static readonly shadowObscured: XName = A14.namespace.getName("shadowObscured");
@@ -370,9 +364,7 @@ export class A14 {
 }
 
 export class C {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/drawingml/2006/chart",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/chart");
 
   static readonly applyToEnd: XName = C.namespace.getName("applyToEnd");
   static readonly applyToFront: XName = C.namespace.getName("applyToFront");
@@ -593,9 +585,7 @@ export class C {
 }
 
 export class CDR {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/drawingml/2006/chartDrawing",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/chartDrawing");
 
   static readonly absSizeAnchor: XName = CDR.namespace.getName("absSizeAnchor");
   static readonly blipFill: XName = CDR.namespace.getName("blipFill");
@@ -629,17 +619,13 @@ export class CDR {
 }
 
 export class COM {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/drawingml/2006/compatibility",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/compatibility");
 
   static readonly legacyDrawing: XName = COM.namespace.getName("legacyDrawing");
 }
 
 export class CP {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/package/2006/metadata/core-properties");
 
   static readonly category: XName = CP.namespace.getName("category");
   static readonly contentStatus: XName = CP.namespace.getName("contentStatus");
@@ -652,9 +638,7 @@ export class CP {
 }
 
 export class CT {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/package/2006/content-types",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/package/2006/content-types");
 
   static readonly Default: XName = CT.namespace.getName("Default");
   static readonly Override: XName = CT.namespace.getName("Override");
@@ -662,9 +646,7 @@ export class CT {
 }
 
 export class CUSTPRO {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/officeDocument/2006/custom-properties",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/custom-properties");
 
   static readonly Properties: XName = CUSTPRO.namespace.getName("Properties");
   static readonly property: XName = CUSTPRO.namespace.getName("property");
@@ -687,9 +669,7 @@ export class DCTERMS {
 }
 
 export class DGM {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/drawingml/2006/diagram",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/diagram");
 
   static readonly adj: XName = DGM.namespace.getName("adj");
   static readonly adjLst: XName = DGM.namespace.getName("adjLst");
@@ -753,18 +733,14 @@ export class DGM {
 }
 
 export class DGM14 {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/drawing/2010/diagram",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/drawing/2010/diagram");
 
   static readonly cNvPr: XName = DGM14.namespace.getName("cNvPr");
   static readonly recolorImg: XName = DGM14.namespace.getName("recolorImg");
 }
 
 export class DIGSIG {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/2006/digsig",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/2006/digsig");
 
   static readonly ApplicationVersion: XName = DIGSIG.namespace.getName("ApplicationVersion");
   static readonly ColorDepth: XName = DIGSIG.namespace.getName("ColorDepth");
@@ -776,9 +752,7 @@ export class DIGSIG {
   static readonly SignatureComments: XName = DIGSIG.namespace.getName("SignatureComments");
   static readonly SignatureImage: XName = DIGSIG.namespace.getName("SignatureImage");
   static readonly SignatureInfoV1: XName = DIGSIG.namespace.getName("SignatureInfoV1");
-  static readonly SignatureProviderDetails: XName = DIGSIG.namespace.getName(
-    "SignatureProviderDetails",
-  );
+  static readonly SignatureProviderDetails: XName = DIGSIG.namespace.getName("SignatureProviderDetails");
   static readonly SignatureProviderId: XName = DIGSIG.namespace.getName("SignatureProviderId");
   static readonly SignatureProviderUrl: XName = DIGSIG.namespace.getName("SignatureProviderUrl");
   static readonly SignatureText: XName = DIGSIG.namespace.getName("SignatureText");
@@ -788,9 +762,7 @@ export class DIGSIG {
 }
 
 export class DS {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/officeDocument/2006/customXml",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/customXml");
 
   static readonly datastoreItem: XName = DS.namespace.getName("datastoreItem");
   static readonly itemID: XName = DS.namespace.getName("itemID");
@@ -800,17 +772,13 @@ export class DS {
 }
 
 export class DSP {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/drawing/2008/diagram",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/drawing/2008/diagram");
 
   static readonly dataModelExt: XName = DSP.namespace.getName("dataModelExt");
 }
 
 export class EP {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/extended-properties");
 
   static readonly Application: XName = EP.namespace.getName("Application");
   static readonly AppVersion: XName = EP.namespace.getName("AppVersion");
@@ -842,9 +810,7 @@ export class EP {
 }
 
 export class FLATOPC {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/2006/xmlPackage",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/2006/xmlPackage");
 
   static readonly binaryData: XName = FLATOPC.namespace.getName("binaryData");
   static readonly compression: XName = FLATOPC.namespace.getName("compression");
@@ -857,17 +823,13 @@ export class FLATOPC {
 }
 
 export class LC {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/drawingml/2006/lockedCanvas",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/lockedCanvas");
 
   static readonly lockedCanvas: XName = LC.namespace.getName("lockedCanvas");
 }
 
 export class M {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/officeDocument/2006/math",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/math");
 
   static readonly acc: XName = M.namespace.getName("acc");
   static readonly accPr: XName = M.namespace.getName("accPr");
@@ -998,9 +960,7 @@ export class M {
 }
 
 export class MC {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/markup-compatibility/2006",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/markup-compatibility/2006");
 
   static readonly AlternateContent: XName = MC.namespace.getName("AlternateContent");
   static readonly Choice: XName = MC.namespace.getName("Choice");
@@ -1010,9 +970,7 @@ export class MC {
 }
 
 export class MDSSI {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/package/2006/digital-signature",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/package/2006/digital-signature");
 
   static readonly Format: XName = MDSSI.namespace.getName("Format");
   static readonly RelationshipReference: XName = MDSSI.namespace.getName("RelationshipReference");
@@ -1021,9 +979,7 @@ export class MDSSI {
 }
 
 export class MP {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/mac/powerpoint/2008/main",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/mac/powerpoint/2008/main");
 
   static readonly cube: XName = MP.namespace.getName("cube");
   static readonly flip: XName = MP.namespace.getName("flip");
@@ -1778,9 +1734,7 @@ export class O {
 }
 
 export class P {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/presentationml/2006/main",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/presentationml/2006/main");
 
   static readonly anim: XName = P.namespace.getName("anim");
   static readonly animClr: XName = P.namespace.getName("animClr");
@@ -1982,9 +1936,7 @@ export class P {
 }
 
 export class P14 {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/powerpoint/2010/main",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/powerpoint/2010/main");
 
   static readonly bmk: XName = P14.namespace.getName("bmk");
   static readonly bmkLst: XName = P14.namespace.getName("bmkLst");
@@ -2040,17 +1992,13 @@ export class P14 {
 }
 
 export class P15 {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office15/powerpoint",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office15/powerpoint");
 
   static readonly extElement: XName = P15.namespace.getName("extElement");
 }
 
 export class Pic {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/drawingml/2006/picture",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/picture");
 
   static readonly blipFill: XName = Pic.namespace.getName("blipFill");
   static readonly cNvPicPr: XName = Pic.namespace.getName("cNvPicPr");
@@ -2061,18 +2009,14 @@ export class Pic {
 }
 
 export class PKGREL {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/package/2006/relationships",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/package/2006/relationships");
 
   static readonly Relationship: XName = PKGREL.namespace.getName("Relationship");
   static readonly Relationships: XName = PKGREL.namespace.getName("Relationships");
 }
 
 export class R {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
 
   static readonly blip: XName = R.namespace.getName("blip");
   static readonly cs: XName = R.namespace.getName("cs");
@@ -2088,9 +2032,7 @@ export class R {
 }
 
 export class S {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/spreadsheetml/2006/main");
 
   static readonly alignment: XName = S.namespace.getName("alignment");
   static readonly anchor: XName = S.namespace.getName("anchor");
@@ -2458,9 +2400,7 @@ export class S {
 }
 
 export class SL {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/schemaLibrary/2006/main",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/schemaLibrary/2006/main");
 
   static readonly manifestLocation: XName = SL.namespace.getName("manifestLocation");
   static readonly schema: XName = SL.namespace.getName("schema");
@@ -2469,9 +2409,7 @@ export class SL {
 }
 
 export class SLE {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/drawing/2010/slicer",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/drawing/2010/slicer");
 
   static readonly slicer: XName = SLE.namespace.getName("slicer");
 }
@@ -2506,9 +2444,7 @@ export class VML {
 }
 
 export class VT {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes");
 
   static readonly _bool: XName = VT.namespace.getName("bool");
   static readonly filetime: XName = VT.namespace.getName("filetime");
@@ -2521,9 +2457,7 @@ export class VT {
 }
 
 export class W {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/wordprocessingml/2006/main");
 
   static readonly abstractNum: XName = W.namespace.getName("abstractNum");
   static readonly abstractNumId: XName = W.namespace.getName("abstractNumId");
@@ -2550,18 +2484,12 @@ export class W {
   static readonly alignment: XName = W.namespace.getName("alignment");
   static readonly alignTablesRowByRow: XName = W.namespace.getName("alignTablesRowByRow");
   static readonly allowPNG: XName = W.namespace.getName("allowPNG");
-  static readonly allowSpaceOfSameStyleInTable: XName = W.namespace.getName(
-    "allowSpaceOfSameStyleInTable",
-  );
+  static readonly allowSpaceOfSameStyleInTable: XName = W.namespace.getName("allowSpaceOfSameStyleInTable");
   static readonly altChunk: XName = W.namespace.getName("altChunk");
   static readonly altChunkPr: XName = W.namespace.getName("altChunkPr");
   static readonly altName: XName = W.namespace.getName("altName");
-  static readonly alwaysMergeEmptyNamespace: XName = W.namespace.getName(
-    "alwaysMergeEmptyNamespace",
-  );
-  static readonly alwaysShowPlaceholderText: XName = W.namespace.getName(
-    "alwaysShowPlaceholderText",
-  );
+  static readonly alwaysMergeEmptyNamespace: XName = W.namespace.getName("alwaysMergeEmptyNamespace");
+  static readonly alwaysShowPlaceholderText: XName = W.namespace.getName("alwaysShowPlaceholderText");
   static readonly anchor: XName = W.namespace.getName("anchor");
   static readonly anchorLock: XName = W.namespace.getName("anchorLock");
   static readonly annotationRef: XName = W.namespace.getName("annotationRef");
@@ -2573,9 +2501,7 @@ export class W {
   static readonly attachedTemplate: XName = W.namespace.getName("attachedTemplate");
   static readonly attr: XName = W.namespace.getName("attr");
   static readonly author: XName = W.namespace.getName("author");
-  static readonly autofitToFirstFixedWidthCell: XName = W.namespace.getName(
-    "autofitToFirstFixedWidthCell",
-  );
+  static readonly autofitToFirstFixedWidthCell: XName = W.namespace.getName("autofitToFirstFixedWidthCell");
   static readonly autoFormatOverride: XName = W.namespace.getName("autoFormatOverride");
   static readonly autoHyphenation: XName = W.namespace.getName("autoHyphenation");
   static readonly autoRedefine: XName = W.namespace.getName("autoRedefine");
@@ -2584,9 +2510,7 @@ export class W {
   static readonly autoSpaceLikeWord95: XName = W.namespace.getName("autoSpaceLikeWord95");
   static readonly b: XName = W.namespace.getName("b");
   static readonly background: XName = W.namespace.getName("background");
-  static readonly balanceSingleByteDoubleByteWidth: XName = W.namespace.getName(
-    "balanceSingleByteDoubleByteWidth",
-  );
+  static readonly balanceSingleByteDoubleByteWidth: XName = W.namespace.getName("balanceSingleByteDoubleByteWidth");
   static readonly bar: XName = W.namespace.getName("bar");
   static readonly basedOn: XName = W.namespace.getName("basedOn");
   static readonly bCs: XName = W.namespace.getName("bCs");
@@ -2610,12 +2534,8 @@ export class W {
   static readonly bookFoldRevPrinting: XName = W.namespace.getName("bookFoldRevPrinting");
   static readonly bookmarkEnd: XName = W.namespace.getName("bookmarkEnd");
   static readonly bookmarkStart: XName = W.namespace.getName("bookmarkStart");
-  static readonly bordersDoNotSurroundFooter: XName = W.namespace.getName(
-    "bordersDoNotSurroundFooter",
-  );
-  static readonly bordersDoNotSurroundHeader: XName = W.namespace.getName(
-    "bordersDoNotSurroundHeader",
-  );
+  static readonly bordersDoNotSurroundFooter: XName = W.namespace.getName("bordersDoNotSurroundFooter");
+  static readonly bordersDoNotSurroundHeader: XName = W.namespace.getName("bordersDoNotSurroundHeader");
   static readonly bottom: XName = W.namespace.getName("bottom");
   static readonly bottomFromText: XName = W.namespace.getName("bottomFromText");
   static readonly br: XName = W.namespace.getName("br");
@@ -2676,9 +2596,7 @@ export class W {
   static readonly cryptProvider: XName = W.namespace.getName("cryptProvider");
   static readonly cryptProviderType: XName = W.namespace.getName("cryptProviderType");
   static readonly cryptProviderTypeExt: XName = W.namespace.getName("cryptProviderTypeExt");
-  static readonly cryptProviderTypeExtSource: XName = W.namespace.getName(
-    "cryptProviderTypeExtSource",
-  );
+  static readonly cryptProviderTypeExtSource: XName = W.namespace.getName("cryptProviderTypeExtSource");
   static readonly cryptSpinCount: XName = W.namespace.getName("cryptSpinCount");
   static readonly cs: XName = W.namespace.getName("cs");
   static readonly csb0: XName = W.namespace.getName("csb0");
@@ -2691,16 +2609,10 @@ export class W {
   static readonly customXmlDelRangeStart: XName = W.namespace.getName("customXmlDelRangeStart");
   static readonly customXmlInsRangeEnd: XName = W.namespace.getName("customXmlInsRangeEnd");
   static readonly customXmlInsRangeStart: XName = W.namespace.getName("customXmlInsRangeStart");
-  static readonly customXmlMoveFromRangeEnd: XName = W.namespace.getName(
-    "customXmlMoveFromRangeEnd",
-  );
-  static readonly customXmlMoveFromRangeStart: XName = W.namespace.getName(
-    "customXmlMoveFromRangeStart",
-  );
+  static readonly customXmlMoveFromRangeEnd: XName = W.namespace.getName("customXmlMoveFromRangeEnd");
+  static readonly customXmlMoveFromRangeStart: XName = W.namespace.getName("customXmlMoveFromRangeStart");
   static readonly customXmlMoveToRangeEnd: XName = W.namespace.getName("customXmlMoveToRangeEnd");
-  static readonly customXmlMoveToRangeStart: XName = W.namespace.getName(
-    "customXmlMoveToRangeStart",
-  );
+  static readonly customXmlMoveToRangeStart: XName = W.namespace.getName("customXmlMoveToRangeStart");
   static readonly customXmlPr: XName = W.namespace.getName("customXmlPr");
   static readonly dataBinding: XName = W.namespace.getName("dataBinding");
   static readonly dataSource: XName = W.namespace.getName("dataSource");
@@ -2729,13 +2641,9 @@ export class W {
   static readonly display: XName = W.namespace.getName("display");
   static readonly displayBackgroundShape: XName = W.namespace.getName("displayBackgroundShape");
   static readonly displayHangulFixedWidth: XName = W.namespace.getName("displayHangulFixedWidth");
-  static readonly displayHorizontalDrawingGridEvery: XName = W.namespace.getName(
-    "displayHorizontalDrawingGridEvery",
-  );
+  static readonly displayHorizontalDrawingGridEvery: XName = W.namespace.getName("displayHorizontalDrawingGridEvery");
   static readonly displayText: XName = W.namespace.getName("displayText");
-  static readonly displayVerticalDrawingGridEvery: XName = W.namespace.getName(
-    "displayVerticalDrawingGridEvery",
-  );
+  static readonly displayVerticalDrawingGridEvery: XName = W.namespace.getName("displayVerticalDrawingGridEvery");
   static readonly distance: XName = W.namespace.getName("distance");
   static readonly div: XName = W.namespace.getName("div");
   static readonly divBdr: XName = W.namespace.getName("divBdr");
@@ -2760,26 +2668,16 @@ export class W {
   static readonly documentType: XName = W.namespace.getName("documentType");
   static readonly docVar: XName = W.namespace.getName("docVar");
   static readonly docVars: XName = W.namespace.getName("docVars");
-  static readonly doNotAutoCompressPictures: XName = W.namespace.getName(
-    "doNotAutoCompressPictures",
-  );
-  static readonly doNotAutofitConstrainedTables: XName = W.namespace.getName(
-    "doNotAutofitConstrainedTables",
-  );
-  static readonly doNotBreakConstrainedForcedTable: XName = W.namespace.getName(
-    "doNotBreakConstrainedForcedTable",
-  );
+  static readonly doNotAutoCompressPictures: XName = W.namespace.getName("doNotAutoCompressPictures");
+  static readonly doNotAutofitConstrainedTables: XName = W.namespace.getName("doNotAutofitConstrainedTables");
+  static readonly doNotBreakConstrainedForcedTable: XName = W.namespace.getName("doNotBreakConstrainedForcedTable");
   static readonly doNotBreakWrappedTables: XName = W.namespace.getName("doNotBreakWrappedTables");
   static readonly doNotDemarcateInvalidXml: XName = W.namespace.getName("doNotDemarcateInvalidXml");
-  static readonly doNotDisplayPageBoundaries: XName = W.namespace.getName(
-    "doNotDisplayPageBoundaries",
-  );
+  static readonly doNotDisplayPageBoundaries: XName = W.namespace.getName("doNotDisplayPageBoundaries");
   static readonly doNotEmbedSmartTags: XName = W.namespace.getName("doNotEmbedSmartTags");
   static readonly doNotExpandShiftReturn: XName = W.namespace.getName("doNotExpandShiftReturn");
   static readonly doNotHyphenateCaps: XName = W.namespace.getName("doNotHyphenateCaps");
-  static readonly doNotIncludeSubdocsInStats: XName = W.namespace.getName(
-    "doNotIncludeSubdocsInStats",
-  );
+  static readonly doNotIncludeSubdocsInStats: XName = W.namespace.getName("doNotIncludeSubdocsInStats");
   static readonly doNotLeaveBackslashAlone: XName = W.namespace.getName("doNotLeaveBackslashAlone");
   static readonly doNotOrganizeInFolder: XName = W.namespace.getName("doNotOrganizeInFolder");
   static readonly doNotRelyOnCSS: XName = W.namespace.getName("doNotRelyOnCSS");
@@ -2788,43 +2686,23 @@ export class W {
   static readonly doNotSnapToGridInCell: XName = W.namespace.getName("doNotSnapToGridInCell");
   static readonly doNotSuppressBlankLines: XName = W.namespace.getName("doNotSuppressBlankLines");
   static readonly doNotSuppressIndentation: XName = W.namespace.getName("doNotSuppressIndentation");
-  static readonly doNotSuppressParagraphBorders: XName = W.namespace.getName(
-    "doNotSuppressParagraphBorders",
-  );
+  static readonly doNotSuppressParagraphBorders: XName = W.namespace.getName("doNotSuppressParagraphBorders");
   static readonly doNotTrackFormatting: XName = W.namespace.getName("doNotTrackFormatting");
   static readonly doNotTrackMoves: XName = W.namespace.getName("doNotTrackMoves");
-  static readonly doNotUseEastAsianBreakRules: XName = W.namespace.getName(
-    "doNotUseEastAsianBreakRules",
-  );
-  static readonly doNotUseHTMLParagraphAutoSpacing: XName = W.namespace.getName(
-    "doNotUseHTMLParagraphAutoSpacing",
-  );
-  static readonly doNotUseIndentAsNumberingTabStop: XName = W.namespace.getName(
-    "doNotUseIndentAsNumberingTabStop",
-  );
+  static readonly doNotUseEastAsianBreakRules: XName = W.namespace.getName("doNotUseEastAsianBreakRules");
+  static readonly doNotUseHTMLParagraphAutoSpacing: XName = W.namespace.getName("doNotUseHTMLParagraphAutoSpacing");
+  static readonly doNotUseIndentAsNumberingTabStop: XName = W.namespace.getName("doNotUseIndentAsNumberingTabStop");
   static readonly doNotUseLongFileNames: XName = W.namespace.getName("doNotUseLongFileNames");
-  static readonly doNotUseMarginsForDrawingGridOrigin: XName = W.namespace.getName(
-    "doNotUseMarginsForDrawingGridOrigin",
-  );
-  static readonly doNotValidateAgainstSchema: XName = W.namespace.getName(
-    "doNotValidateAgainstSchema",
-  );
+  static readonly doNotUseMarginsForDrawingGridOrigin: XName = W.namespace.getName("doNotUseMarginsForDrawingGridOrigin");
+  static readonly doNotValidateAgainstSchema: XName = W.namespace.getName("doNotValidateAgainstSchema");
   static readonly doNotVertAlignCellWithSp: XName = W.namespace.getName("doNotVertAlignCellWithSp");
   static readonly doNotVertAlignInTxbx: XName = W.namespace.getName("doNotVertAlignInTxbx");
   static readonly doNotWrapTextWithPunct: XName = W.namespace.getName("doNotWrapTextWithPunct");
   static readonly drawing: XName = W.namespace.getName("drawing");
-  static readonly drawingGridHorizontalOrigin: XName = W.namespace.getName(
-    "drawingGridHorizontalOrigin",
-  );
-  static readonly drawingGridHorizontalSpacing: XName = W.namespace.getName(
-    "drawingGridHorizontalSpacing",
-  );
-  static readonly drawingGridVerticalOrigin: XName = W.namespace.getName(
-    "drawingGridVerticalOrigin",
-  );
-  static readonly drawingGridVerticalSpacing: XName = W.namespace.getName(
-    "drawingGridVerticalSpacing",
-  );
+  static readonly drawingGridHorizontalOrigin: XName = W.namespace.getName("drawingGridHorizontalOrigin");
+  static readonly drawingGridHorizontalSpacing: XName = W.namespace.getName("drawingGridHorizontalSpacing");
+  static readonly drawingGridVerticalOrigin: XName = W.namespace.getName("drawingGridVerticalOrigin");
+  static readonly drawingGridVerticalSpacing: XName = W.namespace.getName("drawingGridVerticalSpacing");
   static readonly dropCap: XName = W.namespace.getName("dropCap");
   static readonly dropDownList: XName = W.namespace.getName("dropDownList");
   static readonly dstrike: XName = W.namespace.getName("dstrike");
@@ -3104,15 +2982,11 @@ export class W {
   static readonly pPrChange: XName = W.namespace.getName("pPrChange");
   static readonly pPrDefault: XName = W.namespace.getName("pPrDefault");
   static readonly prefixMappings: XName = W.namespace.getName("prefixMappings");
-  static readonly printBodyTextBeforeHeader: XName = W.namespace.getName(
-    "printBodyTextBeforeHeader",
-  );
+  static readonly printBodyTextBeforeHeader: XName = W.namespace.getName("printBodyTextBeforeHeader");
   static readonly printColBlack: XName = W.namespace.getName("printColBlack");
   static readonly printerSettings: XName = W.namespace.getName("printerSettings");
   static readonly printFormsData: XName = W.namespace.getName("printFormsData");
-  static readonly printFractionalCharacterWidth: XName = W.namespace.getName(
-    "printFractionalCharacterWidth",
-  );
+  static readonly printFractionalCharacterWidth: XName = W.namespace.getName("printFractionalCharacterWidth");
   static readonly printPostScriptOverText: XName = W.namespace.getName("printPostScriptOverText");
   static readonly printTwoOnOne: XName = W.namespace.getName("printTwoOnOne");
   static readonly proofErr: XName = W.namespace.getName("proofErr");
@@ -3128,9 +3002,7 @@ export class W {
   static readonly relativeTo: XName = W.namespace.getName("relativeTo");
   static readonly relyOnVML: XName = W.namespace.getName("relyOnVML");
   static readonly removeDateAndTime: XName = W.namespace.getName("removeDateAndTime");
-  static readonly removePersonalInformation: XName = W.namespace.getName(
-    "removePersonalInformation",
-  );
+  static readonly removePersonalInformation: XName = W.namespace.getName("removePersonalInformation");
   static readonly restart: XName = W.namespace.getName("restart");
   static readonly result: XName = W.namespace.getName("result");
   static readonly revisionView: XName = W.namespace.getName("revisionView");
@@ -3174,9 +3046,7 @@ export class W {
   static readonly sdtPr: XName = W.namespace.getName("sdtPr");
   static readonly sectPr: XName = W.namespace.getName("sectPr");
   static readonly sectPrChange: XName = W.namespace.getName("sectPrChange");
-  static readonly selectFldWithFirstOrLastChar: XName = W.namespace.getName(
-    "selectFldWithFirstOrLastChar",
-  );
+  static readonly selectFldWithFirstOrLastChar: XName = W.namespace.getName("selectFldWithFirstOrLastChar");
   static readonly semiHidden: XName = W.namespace.getName("semiHidden");
   static readonly sep: XName = W.namespace.getName("sep");
   static readonly separator: XName = W.namespace.getName("separator");
@@ -3233,9 +3103,7 @@ export class W {
   static readonly suppressBottomSpacing: XName = W.namespace.getName("suppressBottomSpacing");
   static readonly suppressLineNumbers: XName = W.namespace.getName("suppressLineNumbers");
   static readonly suppressOverlap: XName = W.namespace.getName("suppressOverlap");
-  static readonly suppressSpacingAtTopOfPage: XName = W.namespace.getName(
-    "suppressSpacingAtTopOfPage",
-  );
+  static readonly suppressSpacingAtTopOfPage: XName = W.namespace.getName("suppressSpacingAtTopOfPage");
   static readonly suppressSpBfAfterPgBrk: XName = W.namespace.getName("suppressSpBfAfterPgBrk");
   static readonly suppressTopSpacing: XName = W.namespace.getName("suppressTopSpacing");
   static readonly suppressTopSpacingWP: XName = W.namespace.getName("suppressTopSpacingWP");
@@ -3312,9 +3180,7 @@ export class W {
   static readonly trHeight: XName = W.namespace.getName("trHeight");
   static readonly trPr: XName = W.namespace.getName("trPr");
   static readonly trPrChange: XName = W.namespace.getName("trPrChange");
-  static readonly truncateFontHeightsLikeWP6: XName = W.namespace.getName(
-    "truncateFontHeightsLikeWP6",
-  );
+  static readonly truncateFontHeightsLikeWP6: XName = W.namespace.getName("truncateFontHeightsLikeWP6");
   static readonly txbxContent: XName = W.namespace.getName("txbxContent");
   static readonly type: XName = W.namespace.getName("type");
   static readonly types: XName = W.namespace.getName("types");
@@ -3332,19 +3198,13 @@ export class W {
   static readonly usb1: XName = W.namespace.getName("usb1");
   static readonly usb2: XName = W.namespace.getName("usb2");
   static readonly usb3: XName = W.namespace.getName("usb3");
-  static readonly useAltKinsokuLineBreakRules: XName = W.namespace.getName(
-    "useAltKinsokuLineBreakRules",
-  );
+  static readonly useAltKinsokuLineBreakRules: XName = W.namespace.getName("useAltKinsokuLineBreakRules");
   static readonly useAnsiKerningPairs: XName = W.namespace.getName("useAnsiKerningPairs");
   static readonly useFELayout: XName = W.namespace.getName("useFELayout");
   static readonly useNormalStyleForList: XName = W.namespace.getName("useNormalStyleForList");
   static readonly usePrinterMetrics: XName = W.namespace.getName("usePrinterMetrics");
-  static readonly useSingleBorderforContiguousCells: XName = W.namespace.getName(
-    "useSingleBorderforContiguousCells",
-  );
-  static readonly useWord2002TableStyleRules: XName = W.namespace.getName(
-    "useWord2002TableStyleRules",
-  );
+  static readonly useSingleBorderforContiguousCells: XName = W.namespace.getName("useSingleBorderforContiguousCells");
+  static readonly useWord2002TableStyleRules: XName = W.namespace.getName("useWord2002TableStyleRules");
   static readonly useWord97LineBreakRules: XName = W.namespace.getName("useWord97LineBreakRules");
   static readonly useXSLTWhenSaving: XName = W.namespace.getName("useXSLTWhenSaving");
   static readonly val: XName = W.namespace.getName("val");
@@ -3397,9 +3257,7 @@ export class W10 {
 }
 
 export class W14 {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/word/2010/wordml",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/word/2010/wordml");
 
   static readonly algn: XName = W14.namespace.getName("algn");
   static readonly alpha: XName = W14.namespace.getName("alpha");
@@ -3508,8 +3366,7 @@ export class W14 {
 export class W3DIGSIG {
   static readonly namespace: XNamespace = XNamespace.get("http://www.w3.org/2000/09/xmldsig#");
 
-  static readonly CanonicalizationMethod: XName =
-    W3DIGSIG.namespace.getName("CanonicalizationMethod");
+  static readonly CanonicalizationMethod: XName = W3DIGSIG.namespace.getName("CanonicalizationMethod");
   static readonly DigestMethod: XName = W3DIGSIG.namespace.getName("DigestMethod");
   static readonly DigestValue: XName = W3DIGSIG.namespace.getName("DigestValue");
   static readonly Exponent: XName = W3DIGSIG.namespace.getName("Exponent");
@@ -3535,9 +3392,7 @@ export class W3DIGSIG {
 }
 
 export class WP {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing");
 
   static readonly align: XName = WP.namespace.getName("align");
   static readonly anchor: XName = WP.namespace.getName("anchor");
@@ -3561,9 +3416,7 @@ export class WP {
 }
 
 export class WP14 {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing");
 
   static readonly editId: XName = WP14.namespace.getName("editId");
   static readonly pctHeight: XName = WP14.namespace.getName("pctHeight");
@@ -3574,9 +3427,7 @@ export class WP14 {
 }
 
 export class WPS {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/word/2010/wordprocessingShape",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/word/2010/wordprocessingShape");
 
   static readonly altTxbx: XName = WPS.namespace.getName("altTxbx");
   static readonly bodyPr: XName = WPS.namespace.getName("bodyPr");
@@ -3601,9 +3452,7 @@ export class X {
 }
 
 export class XDR {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing");
 
   static readonly absoluteAnchor: XName = XDR.namespace.getName("absoluteAnchor");
   static readonly blipFill: XName = XDR.namespace.getName("blipFill");
@@ -3644,9 +3493,7 @@ export class XDR {
 }
 
 export class XDR14 {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/excel/2010/spreadsheetDrawing",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/excel/2010/spreadsheetDrawing");
 
   static readonly cNvContentPartPr: XName = XDR14.namespace.getName("cNvContentPartPr");
   static readonly cNvPr: XName = XDR14.namespace.getName("cNvPr");
@@ -3656,9 +3503,7 @@ export class XDR14 {
 }
 
 export class XM {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://schemas.microsoft.com/office/excel/2006/main",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/excel/2006/main");
 
   static readonly f: XName = XM.namespace.getName("f");
   static readonly _ref: XName = XM.namespace.getName("ref");
@@ -3666,9 +3511,7 @@ export class XM {
 }
 
 export class XSI {
-  static readonly namespace: XNamespace = XNamespace.get(
-    "http://www.w3.org/2001/XMLSchema-instance",
-  );
+  static readonly namespace: XNamespace = XNamespace.get("http://www.w3.org/2001/XMLSchema-instance");
 
   static readonly type: XName = XSI.namespace.getName("type");
 }

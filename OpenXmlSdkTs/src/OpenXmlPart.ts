@@ -22,13 +22,7 @@ export class OpenXmlPart {
   private partType: PartType;
   private data: unknown; // for now, this type is unknown.  May change later.
 
-  constructor(
-    pkg: OpenXmlPackage,
-    uri: string,
-    contentType: string | null,
-    partType: PartType,
-    data: unknown,
-  ) {
+  constructor(pkg: OpenXmlPackage, uri: string, contentType: string | null, partType: PartType, data: unknown) {
     this.pkg = pkg;
     this.uri = uri;
     this.contentType = contentType;
@@ -93,18 +87,14 @@ export class OpenXmlPart {
       });
   }
 
-  async getRelationshipsByRelationshipType(
-    relationshipType: string,
-  ): Promise<OpenXmlRelationship[]> {
+  async getRelationshipsByRelationshipType(relationshipType: string): Promise<OpenXmlRelationship[]> {
     const rels = await this.getRelationships();
     return rels.filter((r) => r.getType() === relationshipType);
   }
 
   async getPartsByRelationshipType(relationshipType: string): Promise<OpenXmlPart[]> {
     const rels = await this.getRelationshipsByRelationshipType(relationshipType);
-    return rels
-      .map((r) => this.pkg.getPartByUri(r.getTargetFullName()))
-      .filter((p): p is OpenXmlPart => p !== undefined);
+    return rels.map((r) => this.pkg.getPartByUri(r.getTargetFullName())).filter((p): p is OpenXmlPart => p !== undefined);
   }
 
   async getPartByRelationshipType(relationshipType: string): Promise<OpenXmlPart | undefined> {
@@ -112,12 +102,7 @@ export class OpenXmlPart {
     return parts[0];
   }
 
-  async addRelationship(
-    id: string,
-    type: string,
-    target: string,
-    targetMode: string = "Internal",
-  ): Promise<OpenXmlRelationship> {
+  async addRelationship(id: string, type: string, target: string, targetMode: string = "Internal"): Promise<OpenXmlRelationship> {
     return this.pkg.addRelationshipForPart(this, id, type, target, targetMode);
   }
 
@@ -318,17 +303,11 @@ export class OpenXmlPart {
 
   async getRelationshipsByContentType(contentType: string): Promise<OpenXmlRelationship[]> {
     const rels = await this.getRelationships();
-    return rels.filter(
-      (r) =>
-        r.getTargetMode() !== "External" &&
-        this.pkg.getContentType(r.getTargetFullName()) === contentType,
-    );
+    return rels.filter((r) => r.getTargetMode() !== "External" && this.pkg.getContentType(r.getTargetFullName()) === contentType);
   }
 
   async getPartsByContentType(contentType: string): Promise<OpenXmlPart[]> {
     const rels = await this.getRelationshipsByContentType(contentType);
-    return rels
-      .map((r) => this.pkg.getPartByUri(r.getTargetFullName()))
-      .filter((p): p is OpenXmlPart => p !== undefined);
+    return rels.map((r) => this.pkg.getPartByUri(r.getTargetFullName())).filter((p): p is OpenXmlPart => p !== undefined);
   }
 }

@@ -8,116 +8,85 @@
  */
 
 export const RelationshipType = {
-  alternativeFormatImport:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/aFChunk",
+  alternativeFormatImport: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/aFChunk",
   calculationChain: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/calcChain",
   cellMetadata: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sheetMetadata",
   chart: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart",
   chartColorStyle: "http://schemas.microsoft.com/office/2011/relationships/chartColorStyle",
-  chartDrawing:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chartUserShapes",
+  chartDrawing: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chartUserShapes",
   chartsheet: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chartsheet",
   chartStyle: "http://schemas.microsoft.com/office/2011/relationships/chartStyle",
-  commentAuthors:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/commentAuthors",
+  commentAuthors: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/commentAuthors",
   connections: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/connections",
-  coreFileProperties:
-    "http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties",
-  customFileProperties:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties",
+  coreFileProperties: "http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties",
+  customFileProperties: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties",
   customization: "http://schemas.microsoft.com/office/2006/relationships/keyMapCustomizations",
-  customProperty:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/customProperty",
+  customProperty: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/customProperty",
   customXml: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/customXml",
   customXmlMappings: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/xmlMaps",
-  customXmlProperties:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/customXmlProps",
-  diagramColors:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/diagramColors",
+  customXmlProperties: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/customXmlProps",
+  diagramColors: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/diagramColors",
   diagramData: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/diagramData",
-  diagramLayoutDefinition:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/diagramLayout",
+  diagramLayoutDefinition: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/diagramLayout",
   diagramPersistLayout: "http://schemas.microsoft.com/office/2007/relationships/diagramDrawing",
-  diagramStyle:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/diagramQuickStyle",
+  diagramStyle: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/diagramQuickStyle",
   dialogsheet: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/dialogsheet",
-  digitalSignatureOrigin:
-    "http://schemas.openxmlformats.org/package/2006/relationships/digital-signature/origin",
+  digitalSignatureOrigin: "http://schemas.openxmlformats.org/package/2006/relationships/digital-signature/origin",
   documentSettings: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings",
   drawings: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing",
   endnotes: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/endnotes",
   excelAttachedToolbars: "http://schemas.microsoft.com/office/2006/relationships/attachedToolbars",
-  extendedFileProperties:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties",
-  externalWorkbook:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/externalLink",
+  extendedFileProperties: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties",
+  externalWorkbook: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/externalLink",
   font: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/font",
   fontTable: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable",
   footer: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer",
   footnotes: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes",
-  glossaryDocument:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/glossaryDocument",
-  handoutMaster:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/handoutMaster",
+  glossaryDocument: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/glossaryDocument",
+  handoutMaster: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/handoutMaster",
   header: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/header",
   image: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
-  mainDocument:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument",
+  mainDocument: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument",
   notesMaster: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesMaster",
   notesSlide: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide",
-  numberingDefinitions:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering",
+  numberingDefinitions: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering",
   pivotTable: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotTable",
-  pivotTableCacheDefinition:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotCacheDefinition",
-  pivotTableCacheRecords:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotCacheRecords",
-  presentation:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument",
-  presentationProperties:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/presProps",
+  pivotTableCacheDefinition: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotCacheDefinition",
+  pivotTableCacheRecords: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotCacheRecords",
+  presentation: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument",
+  presentationProperties: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/presProps",
   queryTable: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/queryTable",
-  ribbonAndBackstageCustomizations:
-    "http://schemas.microsoft.com/office/2007/relationships/ui/extensibility",
-  sharedStringTable:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings",
-  singleCellTable:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/tableSingleCells",
+  ribbonAndBackstageCustomizations: "http://schemas.microsoft.com/office/2007/relationships/ui/extensibility",
+  sharedStringTable: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings",
+  singleCellTable: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/tableSingleCells",
   slide: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide",
   slideComments: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments",
   slideLayout: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout",
   slideMaster: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster",
-  slideSyncData:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideUpdateInfo",
+  slideSyncData: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideUpdateInfo",
   styles: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles",
   tableDefinition: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/table",
   tableStyles: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/tableStyles",
   timeLine: "http://schemas.microsoft.com/office/2011/relationships/timeline",
   theme: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme",
-  themeOverride:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/themeOverride",
+  themeOverride: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/themeOverride",
   thumbnail: "http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail",
   userDefinedTags: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/tags",
   viewProperties: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/viewProps",
   vmlDrawing: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/vmlDrawing",
-  volatileDependencies:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/volatileDependencies",
+  volatileDependencies: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/volatileDependencies",
   webSettings: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/webSettings",
   wordAttachedToolbars: "http://schemas.microsoft.com/office/2006/relationships/attachedToolbars",
-  wordprocessingComments:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments",
+  wordprocessingComments: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments",
   workbook: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument",
-  workbookRevisionHeader:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/revisionHeaders",
-  workbookRevisionLog:
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/revisionLog",
+  workbookRevisionHeader: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/revisionHeaders",
+  workbookRevisionLog: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/revisionLog",
   workbookStyles: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles",
   workbookUserData: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/usernames",
   worksheet: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet",
   worksheetComments: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments",
   worksheetSortMap: "http://schemas.microsoft.com/office/2006/relationships/wsSortMap",
-  xmlSignature:
-    "http://schemas.openxmlformats.org/package/2006/relationships/digital-signature/signature",
+  xmlSignature: "http://schemas.openxmlformats.org/package/2006/relationships/digital-signature/signature",
 } as const;
 
 export type RelationshipTypeKey = keyof typeof RelationshipType;

@@ -63,9 +63,7 @@ describe("WmlDocument", () => {
     const blob = new Blob([buffer]);
     const doc = await WmlDocument.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
-    const rels = await docPart.getRelationshipsByRelationshipType(
-      RelationshipType.wordprocessingComments,
-    );
+    const rels = await docPart.getRelationshipsByRelationshipType(RelationshipType.wordprocessingComments);
 
     expect(rels).toHaveLength(1);
     expect(rels[0].getTarget()).toBe("comments.xml");
@@ -112,11 +110,7 @@ describe("WmlDocument", () => {
     const blob = new Blob([buffer]);
     const doc = await WmlDocument.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
-    const rel = await docPart.addRelationship(
-      "rId99",
-      RelationshipType.wordprocessingComments,
-      "comments.xml",
-    );
+    const rel = await docPart.addRelationship("rId99", RelationshipType.wordprocessingComments, "comments.xml");
     expect(rel.getId()).toBe("rId99");
     expect(rel.getType()).toBe(RelationshipType.wordprocessingComments);
     expect(rel.getTarget()).toBe("comments.xml");
@@ -202,9 +196,7 @@ describe("WmlDocument", () => {
     const blob = new Blob([buffer]);
     const doc = await WmlDocument.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
-    await expect(docPart.deleteRelationship("rIdDoesNotExist")).rejects.toThrow(
-      "Relationship not found: rIdDoesNotExist",
-    );
+    await expect(docPart.deleteRelationship("rIdDoesNotExist")).rejects.toThrow("Relationship not found: rIdDoesNotExist");
   });
 
   it("getXDocument materializes a lazy blob-opened part", async () => {
@@ -230,17 +222,13 @@ describe("WmlDocument", () => {
   it("getXDocument throws for a non-xml part", async () => {
     const doc = await WmlDocument.open(blankDocumentBase64);
     const imgPart = doc.addPart("/word/media/img.png", "image/png", "binary", "fakedata");
-    await expect(imgPart.getXDocument()).rejects.toThrow(
-      "Cannot get XDocument for non-xml part: /word/media/img.png",
-    );
+    await expect(imgPart.getXDocument()).rejects.toThrow("Cannot get XDocument for non-xml part: /word/media/img.png");
   });
 
   it("putXDocument throws when xDoc is null", async () => {
     const doc = await WmlDocument.open(blankDocumentBase64);
     const docPart = (await doc.mainDocumentPart())!;
-    expect(() => docPart.putXDocument(null as unknown as XDocument)).toThrow(
-      "putXDocument: xDoc must not be null or undefined",
-    );
+    expect(() => docPart.putXDocument(null as unknown as XDocument)).toThrow("putXDocument: xDoc must not be null or undefined");
   });
 
   it("getParts returns related parts of document part from WithComments.docx", async () => {
@@ -390,8 +378,6 @@ describe("WmlDocument", () => {
     const docPart = (await doc.mainDocumentPart())!;
     await docPart.addRelationship("rId99", RelationshipType.wordprocessingComments, "missing.xml");
 
-    await expect(docPart.getParts()).rejects.toThrow(
-      "Part not found for relationship target: /word/missing.xml",
-    );
+    await expect(docPart.getParts()).rejects.toThrow("Part not found for relationship target: /word/missing.xml");
   });
 });

@@ -8,15 +8,7 @@
  */
 
 import { describe, it, expect, vi } from "vitest";
-import {
-  OpenXmlPackage,
-  W,
-  ContentType,
-  RelationshipType,
-  XDocument,
-  XElement,
-  XAttribute,
-} from "OpenXmlSdkTs";
+import { OpenXmlPackage, W, ContentType, RelationshipType, XDocument, XElement, XAttribute } from "OpenXmlSdkTs";
 import { blankDocumentBase64, blankDocumentFlatOpc } from "./TestResources";
 import JSZip from "jszip";
 import * as fs from "fs";
@@ -55,8 +47,7 @@ describe("OpenXmlPackage", () => {
     const expectedParts = [
       {
         uri: "/word/document.xml",
-        contentType:
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
       },
       {
         uri: "/word/theme/theme1.xml",
@@ -72,8 +63,7 @@ describe("OpenXmlPackage", () => {
       },
       {
         uri: "/word/webSettings.xml",
-        contentType:
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml",
       },
       {
         uri: "/docProps/app.xml",
@@ -92,9 +82,7 @@ describe("OpenXmlPackage", () => {
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
-    const actualParts = pkg
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const actualParts = pkg.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
     expect(actualParts).toEqual(expectedParts);
   });
 
@@ -102,8 +90,7 @@ describe("OpenXmlPackage", () => {
     const expectedParts = [
       {
         uri: "/word/document.xml",
-        contentType:
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
       },
       {
         uri: "/word/theme/theme1.xml",
@@ -119,8 +106,7 @@ describe("OpenXmlPackage", () => {
       },
       {
         uri: "/word/webSettings.xml",
-        contentType:
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml",
       },
       {
         uri: "/docProps/app.xml",
@@ -136,9 +122,7 @@ describe("OpenXmlPackage", () => {
       },
     ];
     const pkg = await OpenXmlPackage.open(blankDocumentBase64);
-    const actualParts = pkg
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const actualParts = pkg.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
     expect(actualParts).toEqual(expectedParts);
   });
 
@@ -146,8 +130,7 @@ describe("OpenXmlPackage", () => {
     const expectedParts = [
       {
         uri: "/word/document.xml",
-        contentType:
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
       },
       {
         uri: "/word/theme/theme1.xml",
@@ -163,8 +146,7 @@ describe("OpenXmlPackage", () => {
       },
       {
         uri: "/word/webSettings.xml",
-        contentType:
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml",
       },
       {
         uri: "/word/fontTable.xml",
@@ -180,9 +162,7 @@ describe("OpenXmlPackage", () => {
       },
     ];
     const pkg = await OpenXmlPackage.open(blankDocumentFlatOpc);
-    const actualParts = pkg
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const actualParts = pkg.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
     expect(actualParts).toEqual(expectedParts);
   });
 
@@ -190,8 +170,7 @@ describe("OpenXmlPackage", () => {
     const expectedParts = [
       {
         uri: "/word/document.xml",
-        contentType:
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml",
       },
       {
         uri: "/word/comments.xml",
@@ -211,8 +190,7 @@ describe("OpenXmlPackage", () => {
       },
       {
         uri: "/word/webSettings.xml",
-        contentType:
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml",
       },
       {
         uri: "/docProps/app.xml",
@@ -232,31 +210,24 @@ describe("OpenXmlPackage", () => {
       },
       {
         uri: "/word/commentsExtended.xml",
-        contentType:
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.commentsExtended+xml",
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.commentsExtended+xml",
       },
     ];
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
-    const actualParts = pkg
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const actualParts = pkg.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
     expect(actualParts).toEqual(expectedParts);
   });
 
   it("saves a FlatOPC-opened package back to FlatOPC with the correct parts", async () => {
     const pkg = await OpenXmlPackage.open(blankDocumentFlatOpc);
-    const originalParts = pkg
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const originalParts = pkg.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     const saved = await pkg.saveToFlatOpcAsync();
     const pkg2 = await OpenXmlPackage.open(saved);
-    const roundTrippedParts = pkg2
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const roundTrippedParts = pkg2.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     expect(roundTrippedParts).toEqual(originalParts);
   });
@@ -266,30 +237,22 @@ describe("OpenXmlPackage", () => {
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
-    const originalParts = pkg
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const originalParts = pkg.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     const saved = await pkg.saveToFlatOpcAsync();
     const pkg2 = await OpenXmlPackage.open(saved);
-    const roundTrippedParts = pkg2
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const roundTrippedParts = pkg2.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     expect(roundTrippedParts).toEqual(originalParts);
   });
 
   it("saves a FlatOPC-opened package to base64 and back", async () => {
     const pkg = await OpenXmlPackage.open(blankDocumentFlatOpc);
-    const originalParts = pkg
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const originalParts = pkg.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     const saved = await pkg.saveToBase64Async();
     const pkg2 = await OpenXmlPackage.open(saved);
-    const roundTrippedParts = pkg2
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const roundTrippedParts = pkg2.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     expect(roundTrippedParts).toEqual(originalParts);
   });
@@ -299,15 +262,11 @@ describe("OpenXmlPackage", () => {
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
-    const originalParts = pkg
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const originalParts = pkg.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     const saved = await pkg.saveToBase64Async();
     const pkg2 = await OpenXmlPackage.open(saved);
-    const roundTrippedParts = pkg2
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const roundTrippedParts = pkg2.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     expect(roundTrippedParts).toEqual(originalParts);
   });
@@ -317,15 +276,11 @@ describe("OpenXmlPackage", () => {
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
-    const originalParts = pkg
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const originalParts = pkg.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     const saved = await pkg.saveToBlobAsync();
     const pkg2 = await OpenXmlPackage.open(saved);
-    const roundTrippedParts = pkg2
-      .getParts()
-      .map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
+    const roundTrippedParts = pkg2.getParts().map((p) => ({ uri: p.getUri(), contentType: p.getContentType() }));
 
     expect(roundTrippedParts).toEqual(originalParts);
   });
@@ -435,11 +390,7 @@ describe("OpenXmlPackage", () => {
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
 
-    const rel = await pkg.addRelationship(
-      "rId99",
-      RelationshipType.extendedFileProperties,
-      "docProps/custom.xml",
-    );
+    const rel = await pkg.addRelationship("rId99", RelationshipType.extendedFileProperties, "docProps/custom.xml");
     expect(rel.getId()).toBe("rId99");
     expect(rel.getType()).toBe(RelationshipType.extendedFileProperties);
     expect(rel.getTarget()).toBe("docProps/custom.xml");
@@ -568,9 +519,7 @@ describe("OpenXmlPackage", () => {
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
-    expect(() => pkg.getContentType("/word/doesNotExist.xyz")).toThrow(
-      "Content type not found for part: /word/doesNotExist.xyz",
-    );
+    expect(() => pkg.getContentType("/word/doesNotExist.xyz")).toThrow("Content type not found for part: /word/doesNotExist.xyz");
   });
 
   it("deletes a package-level relationship and verifies it is gone after round-trip", async () => {
@@ -594,9 +543,7 @@ describe("OpenXmlPackage", () => {
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
 
-    await expect(pkg.deleteRelationship("rIdDoesNotExist")).rejects.toThrow(
-      "Relationship not found: rIdDoesNotExist",
-    );
+    await expect(pkg.deleteRelationship("rIdDoesNotExist")).rejects.toThrow("Relationship not found: rIdDoesNotExist");
   });
 
   it("deletes the comments part from a document with comments and round-trips correctly", async () => {

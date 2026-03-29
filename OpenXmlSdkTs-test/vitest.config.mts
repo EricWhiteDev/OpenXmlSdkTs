@@ -1,13 +1,13 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   resolve: {
-    conditions: ['import', 'module', 'default'],
+    conditions: ["import", "module", "default"],
   },
   test: {
     server: {
       deps: {
-        inline: ['ltxmlts', 'sax'],
+        inline: ["ltxmlts", "sax"],
       },
     },
   },
