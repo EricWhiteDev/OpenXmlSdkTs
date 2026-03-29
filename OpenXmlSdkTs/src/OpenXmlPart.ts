@@ -131,64 +131,8 @@ export class OpenXmlPart {
     this.partType = "xml";
   }
 
-  async headerParts(): Promise<OpenXmlPart[]> {
-    return this.getPartsByRelationshipType(RelationshipType.header);
-  }
-
-  async footerParts(): Promise<OpenXmlPart[]> {
-    return this.getPartsByRelationshipType(RelationshipType.footer);
-  }
-
-  async endnotesPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.endnotes);
-  }
-
-  async footnotesPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.footnotes);
-  }
-
-  async wordprocessingCommentsPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.wordprocessingComments);
-  }
-
-  async fontTablePart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.fontTable);
-  }
-
-  async numberingDefinitionsPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.numberingDefinitions);
-  }
-
   async customXmlPropertiesPart(): Promise<OpenXmlPart | undefined> {
     return this.getPartByRelationshipType(RelationshipType.customXmlProperties);
-  }
-
-  async styleDefinitionsPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.styles);
-  }
-
-  async webSettingsPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.webSettings);
-  }
-
-  async documentSettingsPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.documentSettings);
-  }
-
-  async glossaryDocumentPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.glossaryDocument);
-  }
-
-  async calculationChainPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.calculationChain);
-  }
-
-  async cellMetadataPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.cellMetadata);
-  }
-
-  async sharedStringTablePart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.sharedStringTable);
   }
 
   async themePart(): Promise<OpenXmlPart | undefined> {
@@ -199,96 +143,16 @@ export class OpenXmlPart {
     return this.getPartByRelationshipType(RelationshipType.thumbnail);
   }
 
-  async workbookRevisionHeaderPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.workbookRevisionHeader);
-  }
-
-  async workbookStylesPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.workbookStyles);
-  }
-
   async drawingsPart(): Promise<OpenXmlPart | undefined> {
     return this.getPartByRelationshipType(RelationshipType.drawings);
-  }
-
-  async worksheetCommentsPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.worksheetComments);
-  }
-
-  async commentAuthorsPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.commentAuthors);
-  }
-
-  async handoutMasterPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.handoutMaster);
-  }
-
-  async notesMasterPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.notesMaster);
-  }
-
-  async notesSlidePart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.notesSlide);
-  }
-
-  async presentationPropertiesPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.presentationProperties);
-  }
-
-  async tableStylesPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.tableStyles);
-  }
-
-  async userDefinedTagsPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.userDefinedTags);
-  }
-
-  async viewPropertiesPart(): Promise<OpenXmlPart | undefined> {
-    return this.getPartByRelationshipType(RelationshipType.viewProperties);
-  }
-
-  async chartsheetParts(): Promise<OpenXmlPart[]> {
-    return this.getPartsByRelationshipType(RelationshipType.chartsheet);
-  }
-
-  async worksheetParts(): Promise<OpenXmlPart[]> {
-    return this.getPartsByRelationshipType(RelationshipType.worksheet);
   }
 
   async imageParts(): Promise<OpenXmlPart[]> {
     return this.getPartsByRelationshipType(RelationshipType.image);
   }
 
-  async pivotTableParts(): Promise<OpenXmlPart[]> {
-    return this.getPartsByRelationshipType(RelationshipType.pivotTable);
-  }
-
-  async queryTableParts(): Promise<OpenXmlPart[]> {
-    return this.getPartsByRelationshipType(RelationshipType.queryTable);
-  }
-
-  async tableDefinitionParts(): Promise<OpenXmlPart[]> {
-    return this.getPartsByRelationshipType(RelationshipType.tableDefinition);
-  }
-
-  async timeLineParts(): Promise<OpenXmlPart[]> {
-    return this.getPartsByRelationshipType(RelationshipType.timeLine);
-  }
-
   async customXmlParts(): Promise<OpenXmlPart[]> {
     return this.getPartsByRelationshipType(RelationshipType.customXml);
-  }
-
-  async fontParts(): Promise<OpenXmlPart[]> {
-    return this.getPartsByRelationshipType(RelationshipType.font);
-  }
-
-  async slideMasterParts(): Promise<OpenXmlPart[]> {
-    return this.getPartsByRelationshipType(RelationshipType.slideMaster);
-  }
-
-  async slideParts(): Promise<OpenXmlPart[]> {
-    return this.getPartsByRelationshipType(RelationshipType.slide);
   }
 
   async getRelationshipById(rId: string): Promise<OpenXmlRelationship | undefined> {

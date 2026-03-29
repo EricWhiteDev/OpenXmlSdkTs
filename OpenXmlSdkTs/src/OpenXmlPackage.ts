@@ -24,6 +24,10 @@ export class OpenXmlPackage {
   private parts: Map<string, OpenXmlPart> = new Map();
   private ctXDoc!: XDocument; // This is the XDocument for the content types in the package
 
+  protected createPart(pkg: OpenXmlPackage, uri: string, contentType: string | null, partType: PartType, data: unknown): OpenXmlPart {
+    return new OpenXmlPart(pkg, uri, contentType, partType, data);
+  }
+
   getParts(): OpenXmlPart[] {
     return Array.from(this.parts.values()).filter((p) => p.getUri() !== "[Content_Types].xml" && p.getContentType() !== ContentType.relationships);
   }
@@ -33,7 +37,7 @@ export class OpenXmlPackage {
     if (alreadyInCt || this.parts.has(uri)) {
       throw new Error(`Invalid operation: part already exists: ${uri}`);
     }
-    const newPart = new OpenXmlPart(this, uri, contentType, partType, data);
+    const newPart = this.createPart(this, uri, contentType, partType, data);
     this.parts.set(uri, newPart);
     this.ctXDoc.root!.add(new XElement(CT.Override, new XAttribute("PartName", uri), new XAttribute("ContentType", contentType)));
     return newPart;
@@ -235,7 +239,7 @@ export class OpenXmlPackage {
       return existing;
     }
     const relsXDoc = new XDocument(new XElement(PKGREL.Relationships, new XAttribute("xmlns", PKGREL.namespace.namespaceName)));
-    const newPart = new OpenXmlPart(this, relsUri, ContentType.relationships, "xml", relsXDoc);
+    const newPart = this.createPart(this, relsUri, ContentType.relationships, "xml", relsXDoc);
     this.parts.set(relsUri, newPart);
     return newPart;
   }
@@ -405,20 +409,20 @@ export class OpenXmlPackage {
 
       if (partType === "xml") {
         const xmlDataEl = p.element(FLATOPC.xmlData)!;
-        const newPart = new OpenXmlPart(pkg, uri, contentType, "xml", new XDocument(xmlDataEl.elements()[0]));
+        const newPart = pkg.createPart(pkg, uri, contentType, "xml", new XDocument(xmlDataEl.elements()[0]));
         pkg.parts.set(uri, newPart);
         if (contentType !== ContentType.relationships) {
           pkg.ctXDoc.root!.add(new XElement(CT.Override, new XAttribute("PartName", uri), new XAttribute("ContentType", contentType)));
         }
       } else {
         const binaryData = p.element(FLATOPC.binaryData)!.value;
-        const newPart = new OpenXmlPart(pkg, uri, contentType, "binary", binaryData);
+        const newPart = pkg.createPart(pkg, uri, contentType, "binary", binaryData);
         pkg.parts.set(uri, newPart);
         pkg.ctXDoc.root!.add(new XElement(CT.Override, new XAttribute("PartName", uri), new XAttribute("ContentType", contentType)));
       }
     }
 
-    const ctPart = new OpenXmlPart(pkg, "[Content_Types].xml", null, "xml", pkg.ctXDoc);
+    const ctPart = pkg.createPart(pkg, "[Content_Types].xml", null, "xml", pkg.ctXDoc);
     pkg.parts.set("[Content_Types].xml", ctPart);
   }
 
@@ -445,7 +449,7 @@ export class OpenXmlPackage {
       const zipFile = zip.files[f];
       if (!f.endsWith("/") && f !== "[Content_Types].xml") {
         const f2 = "/" + f;
-        const newPart = new OpenXmlPart(pkg, f2, null, null, zipFile);
+        const newPart = pkg.createPart(pkg, f2, null, null, zipFile);
         pkg.parts.set(f2, newPart);
       }
     }

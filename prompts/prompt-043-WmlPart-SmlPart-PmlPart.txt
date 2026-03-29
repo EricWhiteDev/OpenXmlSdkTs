@@ -1,0 +1,58 @@
+The following prompt is only for TypeScript files, and only within the OpenXmlSdkTs project.
+
+Create three new classes that derive from OpenXmlPart class:
+- WmlPart - for processing WordprocessingML files (DOCX)
+- SmlPart - for processing SpreadsheetML files (XLSX)
+- PmlPart - for processing PresentationML files (PPTX)
+
+There are a number of methods in OpenXmlPackage class that are specific to a particular type of document.  For example, the convenience functions need to be moved to their own variety of part.  Not all of them though. If there is a convenience function that is applicable to more than one document type, leave it in OpenXmlPart.
+  headerParts
+  footerParts
+  endnotesPart
+  footnotesPart
+  wordprocessingCommentsPart
+  fontTablePart
+  numberingDefinitionsPart
+  customXmlPropertiesPart
+  styleDefinitionsPart
+  webSettingsPart
+  documentSettingsPart
+  glossaryDocumentPart
+  calculationChainPart
+  cellMetadataPart
+  sharedStringTablePart
+  themePart
+  thumbnailPart
+  workbookRevisionHeaderPart
+  workbookStylesPart
+  drawingsPart
+  worksheetCommentsPart
+  commentAuthorsPart
+  handoutMasterPart
+  notesMasterPart
+  notesSlidePart
+  presentationPropertiesPart
+  tableStylesPart
+  userDefinedTagsPart
+  viewPropertiesPart
+  chartsheetParts
+  worksheetParts
+  imageParts
+  pivotTableParts
+  queryTableParts
+  tableDefinitionParts
+  timeLineParts
+  customXmlParts
+  fontParts
+  slideMasterParts
+  slideParts
+
+Move methods that are associated with only one file type to its appropriate class, i.e. WmlPart, SmlPart, and PmlPart.  Leave methods that are applicable to all file types in OpenXmlPart class.
+
+Adjust the unit tests
+- Move tests that are associated with one file type to their own test module:
+  - WmlPart.test.ts
+  - SmlPart.test.ts
+  - PmlPart.test.ts
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.

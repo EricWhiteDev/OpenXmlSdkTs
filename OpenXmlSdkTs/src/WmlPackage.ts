@@ -9,23 +9,28 @@
 
 import { ContentType } from "./ContentType";
 import { OpenXmlPackage, Base64String, FlatOpcString, DocxBinary } from "./OpenXmlPackage";
-import { OpenXmlPart } from "./OpenXmlPart";
+import { PartType } from "./OpenXmlPart";
+import { WmlPart } from "./WmlPart";
 
 export class WmlPackage extends OpenXmlPackage {
   static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<WmlPackage> {
     return OpenXmlPackage.openInto(new WmlPackage(), document);
   }
 
-  async mainDocumentPart(): Promise<OpenXmlPart | undefined> {
-    return (await this.getPartsByContentType(ContentType.mainDocument))[0];
+  protected createPart(pkg: OpenXmlPackage, uri: string, contentType: string | null, partType: PartType, data: unknown): WmlPart {
+    return new WmlPart(pkg, uri, contentType, partType, data);
   }
 
-  async contentParts(): Promise<OpenXmlPart[]> {
+  async mainDocumentPart(): Promise<WmlPart | undefined> {
+    return (await this.getPartsByContentType(ContentType.mainDocument))[0] as WmlPart | undefined;
+  }
+
+  async contentParts(): Promise<WmlPart[]> {
     const main = await this.mainDocumentPart();
     if (!main) {
       return [];
     }
-    const parts: OpenXmlPart[] = [main];
+    const parts: WmlPart[] = [main];
     parts.push(...(await main.headerParts()));
     parts.push(...(await main.footerParts()));
     const endnotes = await main.endnotesPart();
