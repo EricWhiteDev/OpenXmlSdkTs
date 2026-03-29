@@ -1,0 +1,34 @@
+In OpenXmlPart.test.ts there are some tests that need to be altered, and to be moved:
+- For the test with description "gets relationships for the document part from WithComments.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "gets part-level relationships by type from WithComments.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "gets part by relationship type from part level in WithComments.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "returns undefined from getPartByRelationshipType when no match exists", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "gets parts by relationship type from part level in WithComments.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "adds a part-level relationship and round-trips correctly", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "gets a part-level relationship by id from WithComments.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "gets a part-level part by id from WithComments.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "gets part-level relationships by content type from WithComments.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "gets part-level parts by content type from WithComments.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "deletes a part-level relationship and verifies it is gone after round-trip", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "throws when deleting a part-level relationship that does not exist", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "getXDocument materializes a lazy blob-opened part", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "getXDocument returns the XDocument directly for a FlatOPC-opened part", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "getXDocument throws for a non-xml part", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "putXDocument throws when xDoc is null", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "getParts returns related parts of document part from WithComments.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "wordprocessingCommentsPart returns comments part from WithComments.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "styleDefinitionsPart returns styles part from TemplateDocument.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "documentSettingsPart returns settings part from TemplateDocument.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "fontTablePart returns fontTable part from TemplateDocument.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "webSettingsPart returns webSettings part from TemplateDocument.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "themePart returns theme part from TemplateDocument.docx", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "calculationChainPart returns undefined on a Word document", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- Make a test for calculationChainPart, alter to use SmlDocument.  Put in SmlDocument.test.ts
+- For the test with description "sharedStringTablePart returns undefined on a Word document", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- Make a test for sharedStringTablePart, alter to use SmlDocument.  Put in SmlDocument.test.ts
+- For the test with description "worksheetParts returns empty array on a Word document", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- Make a test for worksheetParts, alter to use SmlDocument.  Put in SmlDocument.test.ts
+- For the test with description "slideParts returns empty array on a Word document", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- Make a test for slideParts, alter to use PmlDocument.  Put in PmlDocument.test.ts
+- For the test with description "imageParts returns empty array on a Word document with no images", alter to use WmlDocument.  Move to WmlDocument.test.ts
+- For the test with description "getParts throws for a dangling internal relationship", alter to use WmlDocument.  Move to WmlDocument.test.ts
