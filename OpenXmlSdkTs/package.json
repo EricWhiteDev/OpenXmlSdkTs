@@ -1,5 +1,5 @@
 {
-  "name": "OpenXmlSdkTs",
+  "name": "openxmlsdkts",
   "version": "1.0.0",
   "description": "Open XML SDK for TypeScript — read, write, and manipulate Office Open XML documents (docx, xlsx, pptx)",
   "main": "dist/index.js",
