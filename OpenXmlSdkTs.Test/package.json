@@ -1,11 +1,11 @@
 {
-  "name": "OpenXmlSdkTs-test",
+  "name": "OpenXmlSdkTs.Test",
   "private": true,
   "scripts": {
     "test": "vitest run"
   },
   "dependencies": {
-    "OpenXmlSdkTs": "*"
+    "openxmlsdkts": "*"
   },
   "devDependencies": {
     "jszip": "^3.10.1",
