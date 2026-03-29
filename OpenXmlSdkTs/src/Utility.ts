@@ -9,7 +9,7 @@
 
 import type { OpenXmlPart } from "./OpenXmlPart";
 
-export class OpenXmlUtility {
+export class Utility {
   static getRelsPartUri(part: OpenXmlPart): string {
     const uri = part.getUri();
     const lastSlash = uri.lastIndexOf("/");
@@ -17,7 +17,7 @@ export class OpenXmlUtility {
   }
 
   static getRelsPart(part: OpenXmlPart): OpenXmlPart | undefined {
-    return part.getPkg().getPartByUri(OpenXmlUtility.getRelsPartUri(part));
+    return part.getPkg().getPartByUri(Utility.getRelsPartUri(part));
   }
 
   static isBase64(str: unknown): boolean {

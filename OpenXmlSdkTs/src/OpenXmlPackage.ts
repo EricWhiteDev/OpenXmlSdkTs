@@ -11,7 +11,7 @@ import { XDocument, XDeclaration, XElement, XAttribute, XNamespace, XProcessingI
 import JSZip from "jszip";
 import { OpenXmlPart, PartType } from "./OpenXmlPart";
 import { OpenXmlRelationship } from "./OpenXmlRelationship";
-import { OpenXmlUtility } from "./OpenXmlUtility";
+import { Utility } from "./Utility";
 import { CT, FLATOPC, PKGREL } from "./OpenXmlNamespacesAndNames";
 import { ContentType } from "./ContentType";
 import { RelationshipType } from "./RelationshipType";
@@ -136,7 +136,7 @@ export class OpenXmlPackage {
   }
 
   async getRelationshipsForPart(part: OpenXmlPart): Promise<OpenXmlRelationship[]> {
-    const relsPart = OpenXmlUtility.getRelsPart(part);
+    const relsPart = Utility.getRelsPart(part);
     if (!relsPart) {
       return [];
     }
@@ -149,7 +149,7 @@ export class OpenXmlPackage {
   }
 
   async addRelationshipForPart(part: OpenXmlPart, id: string, type: string, target: string, targetMode: string = "Internal"): Promise<OpenXmlRelationship> {
-    const relsUri = OpenXmlUtility.getRelsPartUri(part);
+    const relsUri = Utility.getRelsPartUri(part);
     const relsPart = this.getOrCreateRelsPartForUri(relsUri);
     return OpenXmlPackage.addRelationshipToRelPart(this, part, relsPart, id, type, target, targetMode);
   }
@@ -163,7 +163,7 @@ export class OpenXmlPackage {
   }
 
   async deleteRelationshipForPart(part: OpenXmlPart, id: string): Promise<boolean> {
-    const relsPart = OpenXmlUtility.getRelsPart(part);
+    const relsPart = Utility.getRelsPart(part);
     if (!relsPart) {
       throw new Error(`Relationship not found: ${id}`);
     }
@@ -341,7 +341,7 @@ export class OpenXmlPackage {
 
   protected static async openInto<T extends OpenXmlPackage>(pkg: T, document: Base64String | FlatOpcString | DocxBinary): Promise<T> {
     if (typeof document === "string") {
-      if (OpenXmlUtility.isBase64(document)) {
+      if (Utility.isBase64(document)) {
         await OpenXmlPackage.openFromBase64Internal(pkg, document);
       } else {
         await OpenXmlPackage.openFromFlatOpcInternal(pkg, document);

@@ -13,7 +13,7 @@ export { SmlDocument } from "./SmlDocument";
 export { PmlDocument } from "./PmlDocument";
 export { OpenXmlRelationship } from "./OpenXmlRelationship";
 export type { Base64String, FlatOpcString, DocxBinary } from "./OpenXmlPackage";
-export { OpenXmlUtility } from "./OpenXmlUtility";
+export { Utility } from "./Utility";
 export { OpenXmlPart } from "./OpenXmlPart";
 export type { PartType } from "./OpenXmlPart";
 export { ContentType } from "./ContentType";

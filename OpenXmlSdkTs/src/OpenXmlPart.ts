@@ -10,7 +10,7 @@
 import { XDocument } from "ltxmlts";
 import { OpenXmlPackage } from "./OpenXmlPackage";
 import { OpenXmlRelationship } from "./OpenXmlRelationship";
-import { OpenXmlUtility } from "./OpenXmlUtility";
+import { Utility } from "./Utility";
 import { RelationshipType } from "./RelationshipType";
 
 export type PartType = "binary" | "base64" | "xml" | null;
@@ -63,11 +63,11 @@ export class OpenXmlPart {
   }
 
   getRelsPartUri(): string {
-    return OpenXmlUtility.getRelsPartUri(this);
+    return Utility.getRelsPartUri(this);
   }
 
   getRelsPart(): OpenXmlPart | undefined {
-    return OpenXmlUtility.getRelsPart(this);
+    return Utility.getRelsPart(this);
   }
 
   async getRelationships(): Promise<OpenXmlRelationship[]> {
