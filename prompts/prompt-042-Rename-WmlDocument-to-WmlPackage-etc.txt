@@ -1,0 +1,11 @@
+Rename the WmlDocument class to WmlPackage
+Rename the SmlDocument class to SmlPackage
+Rename the PmlDocument class to PmlPackage
+
+Rename the source file names.
+
+Rename the WmlDocument.test.ts file to WmlPackage.test.ts
+Rename the SmlDocument.test.ts file to SmlPackage.test.ts
+Rename the PmlDocument.test.ts file to PmlPackage.test.ts
+
+Adjust the various unit tests.

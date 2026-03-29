@@ -8,9 +8,9 @@
  */
 
 export { OpenXmlPackage } from "./OpenXmlPackage";
-export { WmlDocument } from "./WmlDocument";
-export { SmlDocument } from "./SmlDocument";
-export { PmlDocument } from "./PmlDocument";
+export { WmlPackage } from "./WmlPackage";
+export { SmlPackage } from "./SmlPackage";
+export { PmlPackage } from "./PmlPackage";
 export { OpenXmlRelationship } from "./OpenXmlRelationship";
 export type { Base64String, FlatOpcString, DocxBinary } from "./OpenXmlPackage";
 export { Utility } from "./Utility";

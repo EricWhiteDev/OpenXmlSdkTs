@@ -8,23 +8,23 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { SmlDocument } from "OpenXmlSdkTs";
+import { SmlPackage } from "OpenXmlSdkTs";
 import * as fs from "fs";
 import * as path from "path";
 
-describe("SmlDocument", () => {
+describe("SmlPackage", () => {
   it("does not throw when opening an xlsx blob", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    await expect(SmlDocument.open(blob)).resolves.toBeDefined();
+    await expect(SmlPackage.open(blob)).resolves.toBeDefined();
   });
 
   it("workbookPart returns the workbook part", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await SmlDocument.open(blob);
+    const doc = await SmlPackage.open(blob);
     const part = await doc.workbookPart();
     expect(part).toBeDefined();
     expect(part!.getUri()).toBe("/xl/workbook.xml");
@@ -34,7 +34,7 @@ describe("SmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await SmlDocument.open(blob);
+    const doc = await SmlPackage.open(blob);
     const part = await doc.coreFilePropertiesPart();
     expect(part).toBeDefined();
     expect(part!.getUri()).toBe("/docProps/core.xml");
@@ -44,7 +44,7 @@ describe("SmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await SmlDocument.open(blob);
+    const doc = await SmlPackage.open(blob);
     const part = await doc.extendedFilePropertiesPart();
     expect(part).toBeDefined();
     expect(part!.getUri()).toBe("/docProps/app.xml");
@@ -54,7 +54,7 @@ describe("SmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await SmlDocument.open(blob);
+    const doc = await SmlPackage.open(blob);
     const wb = await doc.workbookPart();
     const sheets = await wb!.worksheetParts();
     expect(sheets.length).toBeGreaterThanOrEqual(2);
@@ -66,7 +66,7 @@ describe("SmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await SmlDocument.open(blob);
+    const doc = await SmlPackage.open(blob);
     const wb = await doc.workbookPart();
     const part = await wb!.workbookStylesPart();
     expect(part).toBeDefined();
@@ -77,7 +77,7 @@ describe("SmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await SmlDocument.open(blob);
+    const doc = await SmlPackage.open(blob);
     const wb = await doc.workbookPart();
     const part = await wb!.sharedStringTablePart();
     expect(part).toBeDefined();
@@ -88,7 +88,7 @@ describe("SmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await SmlDocument.open(blob);
+    const doc = await SmlPackage.open(blob);
     const wb = await doc.workbookPart();
     const part = await wb!.calculationChainPart();
     expect(part).toBeDefined();

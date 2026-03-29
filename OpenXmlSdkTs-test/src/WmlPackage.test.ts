@@ -8,24 +8,24 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { WmlDocument, W, ContentType, RelationshipType, XDocument } from "OpenXmlSdkTs";
+import { WmlPackage, W, ContentType, RelationshipType, XDocument } from "OpenXmlSdkTs";
 import { blankDocumentBase64, blankDocumentFlatOpc } from "./TestResources";
 import * as fs from "fs";
 import * as path from "path";
 
-describe("WmlDocument", () => {
+describe("WmlPackage", () => {
   it("does not throw when opening a docx blob", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    await expect(WmlDocument.open(blob)).resolves.toBeDefined();
+    await expect(WmlPackage.open(blob)).resolves.toBeDefined();
   });
 
   it("mainDocumentPart returns the main document part", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const part = await doc.mainDocumentPart();
     expect(part).toBeDefined();
     expect(part!.getUri()).toBe("/word/document.xml");
@@ -35,7 +35,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithPageHeaderAndPageFooter.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const parts = await doc.contentParts();
     const uris = parts.map((p) => p.getUri());
     expect(uris).toContain("/word/document.xml");
@@ -48,7 +48,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const rels = await docPart.getRelationships();
 
@@ -61,7 +61,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const rels = await docPart.getRelationshipsByRelationshipType(RelationshipType.wordprocessingComments);
 
@@ -73,7 +73,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const part = await docPart.getPartByRelationshipType(RelationshipType.wordprocessingComments);
 
@@ -85,7 +85,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const part = await docPart.getPartByRelationshipType(RelationshipType.wordprocessingComments);
 
@@ -96,7 +96,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const parts = await docPart.getPartsByRelationshipType(RelationshipType.wordprocessingComments);
 
@@ -108,7 +108,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const rel = await docPart.addRelationship("rId99", RelationshipType.wordprocessingComments, "comments.xml");
     expect(rel.getId()).toBe("rId99");
@@ -117,7 +117,7 @@ describe("WmlDocument", () => {
     expect(rel.getTargetMode()).toBeNull();
 
     const saved = await doc.saveToBase64Async();
-    const doc2 = await WmlDocument.open(saved);
+    const doc2 = await WmlPackage.open(saved);
     const docPart2 = (await doc2.mainDocumentPart())!;
     const roundTrippedRel = await docPart2.getRelationshipById("rId99");
     expect(roundTrippedRel).toBeDefined();
@@ -129,7 +129,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const rel = await docPart.getRelationshipById("rId4");
 
@@ -142,7 +142,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const part = await docPart.getPartById("rId4");
 
@@ -154,7 +154,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const rels = await docPart.getRelationshipsByContentType(ContentType.wordprocessingComments);
 
@@ -166,7 +166,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const parts = await docPart.getPartsByContentType(ContentType.wordprocessingComments);
 
@@ -178,14 +178,14 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const result = await docPart.deleteRelationship("rId4");
     expect(result).toBe(true);
     expect(await docPart.getRelationshipById("rId4")).toBeUndefined();
 
     const saved = await doc.saveToBase64Async();
-    const doc2 = await WmlDocument.open(saved);
+    const doc2 = await WmlPackage.open(saved);
     const docPart2 = (await doc2.mainDocumentPart())!;
     expect(await docPart2.getRelationshipById("rId4")).toBeUndefined();
   });
@@ -194,7 +194,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     await expect(docPart.deleteRelationship("rIdDoesNotExist")).rejects.toThrow("Relationship not found: rIdDoesNotExist");
   });
@@ -203,7 +203,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const xDoc = await docPart.getXDocument();
     expect(xDoc).toBeDefined();
@@ -212,7 +212,7 @@ describe("WmlDocument", () => {
   });
 
   it("getXDocument returns the XDocument directly for a FlatOPC-opened part", async () => {
-    const doc = await WmlDocument.open(blankDocumentFlatOpc);
+    const doc = await WmlPackage.open(blankDocumentFlatOpc);
     const docPart = (await doc.mainDocumentPart())!;
     const xDoc = await docPart.getXDocument();
     expect(xDoc).toBeDefined();
@@ -220,13 +220,13 @@ describe("WmlDocument", () => {
   });
 
   it("getXDocument throws for a non-xml part", async () => {
-    const doc = await WmlDocument.open(blankDocumentBase64);
+    const doc = await WmlPackage.open(blankDocumentBase64);
     const imgPart = doc.addPart("/word/media/img.png", "image/png", "binary", "fakedata");
     await expect(imgPart.getXDocument()).rejects.toThrow("Cannot get XDocument for non-xml part: /word/media/img.png");
   });
 
   it("putXDocument throws when xDoc is null", async () => {
-    const doc = await WmlDocument.open(blankDocumentBase64);
+    const doc = await WmlPackage.open(blankDocumentBase64);
     const docPart = (await doc.mainDocumentPart())!;
     expect(() => docPart.putXDocument(null as unknown as XDocument)).toThrow("putXDocument: xDoc must not be null or undefined");
   });
@@ -235,7 +235,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const parts = await docPart.getParts();
 
@@ -247,7 +247,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const part = await docPart.wordprocessingCommentsPart();
 
@@ -259,7 +259,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const part = await docPart.styleDefinitionsPart();
 
@@ -271,7 +271,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const part = await docPart.documentSettingsPart();
 
@@ -283,7 +283,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const part = await docPart.fontTablePart();
 
@@ -295,7 +295,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const part = await docPart.webSettingsPart();
 
@@ -307,7 +307,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const part = await docPart.themePart();
 
@@ -319,7 +319,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const part = await docPart.calculationChainPart();
 
@@ -330,7 +330,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const part = await docPart.sharedStringTablePart();
 
@@ -341,7 +341,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const parts = await docPart.worksheetParts();
 
@@ -352,7 +352,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const parts = await docPart.slideParts();
 
@@ -363,7 +363,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     const parts = await docPart.imageParts();
 
@@ -374,7 +374,7 @@ describe("WmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await WmlDocument.open(blob);
+    const doc = await WmlPackage.open(blob);
     const docPart = (await doc.mainDocumentPart())!;
     await docPart.addRelationship("rId99", RelationshipType.wordprocessingComments, "missing.xml");
 

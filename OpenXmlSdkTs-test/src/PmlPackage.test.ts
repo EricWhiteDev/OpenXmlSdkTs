@@ -8,23 +8,23 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { PmlDocument } from "OpenXmlSdkTs";
+import { PmlPackage } from "OpenXmlSdkTs";
 import * as fs from "fs";
 import * as path from "path";
 
-describe("PmlDocument", () => {
+describe("PmlPackage", () => {
   it("does not throw when opening a pptx blob", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    await expect(PmlDocument.open(blob)).resolves.toBeDefined();
+    await expect(PmlPackage.open(blob)).resolves.toBeDefined();
   });
 
   it("presentationPart returns the presentation part", async () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await PmlDocument.open(blob);
+    const doc = await PmlPackage.open(blob);
     const part = await doc.presentationPart();
     expect(part).toBeDefined();
     expect(part!.getUri()).toBe("/ppt/presentation.xml");
@@ -34,7 +34,7 @@ describe("PmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await PmlDocument.open(blob);
+    const doc = await PmlPackage.open(blob);
     const part = await doc.coreFilePropertiesPart();
     expect(part).toBeDefined();
     expect(part!.getUri()).toBe("/docProps/core.xml");
@@ -44,7 +44,7 @@ describe("PmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await PmlDocument.open(blob);
+    const doc = await PmlPackage.open(blob);
     const part = await doc.extendedFilePropertiesPart();
     expect(part).toBeDefined();
     expect(part!.getUri()).toBe("/docProps/app.xml");
@@ -54,7 +54,7 @@ describe("PmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await PmlDocument.open(blob);
+    const doc = await PmlPackage.open(blob);
     const pres = await doc.presentationPart();
     const slides = await pres!.slideParts();
     expect(slides.length).toBe(2);
@@ -66,7 +66,7 @@ describe("PmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await PmlDocument.open(blob);
+    const doc = await PmlPackage.open(blob);
     const pres = await doc.presentationPart();
     const masters = await pres!.slideMasterParts();
     expect(masters.length).toBeGreaterThanOrEqual(1);
@@ -77,7 +77,7 @@ describe("PmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await PmlDocument.open(blob);
+    const doc = await PmlPackage.open(blob);
     const pres = await doc.presentationPart();
     const part = await pres!.viewPropertiesPart();
     expect(part).toBeDefined();
@@ -88,7 +88,7 @@ describe("PmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await PmlDocument.open(blob);
+    const doc = await PmlPackage.open(blob);
     const pres = await doc.presentationPart();
     const part = await pres!.presentationPropertiesPart();
     expect(part).toBeDefined();
@@ -99,7 +99,7 @@ describe("PmlDocument", () => {
     const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await PmlDocument.open(blob);
+    const doc = await PmlPackage.open(blob);
     const pres = await doc.presentationPart();
     const part = await pres!.tableStylesPart();
     expect(part).toBeDefined();

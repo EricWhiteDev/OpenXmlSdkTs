@@ -11,9 +11,9 @@ import { ContentType } from "./ContentType";
 import { OpenXmlPackage, Base64String, FlatOpcString, DocxBinary } from "./OpenXmlPackage";
 import { OpenXmlPart } from "./OpenXmlPart";
 
-export class WmlDocument extends OpenXmlPackage {
-  static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<WmlDocument> {
-    return OpenXmlPackage.openInto(new WmlDocument(), document);
+export class WmlPackage extends OpenXmlPackage {
+  static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<WmlPackage> {
+    return OpenXmlPackage.openInto(new WmlPackage(), document);
   }
 
   async mainDocumentPart(): Promise<OpenXmlPart | undefined> {
