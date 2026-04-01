@@ -5,7 +5,7 @@ A TypeScript library for reading, writing, and manipulating Office Open XML docu
 ## Why OpenXmlSdkTs?
 
 - **Full document format support** — Work with Word, Excel, and PowerPoint files at the XML level with complete control over the markup.
-- **Three I/O modes** — Open and save documents as binary blobs (via JSZip), Flat OPC XML strings (ideal for Office JavaScript/TypeScript add-ins), or Base64 strings.
+- **Three I/O modes** — Open and save documents as binary blobs (via JSZip), Flat OPC XML strings (the required format when building Office JavaScript/TypeScript add-ins), or Base64 strings.
 - **Friendly content & relationship types** — All Open XML content types and relationship types are referenced using readable labels (e.g. `RelationshipType.styles`, `ContentType.mainDocument`) instead of long, error-prone URIs.
 - **Pre-initialized namespace, element, and attribute names** — Static classes (`W`, `S`, `P`, `A`, etc.) provide pre-initialized `XName` and `XNamespace` objects for every element and attribute in the Open XML specification. Because `XNamespace` and `XName` objects are *atomized* (two objects with the same namespace and local name are the same object), this gives excellent performance when querying and modifying markup.
 - **Built on LINQ to XML for TypeScript** — Powered by [`ltxmlts`](https://www.npmjs.com/package/ltxmlts), a faithful TypeScript port of .NET's LINQ to XML. Query and transform XML with `elements()`, `descendants()`, `attributes()`, and the rest of the LINQ to XML API you already know.
@@ -116,7 +116,7 @@ const blob = await doc.saveToBlobAsync();
 
 ### Flat OPC (XML String)
 
-A single-file XML representation of the entire package — particularly useful in **Office JavaScript/TypeScript add-in** applications where you can't work with binary data directly.
+A single-file XML representation of the entire package. This is the format you must work with when building **Office JavaScript/TypeScript add-in** applications.
 
 ```typescript
 // Open
@@ -276,7 +276,7 @@ Because `XName` and `XNamespace` objects are atomized, equality checks are ident
 
 ## Use with Office Add-ins
 
-The Flat OPC format makes OpenXmlSdkTs especially well-suited for **Word, Excel, and PowerPoint JavaScript/TypeScript add-ins**, where binary file access is limited:
+Flat OPC is the document format you must use when building **Word, Excel, and PowerPoint JavaScript/TypeScript add-ins**:
 
 ```typescript
 // In an Office Add-in — get the document as Flat OPC via the Office.js API

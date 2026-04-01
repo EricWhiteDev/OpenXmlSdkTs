@@ -1,0 +1,3 @@
+Right now, the readme indicates that we use flatOpc because it is difficult to work with binary files in JavaScript/TypeScript Word add-ins.  This isn't quite right.
+
+Instead, the reason is that flatOpc is the file format that one must work with in JavaScript/TypeScript Word add-ins. There is no other file format that we use.  Revise the places in the README where it gives the reason for the existence for flatOpc - say that this is the file format that we must work with when building JavaScript/TypeScript Word add-ins.
