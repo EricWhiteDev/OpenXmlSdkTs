@@ -2,7 +2,8 @@
   "name": "openxmlsdkts-workspace",
   "workspaces": [
     "OpenXmlSdkTs",
-    "OpenXmlSdkTs.Test"
+    "OpenXmlSdkTs.Test",
+    "Examples"
   ],
   "scripts": {
     "build": "npm run build -w OpenXmlSdkTs",

@@ -1,0 +1,21 @@
+We need some example programs for the OpenXmlSdkTs
+
+Make a sibling directory to OpenXmlSdkTs.Test, call it Examples
+
+In the Examples directory create a few example nodejs programs that demonstrate some basic usage of the OpenXmlSdkTs.  Each example will be in a sub-directory of the Examples directory.  Make a good name for each example.  Each example will use files from the test-files directory.  Each example should create an example-output directory that is a child of the specific example directory.  The example should copy the source document from the test-files directory into the example-output directory, and then operate on the copied document, and then save it into the example-output directory.
+
+Add the example-output directory into the .gitignore so that the example-output directory is not included in the git repo.
+
+While the example creates the example-output directory, it should not remove it after running the example, since we want the end user to be able to look at the results of running the example.  However, when writing to the example-output directory, write with the necessary permissions so that the example can be run more than once, if, say, the end user changes the example and wants to see the results of their code modifications.
+
+In each example, generate a README.md that tells about the example, and gives instructions on running the example using nodejs.
+
+After generating code for each example, run the example, and make sure that it runs properly.  Check the output.
+
+Some examples to create:
+- Load, modify, and save a binary DOCX file.
+- Load, modify, and save a flatOpc file.
+- Load a binary DOCX file, and save as base64 text.  Then load the base64 text, and save as DOCX.  Finally, open the DOCX and make sure that we can access the mainDocument part.
+- Load a binary DOCX file, and save as flatOpc XML.  Then load the flatOpc XML, and save as DOCX.  Finally, open the DOCX and make sure that we can access the mainDocument part.
+
+Make sure that examples show code that navigates to the mainDocument part, then to other parts like the comments part.  Make sure that examples show using the pre-atomized namespaces and names.  Call this out in comments, and in the README.md for that example.

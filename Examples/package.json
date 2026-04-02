@@ -1,0 +1,12 @@
+{
+  "name": "openxmlsdkts-examples",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "openxmlsdkts": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "tsx": "^4.0.0"
+  }
+}
