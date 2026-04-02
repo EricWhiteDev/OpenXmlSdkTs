@@ -4,14 +4,14 @@ A TypeScript library for reading, writing, and manipulating Office Open XML docu
 
 ## Why OpenXmlSdkTs?
 
-- **Full document format support** — Work with Word, Excel, and PowerPoint files at the XML level with complete control over the markup.
+- **Full document format support** — Work with Word, Excel, and PowerPoint files at the XML level.
 - **Three I/O modes** — Open and save documents as binary blobs (via JSZip), Flat OPC XML strings (the required format when building Office JavaScript/TypeScript add-ins), or Base64 strings.
 - **Friendly content & relationship types** — All Open XML content types and relationship types are referenced using readable labels (e.g. `RelationshipType.styles`, `ContentType.mainDocument`) instead of long, error-prone URIs.
 - **Pre-initialized namespace, element, and attribute names** — Static classes (`W`, `S`, `P`, `A`, etc.) provide pre-initialized `XName` and `XNamespace` objects for every element and attribute in the Open XML specification. Because `XNamespace` and `XName` objects are *atomized* (two objects with the same namespace and local name are the same object), this gives excellent performance when querying and modifying markup.
 - **Built on LINQ to XML for TypeScript** — Powered by [`ltxmlts`](https://www.npmjs.com/package/ltxmlts), a faithful TypeScript port of .NET's LINQ to XML. Query and transform XML with `elements()`, `descendants()`, `attributes()`, and the rest of the LINQ to XML API you already know.
 - **Intuitive part navigation** — Navigate from the package to the main document part, then from part to part using typed methods that mirror the .NET SDK: `mainDocumentPart()`, `styleDefinitionsPart()`, `worksheetParts()`, `slideParts()`, and many more.
 - **Lightweight** — Only two runtime dependencies: `jszip` and `ltxmlts`.
-- **MIT licensed** — Free for commercial and open-source use.
+- **MIT licensed** — Free for commercial and open-source use.  This is the same license as the C#/dotnet Open-Xml-Sdk.
 
 ## Installation
 
@@ -68,7 +68,7 @@ async function capitalizeFirstWord() {
 
   const xDoc = await mainPart.getXDocument();
 
-  // 3. Find the first run of text and capitalize it
+  // 3. Find the first word of the first run of text and capitalize it
   const body = xDoc.root!.element(W.body);
   if (body) {
     const firstParagraph = body.element(W.p);
@@ -151,7 +151,7 @@ const doc = await WmlPackage.open(blob);
 
 // Package-level
 const mainPart = await doc.mainDocumentPart();
-const contentParts = await doc.contentParts(); // main + headers + footers + notes
+const contentParts = await doc.contentParts(); // main + headers + footers + footnotes + endnotes
 
 // Part-level navigation
 const styles = await mainPart!.styleDefinitionsPart();
@@ -227,7 +227,7 @@ mainPart!.putXDocument(xDoc);
 
 ## Content Types and Relationship Types
 
-Instead of memorizing long URIs, use the `ContentType` and `RelationshipType` static lookups.
+Instead of using long URIs, use the `ContentType` and `RelationshipType` static lookups.
 
 ```typescript
 import { ContentType, RelationshipType } from "openxmlsdkts";
