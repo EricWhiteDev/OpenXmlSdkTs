@@ -1,0 +1,17 @@
+Write documentation for the public classes and public members of OpenXmlSdkTs.
+
+Make this documenation similar as for LtXmlTs.  You can find the LtXmlTs docs at ../LtXmlTs/docs/*.docx
+
+Write an overview of the library, including main use cases, a summary of how to use it, a survey of the classes, and other topics that you deem important.
+
+Write a separate DOCX for each class. Name the DOCX with the name of the class, with the docx extension.
+
+Write an overview of the class.
+
+For each public member in the class:
+- Write a description of the member.
+- Write information about the signature of the member, including its parameters, and what it returns, if appropriate.
+- Note any special semantics about the member.
+- Write an example in TypeScript.
+
+Put the various DOCX files in the docs directory in the OpenXmlSdkTs project.

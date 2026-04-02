@@ -1,0 +1,13 @@
+{
+  "name": "openxmlsdkts-scripts",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Documentation generation scripts for OpenXmlSdkTs",
+  "scripts": {
+    "gen-docs": "node gen-class-docs.mjs"
+  },
+  "dependencies": {
+    "docx": "^9.5.0"
+  }
+}
