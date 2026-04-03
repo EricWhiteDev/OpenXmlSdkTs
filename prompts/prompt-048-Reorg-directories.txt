@@ -1,0 +1,41 @@
+I want to reorganize directories to a more common setup.
+
+Currently, the library is stored in an OpenXmlSdkTs directory, with the src directory as a subdir under that.  The unit tests are stored in a directory name OpenXmlSdkTs.Test
+
+Instead, the following is the directory structure that I want to move to:
+
+OpenXmlSdkTs/
+├── src/                # TypeScript source files
+│   ├── ContentType.ts
+│   ├── index.ts        # Entry point for the library
+│   ├── OpenXmlNamespacesAndNames.ts
+│   ├── OpenXmlPackage.ts
+│   ├── OpenXmlPart.ts
+│   ├── OpenXmlRelationship.ts
+│   ├── PmlPackage.ts
+│   ├── PmlPart.ts
+│   ├── RelationshipType.ts
+│   ├── SmlPackage.ts
+│   ├── SmlPart.ts
+│   ├── Utility.ts
+│   ├── WmlPackage.ts
+│   └── WmlPart.ts
+├── tests/              # Replicated src structure
+│   ├── OpenXmlPackage.test.ts
+│   ├── PmlPackage.test.ts
+│   ├── PmlPart.test.ts
+│   ├── SmlPackage.test.ts
+│   ├── SmlPart.test.ts
+│   ├── TestResources.ts
+│   ├── WmlPackage.test.ts
+│   ├── WmlPart.test.ts
+│   └── OpenXmlPackage.test.ts
+├── Examples/           # Example OpenXmlSdkTs programs that demonstrate the use of the library
+├── dist/               # Compiled JS and type definitions
+├── tsconfig.json       # TypeScript configuration
+├── package.json        # Metadata and dependencies
+├── prompts             # Claude code prompts that I used to generate the code
+├── scripts             # documentation generation scripts
+└── .gitignore          # Files to ignore (node_modules, dist, etc.)
+
+Move the necessary configuration files such as vitest.config.ts to their recommended location, and make sure that all unit tests pass.
