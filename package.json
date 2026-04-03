@@ -4,11 +4,12 @@
   "description": "Open XML SDK for TypeScript — read, write, and manipulate Office Open XML documents (docx, xlsx, pptx)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
     "dist"
   ],
   "workspaces": [
-    "Examples"
+    "examples"
   ],
   "scripts": {
     "build": "tsc",

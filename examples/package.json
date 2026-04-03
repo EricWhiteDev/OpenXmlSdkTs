@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "openxmlsdkts": "*"
+    "openxmlsdkts": "file:.."
   },
   "devDependencies": {
     "typescript": "^5.0.0",
