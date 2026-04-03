@@ -8,13 +8,13 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { WmlPackage, WmlPart } from "OpenXmlSdkTs";
+import { WmlPackage, WmlPart } from "openxmlsdkts";
 import * as fs from "fs";
 import * as path from "path";
 
 describe("WmlPart", () => {
   it("mainDocumentPart returns a WmlPart instance", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -23,7 +23,7 @@ describe("WmlPart", () => {
   });
 
   it("wordprocessingCommentsPart returns comments part from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -35,7 +35,7 @@ describe("WmlPart", () => {
   });
 
   it("styleDefinitionsPart returns styles part from TemplateDocument.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -47,7 +47,7 @@ describe("WmlPart", () => {
   });
 
   it("documentSettingsPart returns settings part from TemplateDocument.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -59,7 +59,7 @@ describe("WmlPart", () => {
   });
 
   it("fontTablePart returns fontTable part from TemplateDocument.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -71,7 +71,7 @@ describe("WmlPart", () => {
   });
 
   it("webSettingsPart returns webSettings part from TemplateDocument.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -83,7 +83,7 @@ describe("WmlPart", () => {
   });
 
   it("themePart returns theme part from TemplateDocument.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -95,7 +95,7 @@ describe("WmlPart", () => {
   });
 
   it("imageParts returns empty array on a Word document with no images", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);

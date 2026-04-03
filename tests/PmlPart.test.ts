@@ -8,13 +8,13 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { PmlPackage, PmlPart } from "OpenXmlSdkTs";
+import { PmlPackage, PmlPart } from "openxmlsdkts";
 import * as fs from "fs";
 import * as path from "path";
 
 describe("PmlPart", () => {
   it("presentationPart returns a PmlPart instance", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
+    const srcFile = path.resolve(__dirname, "../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await PmlPackage.open(blob);
@@ -23,7 +23,7 @@ describe("PmlPart", () => {
   });
 
   it("presentationPart slideParts returns all slide parts", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
+    const srcFile = path.resolve(__dirname, "../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await PmlPackage.open(blob);
@@ -35,7 +35,7 @@ describe("PmlPart", () => {
   });
 
   it("presentationPart slideMasterParts returns slide master parts", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
+    const srcFile = path.resolve(__dirname, "../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await PmlPackage.open(blob);
@@ -46,7 +46,7 @@ describe("PmlPart", () => {
   });
 
   it("presentationPart viewPropertiesPart returns the view properties part", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
+    const srcFile = path.resolve(__dirname, "../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await PmlPackage.open(blob);
@@ -57,7 +57,7 @@ describe("PmlPart", () => {
   });
 
   it("presentationPart presentationPropertiesPart returns the presentation properties part", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
+    const srcFile = path.resolve(__dirname, "../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await PmlPackage.open(blob);
@@ -68,7 +68,7 @@ describe("PmlPart", () => {
   });
 
   it("presentationPart tableStylesPart returns the table styles part", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/Sample.pptx");
+    const srcFile = path.resolve(__dirname, "../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await PmlPackage.open(blob);

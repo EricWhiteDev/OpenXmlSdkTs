@@ -1,23 +1,60 @@
 {
-  "name": "openxmlsdkts-workspace",
+  "name": "openxmlsdkts",
+  "version": "1.0.3",
+  "description": "Open XML SDK for TypeScript — read, write, and manipulate Office Open XML documents (docx, xlsx, pptx)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "workspaces": [
-    "OpenXmlSdkTs",
-    "OpenXmlSdkTs.Test",
     "Examples"
   ],
   "scripts": {
-    "build": "npm run build -w OpenXmlSdkTs",
-    "test": "npm run test --workspaces --if-present",
-    "lint": "eslint 'OpenXmlSdkTs/src/**/*.ts' 'OpenXmlSdkTs.Test/src/**/*.ts'",
-    "format": "prettier --write 'OpenXmlSdkTs/src/**/*.ts' 'OpenXmlSdkTs.Test/src/**/*.ts'",
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
+    "format": "prettier --write 'src/**/*.ts' 'tests/**/*.ts'",
     "prepare": "husky"
+  },
+  "keywords": [
+    "openxml",
+    "docx",
+    "xlsx",
+    "pptx",
+    "word",
+    "excel",
+    "powerpoint",
+    "office",
+    "ooxml"
+  ],
+  "author": {
+    "name": "Eric White",
+    "email": "eric@ericwhite.com",
+    "url": "https://www.ericwhite.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EricWhiteDev/OpenXmlSdkTs.git"
+  },
+  "homepage": "https://github.com/EricWhiteDev/OpenXmlSdkTs#readme",
+  "bugs": {
+    "url": "https://github.com/EricWhiteDev/OpenXmlSdkTs/issues"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "ltxmlts": "^1.0.6"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/jszip": "^3.4.0",
     "eslint": "^10.1.0",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "prettier": "^3.8.1",
-    "typescript-eslint": "^8.57.2"
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.57.2",
+    "vitest": "^2.0.0"
   }
 }

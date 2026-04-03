@@ -8,7 +8,7 @@
  */
 
 import { describe, it, expect, vi } from "vitest";
-import { OpenXmlPackage, W, ContentType, RelationshipType, XDocument, XElement, XAttribute } from "OpenXmlSdkTs";
+import { OpenXmlPackage, W, ContentType, RelationshipType, XDocument, XElement, XAttribute } from "openxmlsdkts";
 import { blankDocumentBase64, blankDocumentFlatOpc } from "./TestResources";
 import JSZip from "jszip";
 import * as fs from "fs";
@@ -17,7 +17,7 @@ import * as path from "path";
 
 describe("OpenXmlPackage", () => {
   it("does not throw when opening a docx blob", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const tmpFile = path.join(os.tmpdir(), `openxmlpackage-test-${Date.now()}.docx`);
     fs.copyFileSync(srcFile, tmpFile);
     try {
@@ -78,7 +78,7 @@ describe("OpenXmlPackage", () => {
         contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml",
       },
     ];
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -213,7 +213,7 @@ describe("OpenXmlPackage", () => {
         contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.commentsExtended+xml",
       },
     ];
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -233,7 +233,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("saves a blob-opened package to FlatOPC with the correct parts", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -258,7 +258,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("saves a blob-opened package to base64 and back", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -272,7 +272,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("saves a blob-opened package to a Blob and back", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -286,7 +286,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("adds a comments part to a blank document and round-trips correctly", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/BlankDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/BlankDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -336,7 +336,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("gets package-level relationships from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -349,7 +349,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("gets package-level relationships by type from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -361,7 +361,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("gets parts by relationship type from package level in WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -373,7 +373,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("gets part by relationship type from package level in WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -385,7 +385,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("adds a package-level relationship and round-trips correctly", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -405,7 +405,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("gets a package-level relationship by id from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -418,7 +418,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("gets a package-level part by id from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -430,7 +430,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("gets package-level relationships by content type from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -442,7 +442,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("gets package-level parts by content type from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -465,7 +465,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("saves a blob-opened package to FlatOPC preserving document body content", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -479,7 +479,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("coreFilePropertiesPart returns the core properties part", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -489,7 +489,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("extendedFilePropertiesPart returns the app properties part", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -499,7 +499,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("customFilePropertiesPart returns undefined when no custom properties exist", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -507,7 +507,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("returns the content type for a known URI", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -515,7 +515,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("throws when getting the content type for an unknown URI", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -523,7 +523,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("deletes a package-level relationship and verifies it is gone after round-trip", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -538,7 +538,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("throws when deleting a package-level relationship that does not exist", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);
@@ -547,7 +547,7 @@ describe("OpenXmlPackage", () => {
   });
 
   it("deletes the comments part from a document with comments and round-trips correctly", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const pkg = await OpenXmlPackage.open(blob);

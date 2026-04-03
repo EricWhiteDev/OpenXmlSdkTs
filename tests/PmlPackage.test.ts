@@ -8,43 +8,43 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { SmlPackage } from "OpenXmlSdkTs";
+import { PmlPackage } from "openxmlsdkts";
 import * as fs from "fs";
 import * as path from "path";
 
-describe("SmlPackage", () => {
-  it("does not throw when opening an xlsx blob", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
+describe("PmlPackage", () => {
+  it("does not throw when opening a pptx blob", async () => {
+    const srcFile = path.resolve(__dirname, "../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    await expect(SmlPackage.open(blob)).resolves.toBeDefined();
+    await expect(PmlPackage.open(blob)).resolves.toBeDefined();
   });
 
-  it("workbookPart returns the workbook part", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
+  it("presentationPart returns the presentation part", async () => {
+    const srcFile = path.resolve(__dirname, "../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await SmlPackage.open(blob);
-    const part = await doc.workbookPart();
+    const doc = await PmlPackage.open(blob);
+    const part = await doc.presentationPart();
     expect(part).toBeDefined();
-    expect(part!.getUri()).toBe("/xl/workbook.xml");
+    expect(part!.getUri()).toBe("/ppt/presentation.xml");
   });
 
   it("coreFilePropertiesPart returns the core properties part", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
+    const srcFile = path.resolve(__dirname, "../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await SmlPackage.open(blob);
+    const doc = await PmlPackage.open(blob);
     const part = await doc.coreFilePropertiesPart();
     expect(part).toBeDefined();
     expect(part!.getUri()).toBe("/docProps/core.xml");
   });
 
   it("extendedFilePropertiesPart returns the app properties part", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/Sample.xlsx");
+    const srcFile = path.resolve(__dirname, "../test-files/Sample.pptx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
-    const doc = await SmlPackage.open(blob);
+    const doc = await PmlPackage.open(blob);
     const part = await doc.extendedFilePropertiesPart();
     expect(part).toBeDefined();
     expect(part!.getUri()).toBe("/docProps/app.xml");

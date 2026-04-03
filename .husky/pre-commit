@@ -1,2 +1,2 @@
-npx prettier --check 'OpenXmlSdkTs/src/**/*.ts' 'OpenXmlSdkTs.Test/src/**/*.ts'
+npx prettier --check 'src/**/*.ts' 'tests/**/*.ts'
 npm run lint

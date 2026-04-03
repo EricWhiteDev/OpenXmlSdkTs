@@ -8,21 +8,21 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { WmlPackage, W, ContentType, RelationshipType, XDocument } from "OpenXmlSdkTs";
+import { WmlPackage, W, ContentType, RelationshipType, XDocument } from "openxmlsdkts";
 import { blankDocumentBase64, blankDocumentFlatOpc } from "./TestResources";
 import * as fs from "fs";
 import * as path from "path";
 
 describe("WmlPackage", () => {
   it("does not throw when opening a docx blob", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     await expect(WmlPackage.open(blob)).resolves.toBeDefined();
   });
 
   it("mainDocumentPart returns the main document part", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -32,7 +32,7 @@ describe("WmlPackage", () => {
   });
 
   it("contentParts returns main document, headers, and footers", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithPageHeaderAndPageFooter.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithPageHeaderAndPageFooter.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -45,7 +45,7 @@ describe("WmlPackage", () => {
   });
 
   it("gets relationships for the document part from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -58,7 +58,7 @@ describe("WmlPackage", () => {
   });
 
   it("gets part-level relationships by type from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -70,7 +70,7 @@ describe("WmlPackage", () => {
   });
 
   it("gets part by relationship type from part level in WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -82,7 +82,7 @@ describe("WmlPackage", () => {
   });
 
   it("returns undefined from getPartByRelationshipType when no match exists", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -93,7 +93,7 @@ describe("WmlPackage", () => {
   });
 
   it("gets parts by relationship type from part level in WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -105,7 +105,7 @@ describe("WmlPackage", () => {
   });
 
   it("adds a part-level relationship and round-trips correctly", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -126,7 +126,7 @@ describe("WmlPackage", () => {
   });
 
   it("gets a part-level relationship by id from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -139,7 +139,7 @@ describe("WmlPackage", () => {
   });
 
   it("gets a part-level part by id from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -151,7 +151,7 @@ describe("WmlPackage", () => {
   });
 
   it("gets part-level relationships by content type from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -163,7 +163,7 @@ describe("WmlPackage", () => {
   });
 
   it("gets part-level parts by content type from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -175,7 +175,7 @@ describe("WmlPackage", () => {
   });
 
   it("deletes a part-level relationship and verifies it is gone after round-trip", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -191,7 +191,7 @@ describe("WmlPackage", () => {
   });
 
   it("throws when deleting a part-level relationship that does not exist", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -200,7 +200,7 @@ describe("WmlPackage", () => {
   });
 
   it("getXDocument materializes a lazy blob-opened part", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/TemplateDocument.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -232,7 +232,7 @@ describe("WmlPackage", () => {
   });
 
   it("getParts returns related parts of document part from WithComments.docx", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
@@ -244,7 +244,7 @@ describe("WmlPackage", () => {
   });
 
   it("getParts throws for a dangling internal relationship", async () => {
-    const srcFile = path.resolve(__dirname, "../../test-files/WithComments.docx");
+    const srcFile = path.resolve(__dirname, "../test-files/WithComments.docx");
     const buffer = fs.readFileSync(srcFile);
     const blob = new Blob([buffer]);
     const doc = await WmlPackage.open(blob);
