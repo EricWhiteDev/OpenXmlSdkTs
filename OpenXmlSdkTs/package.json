@@ -1,6 +1,6 @@
 {
   "name": "openxmlsdkts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Open XML SDK for TypeScript — read, write, and manipulate Office Open XML documents (docx, xlsx, pptx)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "jszip": "^3.10.1",
-    "ltxmlts": "1.0.5"
+    "ltxmlts": "^1.0.6"
   },
   "devDependencies": {
     "@types/jszip": "^3.4.0",
