@@ -5,7 +5,7 @@ ContentTypeKey
 ContentTypeValue
 Base64String
 FlatOpcString
-DocxBinary
+OpcBinary
 OpenXmlPackage
 PartType
 OpenXmlPart

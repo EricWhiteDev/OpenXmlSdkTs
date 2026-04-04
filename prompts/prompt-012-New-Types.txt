@@ -3,6 +3,6 @@ Add three new types to the module:
 - FlatOpcString, which is a string
 - DocxBinary, which is a blob
 
-Change the type of the constructor for OpenXmlPackage to take as an argument Base64String | FlatOpcString | DocxBinary
+Change the type of the constructor for OpenXmlPackage to take as an argument Base64String | FlatOpcString | OpcBinary
 
 Modify the code in the constructor accordingly.
