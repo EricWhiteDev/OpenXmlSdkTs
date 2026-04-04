@@ -28,6 +28,8 @@ import type { OpenXmlPart } from "./OpenXmlPart";
  *   console.log(`${rel.getId()} [${rel.getType()}] -> ${rel.getTargetFullName()}`);
  * }
  * ```
+ *
+ * @category Class and Type Reference
  */
 export class OpenXmlRelationship {
   private pkg: OpenXmlPackage;

@@ -24,6 +24,8 @@ import { RelationshipType } from "./RelationshipType";
  * const stylesPart = await mainPart!.styleDefinitionsPart();
  * const commentsPart = await mainPart!.wordprocessingCommentsPart();
  * ```
+ *
+ * @category Class and Type Reference
  */
 export class WmlPart extends OpenXmlPart {
   /** Returns all header parts referenced by this part. */

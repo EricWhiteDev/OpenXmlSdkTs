@@ -22,6 +22,8 @@
  * const stylePart = await mainPart.getPartByRelationshipType(RelationshipType.styles);
  * await mainPart.addRelationship("rId20", RelationshipType.image, "media/image1.png");
  * ```
+ *
+ * @category Class and Type Reference
  */
 export const RelationshipType = {
   alternativeFormatImport: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/aFChunk",
@@ -105,8 +107,16 @@ export const RelationshipType = {
   xmlSignature: "http://schemas.openxmlformats.org/package/2006/relationships/digital-signature/signature",
 } as const;
 
-/** Union of all property names in {@link RelationshipType}. */
+/**
+ * Union of all property names in {@link RelationshipType}.
+ *
+ * @category Class and Type Reference
+ */
 export type RelationshipTypeKey = keyof typeof RelationshipType;
 
-/** Union of all URI values in {@link RelationshipType}. */
+/**
+ * Union of all URI values in {@link RelationshipType}.
+ *
+ * @category Class and Type Reference
+ */
 export type RelationshipTypeValue = (typeof RelationshipType)[RelationshipTypeKey];

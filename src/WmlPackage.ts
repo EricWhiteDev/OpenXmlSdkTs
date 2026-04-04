@@ -41,6 +41,8 @@ import { WmlPart } from "./WmlPart";
  *
  * const blob = await doc.saveToBlobAsync();
  * ```
+ *
+ * @category Class and Type Reference
  */
 export class WmlPackage extends OpenXmlPackage {
   /**

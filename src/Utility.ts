@@ -20,6 +20,8 @@ import type { OpenXmlPart } from "./OpenXmlPart";
  * Utility.isBase64("UEsDBBQAAAA..."); // true
  * Utility.isBase64("<?xml ...");      // false
  * ```
+ *
+ * @category Class and Type Reference
  */
 export class Utility {
   /**

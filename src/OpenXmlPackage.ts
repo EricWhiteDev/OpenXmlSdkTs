@@ -16,13 +16,25 @@ import { CT, FLATOPC, PKGREL } from "./OpenXmlNamespacesAndNames";
 import { ContentType } from "./ContentType";
 import { RelationshipType } from "./RelationshipType";
 
-/** A string containing a Base64-encoded Open XML document. */
+/**
+ * A string containing a Base64-encoded Open XML document.
+ *
+ * @category Class and Type Reference
+ */
 export type Base64String = string;
 
-/** A string containing a Flat OPC XML representation of an Open XML document. */
+/**
+ * A string containing a Flat OPC XML representation of an Open XML document.
+ *
+ * @category Class and Type Reference
+ */
 export type FlatOpcString = string;
 
-/** A Blob containing the raw ZIP bytes of an Open XML document. */
+/**
+ * A Blob containing the raw ZIP bytes of an Open XML document.
+ *
+ * @category Class and Type Reference
+ */
 export type DocxBinary = Blob;
 
 /**
@@ -51,6 +63,8 @@ export type DocxBinary = Blob;
  *
  * const blob = await pkg.saveToBlobAsync();
  * ```
+ *
+ * @category Class and Type Reference
  */
 export class OpenXmlPackage {
   private parts: Map<string, OpenXmlPart> = new Map();

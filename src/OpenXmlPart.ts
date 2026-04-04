@@ -20,6 +20,8 @@ import { RelationshipType } from "./RelationshipType";
  * - `"binary"` — The part contains raw binary data.
  * - `"base64"` — The part contains Base64-encoded binary data.
  * - `null` — The part type has not yet been determined.
+ *
+ * @category Class and Type Reference
  */
 export type PartType = "binary" | "base64" | "xml" | null;
 
@@ -48,6 +50,8 @@ export type PartType = "binary" | "base64" | "xml" | null;
  * // Navigate to related parts
  * const stylesPart = await mainPart!.getPartByRelationshipType(RelationshipType.styles);
  * ```
+ *
+ * @category Class and Type Reference
  */
 export class OpenXmlPart {
   private pkg: OpenXmlPackage;

@@ -22,6 +22,8 @@
  * const parts = await pkg.getPartsByContentType(ContentType.mainDocument);
  * pkg.addPart("/word/comments.xml", ContentType.wordprocessingComments, "xml", xDoc);
  * ```
+ *
+ * @category Class and Type Reference
  */
 export const ContentType = {
   calculationChain: "application/vnd.openxmlformats-officedocument.spreadsheetml.calcChain+xml",
@@ -112,8 +114,16 @@ export const ContentType = {
   xmlSignature: "application/vnd.openxmlformats-package.digital-signature-xmlsignature+xml",
 } as const;
 
-/** Union of all property names in {@link ContentType}. */
+/**
+ * Union of all property names in {@link ContentType}.
+ *
+ * @category Class and Type Reference
+ */
 export type ContentTypeKey = keyof typeof ContentType;
 
-/** Union of all MIME type values in {@link ContentType}. */
+/**
+ * Union of all MIME type values in {@link ContentType}.
+ *
+ * @category Class and Type Reference
+ */
 export type ContentTypeValue = (typeof ContentType)[ContentTypeKey];

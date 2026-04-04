@@ -30,6 +30,8 @@ import { PmlPart } from "./PmlPart";
  * const slides = await presentation!.slideParts();
  * console.log(`${slides.length} slides`);
  * ```
+ *
+ * @category Class and Type Reference
  */
 export class PmlPackage extends OpenXmlPackage {
   /**

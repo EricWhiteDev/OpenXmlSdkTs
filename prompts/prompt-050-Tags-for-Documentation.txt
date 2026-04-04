@@ -1,0 +1,30 @@
+add @category tags to group the following classes and types together in the docs.  Name the category "Class and Type Reference".
+
+ContentType
+ContentTypeKey
+ContentTypeValue
+Base64String
+FlatOpcString
+DocxBinary
+OpenXmlPackage
+PartType
+OpenXmlPart
+OpenXmlRelationship
+PmlPackage
+PmlPart
+RelationshipType
+RelationshipTypeKey
+RelationshipTypeValue
+SmlPackage
+SmlPart
+Utility
+WmlPackage
+WmlPart
+
+There are a large number of classes that are defined in OpenXmlNamespacesAndNames.ts
+
+Add @category tags to group these classes together.  Name the category "OpenXml Namespaces and Names"
+
+I would like the category "Class and Type Reference" to appear before the category "OpenXml Namespaces and Names" in the docs.
+
+After making this change, regenerate the docs.

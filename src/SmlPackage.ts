@@ -30,6 +30,8 @@ import { SmlPart } from "./SmlPart";
  * const worksheets = await workbook!.worksheetParts();
  * console.log(`${worksheets.length} worksheets`);
  * ```
+ *
+ * @category Class and Type Reference
  */
 export class SmlPackage extends OpenXmlPackage {
   /**

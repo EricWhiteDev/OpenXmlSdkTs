@@ -23,6 +23,8 @@ import { XName, XNamespace } from "ltxmlts";
  * const graphicFrame = shape.element(A.graphic);
  * const graphicData = graphicFrame?.element(A.graphicData);
  * ```
+ *
+ * @category OpenXml Namespaces and Names
  */
 export class A {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/main");
@@ -344,7 +346,11 @@ export class A {
   static readonly xfrm: XName = A.namespace.getName("xfrm");
 }
 
-/** DrawingML 2010 extensions namespace (`http://schemas.microsoft.com/office/drawing/2010/main`). */
+/**
+ * DrawingML 2010 extensions namespace (`http://schemas.microsoft.com/office/drawing/2010/main`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class A14 {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/drawing/2010/main");
 
@@ -379,7 +385,11 @@ export class A14 {
   static readonly useLocalDpi: XName = A14.namespace.getName("useLocalDpi");
 }
 
-/** Chart namespace — element names for chart markup (`http://schemas.openxmlformats.org/drawingml/2006/chart`). */
+/**
+ * Chart namespace — element names for chart markup (`http://schemas.openxmlformats.org/drawingml/2006/chart`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class C {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/chart");
 
@@ -601,7 +611,11 @@ export class C {
   static readonly yVal: XName = C.namespace.getName("yVal");
 }
 
-/** Chart Drawing namespace (`http://schemas.openxmlformats.org/drawingml/2006/chartDrawing`). */
+/**
+ * Chart Drawing namespace (`http://schemas.openxmlformats.org/drawingml/2006/chartDrawing`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class CDR {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/chartDrawing");
 
@@ -636,14 +650,22 @@ export class CDR {
   static readonly y: XName = CDR.namespace.getName("y");
 }
 
-/** Comments namespace (`http://schemas.openxmlformats.org/officeDocument/2006/math`). */
+/**
+ * Comments namespace (`http://schemas.openxmlformats.org/officeDocument/2006/math`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class COM {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/compatibility");
 
   static readonly legacyDrawing: XName = COM.namespace.getName("legacyDrawing");
 }
 
-/** Core Properties namespace (`http://schemas.openxmlformats.org/package/2006/metadata/core-properties`). */
+/**
+ * Core Properties namespace (`http://schemas.openxmlformats.org/package/2006/metadata/core-properties`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class CP {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/package/2006/metadata/core-properties");
 
@@ -657,7 +679,11 @@ export class CP {
   static readonly revision: XName = CP.namespace.getName("revision");
 }
 
-/** Content Types namespace (`http://schemas.openxmlformats.org/package/2006/content-types`). */
+/**
+ * Content Types namespace (`http://schemas.openxmlformats.org/package/2006/content-types`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class CT {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/package/2006/content-types");
 
@@ -666,7 +692,11 @@ export class CT {
   static readonly Types: XName = CT.namespace.getName("Types");
 }
 
-/** Custom Properties namespace (`http://schemas.openxmlformats.org/officeDocument/2006/custom-properties`). */
+/**
+ * Custom Properties namespace (`http://schemas.openxmlformats.org/officeDocument/2006/custom-properties`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class CUSTPRO {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/custom-properties");
 
@@ -674,7 +704,11 @@ export class CUSTPRO {
   static readonly property: XName = CUSTPRO.namespace.getName("property");
 }
 
-/** Dublin Core namespace (`http://purl.org/dc/elements/1.1/`). */
+/**
+ * Dublin Core namespace (`http://purl.org/dc/elements/1.1/`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class DC {
   static readonly namespace: XNamespace = XNamespace.get("http://purl.org/dc/elements/1.1/");
 
@@ -684,7 +718,11 @@ export class DC {
   static readonly title: XName = DC.namespace.getName("title");
 }
 
-/** Dublin Core Terms namespace (`http://purl.org/dc/terms/`). */
+/**
+ * Dublin Core Terms namespace (`http://purl.org/dc/terms/`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class DCTERMS {
   static readonly namespace: XNamespace = XNamespace.get("http://purl.org/dc/terms/");
 
@@ -692,7 +730,11 @@ export class DCTERMS {
   static readonly modified: XName = DCTERMS.namespace.getName("modified");
 }
 
-/** Diagram namespace (`http://schemas.openxmlformats.org/drawingml/2006/diagram`). */
+/**
+ * Diagram namespace (`http://schemas.openxmlformats.org/drawingml/2006/diagram`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class DGM {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/diagram");
 
@@ -757,7 +799,11 @@ export class DGM {
   static readonly whole: XName = DGM.namespace.getName("whole");
 }
 
-/** Diagram 2010 extensions namespace (`http://schemas.microsoft.com/office/drawing/2010/diagram`). */
+/**
+ * Diagram 2010 extensions namespace (`http://schemas.microsoft.com/office/drawing/2010/diagram`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class DGM14 {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/drawing/2010/diagram");
 
@@ -765,7 +811,11 @@ export class DGM14 {
   static readonly recolorImg: XName = DGM14.namespace.getName("recolorImg");
 }
 
-/** Digital Signature namespace (`http://schemas.microsoft.com/office/2006/digsig`). */
+/**
+ * Digital Signature namespace (`http://schemas.microsoft.com/office/2006/digsig`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class DIGSIG {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/2006/digsig");
 
@@ -788,7 +838,11 @@ export class DIGSIG {
   static readonly WindowsVersion: XName = DIGSIG.namespace.getName("WindowsVersion");
 }
 
-/** Digital Signature XML namespace (`http://www.w3.org/2000/09/xmldsig#`). */
+/**
+ * Digital Signature XML namespace (`http://www.w3.org/2000/09/xmldsig#`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class DS {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/customXml");
 
@@ -799,14 +853,22 @@ export class DS {
   static readonly uri: XName = DS.namespace.getName("uri");
 }
 
-/** Document Signature Picture namespace (`http://schemas.microsoft.com/office/drawing/2008/diagram`). */
+/**
+ * Document Signature Picture namespace (`http://schemas.microsoft.com/office/drawing/2008/diagram`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class DSP {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/drawing/2008/diagram");
 
   static readonly dataModelExt: XName = DSP.namespace.getName("dataModelExt");
 }
 
-/** Extended Properties namespace (`http://schemas.openxmlformats.org/officeDocument/2006/extended-properties`). */
+/**
+ * Extended Properties namespace (`http://schemas.openxmlformats.org/officeDocument/2006/extended-properties`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class EP {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/extended-properties");
 
@@ -839,7 +901,11 @@ export class EP {
   static readonly Words: XName = EP.namespace.getName("Words");
 }
 
-/** Flat OPC namespace — used for Flat OPC XML document serialization (`http://schemas.microsoft.com/office/2006/xmlPackage`). */
+/**
+ * Flat OPC namespace — used for Flat OPC XML document serialization (`http://schemas.microsoft.com/office/2006/xmlPackage`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class FLATOPC {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/2006/xmlPackage");
 
@@ -853,14 +919,22 @@ export class FLATOPC {
   static readonly xmlData: XName = FLATOPC.namespace.getName("xmlData");
 }
 
-/** Locale namespace (`http://schemas.openxmlformats.org/drawingml/2006/lockedCanvas`). */
+/**
+ * Locale namespace (`http://schemas.openxmlformats.org/drawingml/2006/lockedCanvas`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class LC {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/lockedCanvas");
 
   static readonly lockedCanvas: XName = LC.namespace.getName("lockedCanvas");
 }
 
-/** Office Math namespace — element names for mathematical equations (`http://schemas.openxmlformats.org/officeDocument/2006/math`). */
+/**
+ * Office Math namespace — element names for mathematical equations (`http://schemas.openxmlformats.org/officeDocument/2006/math`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class M {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/math");
 
@@ -992,7 +1066,11 @@ export class M {
   static readonly zeroWid: XName = M.namespace.getName("zeroWid");
 }
 
-/** Markup Compatibility namespace (`http://schemas.openxmlformats.org/markup-compatibility/2006`). */
+/**
+ * Markup Compatibility namespace (`http://schemas.openxmlformats.org/markup-compatibility/2006`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class MC {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/markup-compatibility/2006");
 
@@ -1003,7 +1081,11 @@ export class MC {
   static readonly PreserveAttributes: XName = MC.namespace.getName("PreserveAttributes");
 }
 
-/** Microsoft Digital Signature Service Infrastructure namespace. */
+/**
+ * Microsoft Digital Signature Service Infrastructure namespace.
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class MDSSI {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/package/2006/digital-signature");
 
@@ -1013,7 +1095,11 @@ export class MDSSI {
   static readonly Value: XName = MDSSI.namespace.getName("Value");
 }
 
-/** Macro namespace (`http://schemas.microsoft.com/office/mac/excel/2008/main`). */
+/**
+ * Macro namespace (`http://schemas.microsoft.com/office/mac/excel/2008/main`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class MP {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/mac/powerpoint/2008/main");
 
@@ -1022,7 +1108,11 @@ export class MP {
   static readonly transition: XName = MP.namespace.getName("transition");
 }
 
-/** Media namespace. */
+/**
+ * Media namespace.
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class MV {
   static readonly namespace: XNamespace = XNamespace.get("urn:schemas-microsoft-com:mac:vml");
 
@@ -1045,6 +1135,8 @@ export class MV {
  * const styleName = pPr?.element(W.pStyle)?.attribute(NoNamespace.val)?.value;
  * const id = element.attribute(NoNamespace.id)?.value;
  * ```
+ *
+ * @category OpenXml Namespaces and Names
  */
 export class NoNamespace {
   static readonly a: XName = XName.get("a");
@@ -1696,7 +1788,11 @@ export class NoNamespace {
   static readonly _object: XName = XName.get("object");
 }
 
-/** Office VML namespace (`urn:schemas-microsoft-com:office:office`). */
+/**
+ * Office VML namespace (`urn:schemas-microsoft-com:office:office`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class O {
   static readonly namespace: XNamespace = XNamespace.get("urn:schemas-microsoft-com:office:office");
 
@@ -1801,6 +1897,8 @@ export class O {
  * const spTree = xDoc.root!.element(P.cSld)?.element(P.spTree);
  * const shapes = spTree?.elements(P.sp) ?? [];
  * ```
+ *
+ * @category OpenXml Namespaces and Names
  */
 export class P {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/presentationml/2006/main");
@@ -2004,7 +2102,11 @@ export class P {
   static readonly zoom: XName = P.namespace.getName("zoom");
 }
 
-/** PresentationML 2010 extensions namespace (`http://schemas.microsoft.com/office/powerpoint/2010/main`). */
+/**
+ * PresentationML 2010 extensions namespace (`http://schemas.microsoft.com/office/powerpoint/2010/main`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class P14 {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/powerpoint/2010/main");
 
@@ -2061,14 +2163,22 @@ export class P14 {
   static readonly xfrm: XName = P14.namespace.getName("xfrm");
 }
 
-/** PresentationML 2013 extensions namespace (`http://schemas.microsoft.com/office/powerpoint/2012/main`). */
+/**
+ * PresentationML 2013 extensions namespace (`http://schemas.microsoft.com/office/powerpoint/2012/main`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class P15 {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office15/powerpoint");
 
   static readonly extElement: XName = P15.namespace.getName("extElement");
 }
 
-/** Picture namespace (`http://schemas.openxmlformats.org/drawingml/2006/picture`). */
+/**
+ * Picture namespace (`http://schemas.openxmlformats.org/drawingml/2006/picture`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class Pic {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/picture");
 
@@ -2080,7 +2190,11 @@ export class Pic {
   static readonly spPr: XName = Pic.namespace.getName("spPr");
 }
 
-/** Package Relationships namespace (`http://schemas.openxmlformats.org/package/2006/relationships`). */
+/**
+ * Package Relationships namespace (`http://schemas.openxmlformats.org/package/2006/relationships`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class PKGREL {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/package/2006/relationships");
 
@@ -2102,6 +2216,8 @@ export class PKGREL {
  * const embed = element.attribute(R.embed)?.value;
  * const link = element.attribute(R.link)?.value;
  * ```
+ *
+ * @category OpenXml Namespaces and Names
  */
 export class R {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
@@ -2139,6 +2255,8 @@ export class R {
  *   }
  * }
  * ```
+ *
+ * @category OpenXml Namespaces and Names
  */
 export class S {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/spreadsheetml/2006/main");
@@ -2508,7 +2626,11 @@ export class S {
   static readonly xmlPr: XName = S.namespace.getName("xmlPr");
 }
 
-/** Slide Layout namespace. */
+/**
+ * Slide Layout namespace.
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class SL {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/schemaLibrary/2006/main");
 
@@ -2518,14 +2640,22 @@ export class SL {
   static readonly uri: XName = SL.namespace.getName("uri");
 }
 
-/** Slicer namespace (`http://schemas.microsoft.com/office/drawing/2010/slicer`). */
+/**
+ * Slicer namespace (`http://schemas.microsoft.com/office/drawing/2010/slicer`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class SLE {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/drawing/2010/slicer");
 
   static readonly slicer: XName = SLE.namespace.getName("slicer");
 }
 
-/** Vector Markup Language namespace (`urn:schemas-microsoft-com:vml`). */
+/**
+ * Vector Markup Language namespace (`urn:schemas-microsoft-com:vml`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class VML {
   static readonly namespace: XNamespace = XNamespace.get("urn:schemas-microsoft-com:vml");
 
@@ -2555,7 +2685,11 @@ export class VML {
   static readonly textpath: XName = VML.namespace.getName("textpath");
 }
 
-/** Variant Types namespace (`http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes`). */
+/**
+ * Variant Types namespace (`http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class VT {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes");
 
@@ -2584,6 +2718,8 @@ export class VT {
  * const paragraphs = body!.elements(W.p);
  * const newRun = new XElement(W.r, new XElement(W.t, "Hello"));
  * ```
+ *
+ * @category OpenXml Namespaces and Names
  */
 export class W {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/wordprocessingml/2006/main");
@@ -3374,7 +3510,11 @@ export class W {
   static readonly zOrder: XName = W.namespace.getName("zOrder");
 }
 
-/** WordprocessingML Drawing 2010 namespace (`urn:schemas-microsoft-com:office:word`). */
+/**
+ * WordprocessingML Drawing 2010 namespace (`urn:schemas-microsoft-com:office:word`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class W10 {
   static readonly namespace: XNamespace = XNamespace.get("urn:schemas-microsoft-com:office:word");
 
@@ -3386,7 +3526,11 @@ export class W10 {
   static readonly wrap: XName = W10.namespace.getName("wrap");
 }
 
-/** WordprocessingML 2010 extensions namespace (`http://schemas.microsoft.com/office/word/2010/wordml`). */
+/**
+ * WordprocessingML 2010 extensions namespace (`http://schemas.microsoft.com/office/word/2010/wordml`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class W14 {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/word/2010/wordml");
 
@@ -3494,7 +3638,11 @@ export class W14 {
   static readonly xfrm: XName = W14.namespace.getName("xfrm");
 }
 
-/** W3C Digital Signature namespace (`http://www.w3.org/2000/09/xmldsig#`). */
+/**
+ * W3C Digital Signature namespace (`http://www.w3.org/2000/09/xmldsig#`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class W3DIGSIG {
   static readonly namespace: XNamespace = XNamespace.get("http://www.w3.org/2000/09/xmldsig#");
 
@@ -3523,7 +3671,11 @@ export class W3DIGSIG {
   static readonly X509SerialNumber: XName = W3DIGSIG.namespace.getName("X509SerialNumber");
 }
 
-/** WordprocessingML Drawing namespace (`http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing`). */
+/**
+ * WordprocessingML Drawing namespace (`http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class WP {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing");
 
@@ -3548,7 +3700,11 @@ export class WP {
   static readonly wrapTopAndBottom: XName = WP.namespace.getName("wrapTopAndBottom");
 }
 
-/** WordprocessingML Drawing 2010 extensions namespace (`http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing`). */
+/**
+ * WordprocessingML Drawing 2010 extensions namespace (`http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class WP14 {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing");
 
@@ -3560,7 +3716,11 @@ export class WP14 {
   static readonly sizeRelV: XName = WP14.namespace.getName("sizeRelV");
 }
 
-/** WordprocessingML Shape namespace (`http://schemas.microsoft.com/office/word/2010/wordprocessingShape`). */
+/**
+ * WordprocessingML Shape namespace (`http://schemas.microsoft.com/office/word/2010/wordprocessingShape`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class WPS {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/word/2010/wordprocessingShape");
 
@@ -3574,7 +3734,11 @@ export class WPS {
   static readonly wsp: XName = WPS.namespace.getName("wsp");
 }
 
-/** SpreadsheetML extensions namespace. */
+/**
+ * SpreadsheetML extensions namespace.
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class X {
   static readonly namespace: XNamespace = XNamespace.get("urn:schemas-microsoft-com:office:excel");
 
@@ -3587,7 +3751,11 @@ export class X {
   static readonly SizeWithCells: XName = X.namespace.getName("SizeWithCells");
 }
 
-/** SpreadsheetML Drawing namespace (`http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing`). */
+/**
+ * SpreadsheetML Drawing namespace (`http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class XDR {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing");
 
@@ -3629,7 +3797,11 @@ export class XDR {
   static readonly xfrm: XName = XDR.namespace.getName("xfrm");
 }
 
-/** SpreadsheetML Drawing 2010 extensions namespace. */
+/**
+ * SpreadsheetML Drawing 2010 extensions namespace.
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class XDR14 {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/excel/2010/spreadsheetDrawing");
 
@@ -3640,7 +3812,11 @@ export class XDR14 {
   static readonly xfrm: XName = XDR14.namespace.getName("xfrm");
 }
 
-/** Extended metadata namespace. */
+/**
+ * Extended metadata namespace.
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class XM {
   static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/excel/2006/main");
 
@@ -3649,7 +3825,11 @@ export class XM {
   static readonly sqref: XName = XM.namespace.getName("sqref");
 }
 
-/** XML Schema Instance namespace (`http://www.w3.org/2001/XMLSchema-instance`). */
+/**
+ * XML Schema Instance namespace (`http://www.w3.org/2001/XMLSchema-instance`).
+ *
+ * @category OpenXml Namespaces and Names
+ */
 export class XSI {
   static readonly namespace: XNamespace = XNamespace.get("http://www.w3.org/2001/XMLSchema-instance");
 

@@ -27,6 +27,8 @@ import { RelationshipType } from "./RelationshipType";
  *   console.log(`${ws.getUri()}: ${rows.length} rows`);
  * }
  * ```
+ *
+ * @category Class and Type Reference
  */
 export class SmlPart extends OpenXmlPart {
   /** Returns the calculation chain part, or `undefined` if not present. */

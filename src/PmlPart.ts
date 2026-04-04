@@ -26,6 +26,8 @@ import { RelationshipType } from "./RelationshipType";
  *   console.log(slide.getUri());
  * }
  * ```
+ *
+ * @category Class and Type Reference
  */
 export class PmlPart extends OpenXmlPart {
   /** Returns the comment authors part, or `undefined` if not present. */
