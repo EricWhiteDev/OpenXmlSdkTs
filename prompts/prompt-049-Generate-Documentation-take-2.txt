@@ -1,0 +1,53 @@
+Generate TypeDoc documentation comments for all the classes, members, and types of the OpenXmlSdkTs library.
+
+You only need to generate documentation for public classes, not for private helper functions or classes.
+
+Go through the DOCX files in the docx-docs directory for more information about each of the classes or members.  For classes or members that have programming examples, include the examples in the TypeDoc comments using the @example block tag.  These files should be in markdown format.
+
+Create an overview of each class, and put in a TSDoc comment block immediately preceding the class declaration. Use the @summary, @remarks, @document, and @example tags as necessary.  Include examples for every class, as possible.
+
+Include a projectDocuments option in a typedoc.json file, and refer to the appropriate subdir of the docs directory, like this:
+
+  {
+    "projectDocuments": ["docs/**/*.md"]
+  }
+
+Create a docs folder.
+
+For Front Matter:
+
+  control page titles and ordering with YAML frontmatter:
+
+  ---
+  title: Getting Started
+  group: Guides
+  category: Guides
+  ---
+
+  # Getting Started with OpenXmlSdkTs
+
+  ...
+
+  Typical structure
+
+  docs/
+    01-overview.md
+    02-getting-started.md
+
+  The numeric prefixes control sort order in the sidebar. The title frontmatter (or first # heading) controls the display name.
+
+  Summary
+
+  - API reference — auto-generated from TSDoc comments in source
+  - Guides/how-tos/overviews — Markdown files included via projectDocuments
+  - Both appear together in the same generated documentation site
+
+Take any information in the docx-docs directory that is not part of the API reference and put that information in a project document (top-level guide).  Convert the doc to markdown, put in a guides subdirectory of the docs folder.
+
+Write an overview of the library, including main use cases, a summary of how to use it, a survey of the classes, and other topics that you deem important.  Put that in a Guide markdown file, name it 'Overview', and put in the guides subdirectory of the docs folder.
+
+Test the comments by generating documentation that goes into the docs directory.
+
+Add the appropriate information into .gitignore to include the special overviews and guides (they should be stored in the git repo), include any documentation generation info in the git repo, and exclude the generated documentation.
+
+Add the necessary yaml files and hooks to generate documentation for GitHub pages.  Modify the readme with a link to indicate where to find the documentation in GitHub pages.

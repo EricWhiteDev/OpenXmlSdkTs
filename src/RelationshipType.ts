@@ -7,6 +7,22 @@
  * Licensed under the MIT License
  */
 
+/**
+ * Static lookup mapping human-readable relationship type labels to their full URI strings.
+ *
+ * @remarks
+ * Use these labels instead of raw URI strings when querying or creating relationships.
+ * Property names match the corresponding relationship type (e.g., `RelationshipType.styles`,
+ * `RelationshipType.image`, `RelationshipType.slide`).
+ *
+ * @example
+ * ```typescript
+ * import { RelationshipType } from "openxmlsdkts";
+ *
+ * const stylePart = await mainPart.getPartByRelationshipType(RelationshipType.styles);
+ * await mainPart.addRelationship("rId20", RelationshipType.image, "media/image1.png");
+ * ```
+ */
 export const RelationshipType = {
   alternativeFormatImport: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/aFChunk",
   calculationChain: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/calcChain",
@@ -89,5 +105,8 @@ export const RelationshipType = {
   xmlSignature: "http://schemas.openxmlformats.org/package/2006/relationships/digital-signature/signature",
 } as const;
 
+/** Union of all property names in {@link RelationshipType}. */
 export type RelationshipTypeKey = keyof typeof RelationshipType;
+
+/** Union of all URI values in {@link RelationshipType}. */
 export type RelationshipTypeValue = (typeof RelationshipType)[RelationshipTypeKey];

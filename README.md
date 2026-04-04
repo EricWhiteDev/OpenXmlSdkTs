@@ -13,6 +13,10 @@ A TypeScript library for reading, writing, and manipulating Office Open XML docu
 - **Lightweight** — Only two runtime dependencies: `jszip` and `ltxmlts`.
 - **MIT licensed** — Free for commercial and open-source use.  This is the same license as the C#/dotnet Open-Xml-Sdk.
 
+## Documentation
+
+Full API documentation and guides are available at [ericwhitedev.github.io/OpenXmlSdkTs](https://ericwhitedev.github.io/OpenXmlSdkTs/).
+
 ## Installation
 
 ```bash

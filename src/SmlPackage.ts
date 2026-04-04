@@ -12,15 +12,46 @@ import { OpenXmlPackage, Base64String, FlatOpcString, DocxBinary } from "./OpenX
 import { PartType } from "./OpenXmlPart";
 import { SmlPart } from "./SmlPart";
 
+/**
+ * Excel spreadsheet package — opens, navigates, and saves `.xlsx` files.
+ *
+ * @remarks
+ * Extends {@link OpenXmlPackage} with Excel-specific convenience methods.
+ * All parts returned by this class are typed as {@link SmlPart}.
+ *
+ * @example
+ * ```typescript
+ * import { SmlPackage, S } from "openxmlsdkts";
+ * import fs from "fs";
+ *
+ * const buffer = fs.readFileSync("data.xlsx");
+ * const doc = await SmlPackage.open(new Blob([buffer]));
+ * const workbook = await doc.workbookPart();
+ * const worksheets = await workbook!.worksheetParts();
+ * console.log(`${worksheets.length} worksheets`);
+ * ```
+ */
 export class SmlPackage extends OpenXmlPackage {
+  /**
+   * Opens an Excel document from any supported format.
+   *
+   * @param document - The document to open (Blob, Base64 string, or Flat OPC XML string).
+   * @returns A promise resolving to a {@link SmlPackage} instance.
+   */
   static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<SmlPackage> {
     return OpenXmlPackage.openInto(new SmlPackage(), document);
   }
 
+  /** @internal */
   protected createPart(pkg: OpenXmlPackage, uri: string, contentType: string | null, partType: PartType, data: unknown): SmlPart {
     return new SmlPart(pkg, uri, contentType, partType, data);
   }
 
+  /**
+   * Returns the main workbook part.
+   *
+   * @returns The workbook {@link SmlPart}, or `undefined` if not found.
+   */
   async workbookPart(): Promise<SmlPart | undefined> {
     return (await this.getPartsByContentType(ContentType.workbook))[0] as SmlPart | undefined;
   }

@@ -7,6 +7,22 @@
  * Licensed under the MIT License
  */
 
+/**
+ * Static lookup mapping human-readable content type labels to their full MIME type URIs.
+ *
+ * @remarks
+ * Use these labels instead of raw URI strings when working with part content types.
+ * Property names match the corresponding part type (e.g., `ContentType.mainDocument`,
+ * `ContentType.worksheet`, `ContentType.slide`).
+ *
+ * @example
+ * ```typescript
+ * import { ContentType } from "openxmlsdkts";
+ *
+ * const parts = await pkg.getPartsByContentType(ContentType.mainDocument);
+ * pkg.addPart("/word/comments.xml", ContentType.wordprocessingComments, "xml", xDoc);
+ * ```
+ */
 export const ContentType = {
   calculationChain: "application/vnd.openxmlformats-officedocument.spreadsheetml.calcChain+xml",
   cellMetadata: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheetMetadata+xml",
@@ -96,5 +112,8 @@ export const ContentType = {
   xmlSignature: "application/vnd.openxmlformats-package.digital-signature-xmlsignature+xml",
 } as const;
 
+/** Union of all property names in {@link ContentType}. */
 export type ContentTypeKey = keyof typeof ContentType;
+
+/** Union of all MIME type values in {@link ContentType}. */
 export type ContentTypeValue = (typeof ContentType)[ContentTypeKey];

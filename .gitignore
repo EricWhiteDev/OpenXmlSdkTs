@@ -6,3 +6,5 @@ npm-debug.log*
 .DS_Store
 .claude/
 example-output/
+# TypeDoc generated output
+docs/api/

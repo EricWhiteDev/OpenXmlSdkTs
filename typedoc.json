@@ -1,0 +1,14 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src/index.ts"],
+  "out": "docs/api",
+  "githubPages": true,
+  "name": "OpenXmlSdkTs",
+  "readme": "README.md",
+  "projectDocuments": ["docs/guides/**/*.md"],
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeInternal": true,
+  "sort": ["source-order"]
+}

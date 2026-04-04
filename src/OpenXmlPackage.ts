@@ -16,22 +16,78 @@ import { CT, FLATOPC, PKGREL } from "./OpenXmlNamespacesAndNames";
 import { ContentType } from "./ContentType";
 import { RelationshipType } from "./RelationshipType";
 
+/** A string containing a Base64-encoded Open XML document. */
 export type Base64String = string;
+
+/** A string containing a Flat OPC XML representation of an Open XML document. */
 export type FlatOpcString = string;
+
+/** A Blob containing the raw ZIP bytes of an Open XML document. */
 export type DocxBinary = Blob;
 
+/**
+ * Base class for all Open XML document packages.
+ *
+ * @remarks
+ * An Open XML package is a ZIP archive (or equivalent Flat OPC / Base64 representation)
+ * containing parts (XML documents, images, and other binary data) linked by relationships.
+ *
+ * `OpenXmlPackage` provides format-agnostic opening and saving, part management, and
+ * relationship navigation. For format-specific convenience methods, use the subclasses
+ * {@link WmlPackage}, {@link SmlPackage}, or {@link PmlPackage}.
+ *
+ * The static {@link OpenXmlPackage.open | open()} method auto-detects the input format:
+ * binary Blob, Base64 string, or Flat OPC XML string.
+ *
+ * @example
+ * ```typescript
+ * import { OpenXmlPackage } from "openxmlsdkts";
+ * import fs from "fs";
+ *
+ * const buffer = fs.readFileSync("document.docx");
+ * const pkg = await OpenXmlPackage.open(new Blob([buffer]));
+ * const parts = pkg.getParts();
+ * console.log(`Package contains ${parts.length} parts`);
+ *
+ * const blob = await pkg.saveToBlobAsync();
+ * ```
+ */
 export class OpenXmlPackage {
   private parts: Map<string, OpenXmlPart> = new Map();
-  private ctXDoc!: XDocument; // This is the XDocument for the content types in the package
+  private ctXDoc!: XDocument;
 
+  /** @internal */
   protected createPart(pkg: OpenXmlPackage, uri: string, contentType: string | null, partType: PartType, data: unknown): OpenXmlPart {
     return new OpenXmlPart(pkg, uri, contentType, partType, data);
   }
 
+  /**
+   * Returns all content parts in the package, excluding the content-types part and relationship parts.
+   *
+   * @returns An array of all content {@link OpenXmlPart} instances in the package.
+   */
   getParts(): OpenXmlPart[] {
     return Array.from(this.parts.values()).filter((p) => p.getUri() !== "[Content_Types].xml" && p.getContentType() !== ContentType.relationships);
   }
 
+  /**
+   * Adds a new part to the package.
+   *
+   * @param uri - The part URI (e.g., `"/word/comments.xml"`).
+   * @param contentType - The MIME content type. Use {@link ContentType} constants.
+   * @param partType - The part data type: `"xml"`, `"binary"`, or `"base64"`.
+   * @param data - The part content (an {@link XDocument} for XML parts, or a string/Blob for binary).
+   * @returns The newly created {@link OpenXmlPart}.
+   * @throws Error if a part with the given URI already exists.
+   *
+   * @example
+   * ```typescript
+   * import { ContentType, XDocument, XElement, W } from "openxmlsdkts";
+   *
+   * const xDoc = new XDocument(new XElement(W.comments));
+   * pkg.addPart("/word/comments.xml", ContentType.wordprocessingComments, "xml", xDoc);
+   * ```
+   */
   addPart(uri: string, contentType: string, partType: PartType, data: unknown): OpenXmlPart {
     const alreadyInCt = this.ctXDoc.root!.elements(CT.Override).find((el) => el.attribute("PartName")?.value === uri);
     if (alreadyInCt || this.parts.has(uri)) {
@@ -43,6 +99,11 @@ export class OpenXmlPackage {
     return newPart;
   }
 
+  /**
+   * Removes a part from the package and cleans up any relationships that reference it.
+   *
+   * @param part - The part to delete.
+   */
   async deletePart(part: OpenXmlPart): Promise<void> {
     const uri = part.getUri();
     this.parts.delete(uri);
@@ -76,14 +137,40 @@ export class OpenXmlPackage {
     }
   }
 
+  /**
+   * Looks up a part by its URI.
+   *
+   * @param uri - The full part URI (e.g., `"/word/document.xml"`).
+   * @returns The matching {@link OpenXmlPart}, or `undefined` if not found.
+   */
   getPartByUri(uri: string): OpenXmlPart | undefined {
     return this.parts.get(uri);
   }
 
+  /**
+   * Returns the content type for a part identified by its URI.
+   *
+   * @param uri - The full part URI.
+   * @returns The MIME content type string.
+   * @throws Error if the content type cannot be determined.
+   */
   getContentType(uri: string): string {
     return OpenXmlPackage.getContentType(uri, this.ctXDoc);
   }
 
+  /**
+   * Returns all package-level relationships (from `/_rels/.rels`).
+   *
+   * @returns An array of {@link OpenXmlRelationship} objects.
+   *
+   * @example
+   * ```typescript
+   * const rels = await pkg.getRelationships();
+   * for (const rel of rels) {
+   *   console.log(`${rel.getId()} -> ${rel.getTargetFullName()}`);
+   * }
+   * ```
+   */
   async getRelationships(): Promise<OpenXmlRelationship[]> {
     const relsPart = this.parts.get("/_rels/.rels");
     if (!relsPart) {
@@ -92,53 +179,130 @@ export class OpenXmlPackage {
     return OpenXmlPackage.getRelationshipsFromRelsXml(this, null, relsPart);
   }
 
+  /**
+   * Returns package-level relationships filtered by relationship type.
+   *
+   * @param relationshipType - The relationship type URI. Use {@link RelationshipType} constants.
+   * @returns An array of matching {@link OpenXmlRelationship} objects.
+   */
   async getRelationshipsByRelationshipType(relationshipType: string): Promise<OpenXmlRelationship[]> {
     const rels = await this.getRelationships();
     return rels.filter((r) => r.getType() === relationshipType);
   }
 
+  /**
+   * Returns parts that are targets of package-level relationships of the given type.
+   *
+   * @param relationshipType - The relationship type URI. Use {@link RelationshipType} constants.
+   * @returns An array of matching {@link OpenXmlPart} instances.
+   *
+   * @example
+   * ```typescript
+   * import { RelationshipType } from "openxmlsdkts";
+   *
+   * const themeParts = await pkg.getPartsByRelationshipType(RelationshipType.theme);
+   * ```
+   */
   async getPartsByRelationshipType(relationshipType: string): Promise<OpenXmlPart[]> {
     const rels = await this.getRelationshipsByRelationshipType(relationshipType);
     return rels.map((r) => this.getPartByUri(r.getTargetFullName())).filter((p): p is OpenXmlPart => p !== undefined);
   }
 
+  /**
+   * Finds a package-level relationship by its ID.
+   *
+   * @param rId - The relationship ID (e.g., `"rId1"`).
+   * @returns The matching {@link OpenXmlRelationship}, or `undefined`.
+   */
   async getRelationshipById(rId: string): Promise<OpenXmlRelationship | undefined> {
     const rels = await this.getRelationships();
     return rels.find((r) => r.getId() === rId);
   }
 
+  /**
+   * Finds a part by following a package-level relationship ID.
+   *
+   * @param rId - The relationship ID (e.g., `"rId1"`).
+   * @returns The target {@link OpenXmlPart}, or `undefined`.
+   */
   async getPartById(rId: string): Promise<OpenXmlPart | undefined> {
     const rel = await this.getRelationshipById(rId);
     return rel ? this.getPartByUri(rel.getTargetFullName()) : undefined;
   }
 
+  /**
+   * Returns package-level relationships whose target parts have the given content type.
+   *
+   * @param contentType - The MIME content type. Use {@link ContentType} constants.
+   * @returns An array of matching {@link OpenXmlRelationship} objects.
+   */
   async getRelationshipsByContentType(contentType: string): Promise<OpenXmlRelationship[]> {
     const rels = await this.getRelationships();
     return rels.filter((r) => r.getTargetMode() !== "External" && this.getContentType(r.getTargetFullName()) === contentType);
   }
 
+  /**
+   * Returns parts whose content type matches the given value.
+   *
+   * @param contentType - The MIME content type. Use {@link ContentType} constants.
+   * @returns An array of matching {@link OpenXmlPart} instances.
+   *
+   * @example
+   * ```typescript
+   * import { ContentType } from "openxmlsdkts";
+   *
+   * const themeParts = await pkg.getPartsByContentType(ContentType.theme);
+   * ```
+   */
   async getPartsByContentType(contentType: string): Promise<OpenXmlPart[]> {
     const rels = await this.getRelationshipsByContentType(contentType);
     return rels.map((r) => this.getPartByUri(r.getTargetFullName())).filter((p): p is OpenXmlPart => p !== undefined);
   }
 
+  /**
+   * Returns the first part targeted by a package-level relationship of the given type.
+   *
+   * @param relationshipType - The relationship type URI. Use {@link RelationshipType} constants.
+   * @returns The first matching {@link OpenXmlPart}, or `undefined`.
+   */
   async getPartByRelationshipType(relationshipType: string): Promise<OpenXmlPart | undefined> {
     const parts = await this.getPartsByRelationshipType(relationshipType);
     return parts[0];
   }
 
+  /**
+   * Returns the core file properties part (title, author, dates, etc.).
+   *
+   * @returns The core properties {@link OpenXmlPart}, or `undefined` if not present.
+   */
   async coreFilePropertiesPart(): Promise<OpenXmlPart | undefined> {
     return this.getPartByRelationshipType(RelationshipType.coreFileProperties);
   }
 
+  /**
+   * Returns the extended file properties part (application name, company, etc.).
+   *
+   * @returns The extended properties {@link OpenXmlPart}, or `undefined` if not present.
+   */
   async extendedFilePropertiesPart(): Promise<OpenXmlPart | undefined> {
     return this.getPartByRelationshipType(RelationshipType.extendedFileProperties);
   }
 
+  /**
+   * Returns the custom file properties part.
+   *
+   * @returns The custom properties {@link OpenXmlPart}, or `undefined` if not present.
+   */
   async customFilePropertiesPart(): Promise<OpenXmlPart | undefined> {
     return this.getPartByRelationshipType(RelationshipType.customFileProperties);
   }
 
+  /**
+   * Returns all relationships defined for a specific part.
+   *
+   * @param part - The part whose relationships to retrieve.
+   * @returns An array of {@link OpenXmlRelationship} objects.
+   */
   async getRelationshipsForPart(part: OpenXmlPart): Promise<OpenXmlRelationship[]> {
     const relsPart = Utility.getRelsPart(part);
     if (!relsPart) {
@@ -147,17 +311,43 @@ export class OpenXmlPackage {
     return OpenXmlPackage.getRelationshipsFromRelsXml(this, part, relsPart);
   }
 
+  /**
+   * Adds a package-level relationship.
+   *
+   * @param id - The relationship ID (e.g., `"rId10"`).
+   * @param type - The relationship type URI. Use {@link RelationshipType} constants.
+   * @param target - The target URI.
+   * @param targetMode - `"Internal"` (default) or `"External"`.
+   * @returns The newly created {@link OpenXmlRelationship}.
+   */
   async addRelationship(id: string, type: string, target: string, targetMode: string = "Internal"): Promise<OpenXmlRelationship> {
     const relsPart = this.getOrCreateRelsPartForUri("/_rels/.rels");
     return OpenXmlPackage.addRelationshipToRelPart(this, null, relsPart, id, type, target, targetMode);
   }
 
+  /**
+   * Adds a relationship to a specific part.
+   *
+   * @param part - The source part.
+   * @param id - The relationship ID.
+   * @param type - The relationship type URI. Use {@link RelationshipType} constants.
+   * @param target - The target URI (relative to the source part).
+   * @param targetMode - `"Internal"` (default) or `"External"`.
+   * @returns The newly created {@link OpenXmlRelationship}.
+   */
   async addRelationshipForPart(part: OpenXmlPart, id: string, type: string, target: string, targetMode: string = "Internal"): Promise<OpenXmlRelationship> {
     const relsUri = Utility.getRelsPartUri(part);
     const relsPart = this.getOrCreateRelsPartForUri(relsUri);
     return OpenXmlPackage.addRelationshipToRelPart(this, part, relsPart, id, type, target, targetMode);
   }
 
+  /**
+   * Deletes a package-level relationship by ID.
+   *
+   * @param id - The relationship ID to delete.
+   * @returns `true` if the relationship was deleted.
+   * @throws Error if the relationship is not found.
+   */
   async deleteRelationship(id: string): Promise<boolean> {
     const relsPart = this.parts.get("/_rels/.rels");
     if (!relsPart) {
@@ -166,6 +356,14 @@ export class OpenXmlPackage {
     return OpenXmlPackage.deleteRelationshipFromRelPart(relsPart, id);
   }
 
+  /**
+   * Deletes a relationship from a specific part.
+   *
+   * @param part - The source part.
+   * @param id - The relationship ID to delete.
+   * @returns `true` if the relationship was deleted.
+   * @throws Error if the relationship is not found.
+   */
   async deleteRelationshipForPart(part: OpenXmlPart, id: string): Promise<boolean> {
     const relsPart = Utility.getRelsPart(part);
     if (!relsPart) {
@@ -174,6 +372,22 @@ export class OpenXmlPackage {
     return OpenXmlPackage.deleteRelationshipFromRelPart(relsPart, id);
   }
 
+  /**
+   * Saves the package as a Flat OPC XML string.
+   *
+   * @remarks
+   * Flat OPC XML is the required format when working with Office JavaScript/TypeScript Add-ins.
+   * It is also useful for storing documents in XML databases, applying XSLT transformations,
+   * and debugging document structure.
+   *
+   * @returns A promise resolving to the Flat OPC XML string.
+   *
+   * @example
+   * ```typescript
+   * const flatOpc = await pkg.saveToFlatOpcAsync();
+   * fs.writeFileSync("document.xml", flatOpc);
+   * ```
+   */
   async saveToFlatOpcAsync(): Promise<FlatOpcString> {
     const pkgElement = new XElement(FLATOPC._package, new XAttribute(XNamespace.xmlns.getName("pkg"), FLATOPC.namespace.namespaceName));
     const flatOpc = new XDocument(new XDeclaration("1.0", "UTF-8", "yes"), new XProcessingInstruction("mso-application", 'progid="Word.Document"'), pkgElement);
@@ -223,11 +437,37 @@ export class OpenXmlPackage {
     return flatOpc.toStringWithIndentation() as FlatOpcString;
   }
 
+  /**
+   * Saves the package as a Base64-encoded string.
+   *
+   * @remarks
+   * Useful for embedding documents in JSON payloads, data URIs, or text-based storage.
+   *
+   * @returns A promise resolving to the Base64 string.
+   *
+   * @example
+   * ```typescript
+   * const base64 = await pkg.saveToBase64Async();
+   * ```
+   */
   async saveToBase64Async(): Promise<Base64String> {
     const zip = await this.saveToZip();
     return zip.generateAsync({ type: "base64", compression: "DEFLATE" });
   }
 
+  /**
+   * Saves the package as a binary Blob (ZIP).
+   *
+   * @returns A promise resolving to a Blob containing the document bytes.
+   *
+   * @example
+   * ```typescript
+   * const blob = await pkg.saveToBlobAsync();
+   * // In Node.js, convert to Buffer for file I/O:
+   * const buffer = Buffer.from(await blob.arrayBuffer());
+   * fs.writeFileSync("output.docx", buffer);
+   * ```
+   */
   async saveToBlobAsync(): Promise<DocxBinary> {
     const zip = await this.saveToZip();
     return zip.generateAsync({ type: "blob", compression: "DEFLATE" });
@@ -358,6 +598,32 @@ export class OpenXmlPackage {
     return pkg;
   }
 
+  /**
+   * Opens an Open XML document from any supported format.
+   *
+   * @remarks
+   * Auto-detects the input format: binary Blob, Base64 string, or Flat OPC XML string.
+   * For format-specific packages, use {@link WmlPackage.open}, {@link SmlPackage.open},
+   * or {@link PmlPackage.open} instead.
+   *
+   * @param document - The document to open.
+   * @returns A promise resolving to an {@link OpenXmlPackage} instance.
+   *
+   * @example
+   * ```typescript
+   * // Open from binary Blob
+   * const buffer = fs.readFileSync("document.docx");
+   * const pkg = await OpenXmlPackage.open(new Blob([buffer]));
+   *
+   * // Open from Base64 string
+   * const base64 = fs.readFileSync("document.txt", "utf-8");
+   * const pkg2 = await OpenXmlPackage.open(base64);
+   *
+   * // Open from Flat OPC XML string
+   * const flatOpc = fs.readFileSync("document.xml", "utf-8");
+   * const pkg3 = await OpenXmlPackage.open(flatOpc);
+   * ```
+   */
   static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<OpenXmlPackage> {
     return OpenXmlPackage.openInto(new OpenXmlPackage(), document);
   }

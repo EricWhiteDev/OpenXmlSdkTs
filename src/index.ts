@@ -7,6 +7,16 @@
  * Licensed under the MIT License
  */
 
+/**
+ * OpenXmlSdkTs — Open XML SDK for TypeScript.
+ *
+ * A library for reading, writing, and manipulating Office Open XML documents
+ * (.docx, .xlsx, .pptx) in Node.js and browser environments. Supports three
+ * I/O formats: binary Blob, Flat OPC XML, and Base64 string.
+ *
+ * @packageDocumentation
+ */
+
 export { OpenXmlPackage } from "./OpenXmlPackage";
 export { WmlPackage } from "./WmlPackage";
 export { SmlPackage } from "./SmlPackage";
