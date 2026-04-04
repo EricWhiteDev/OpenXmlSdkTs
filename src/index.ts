@@ -22,7 +22,7 @@ export { WmlPackage } from "./WmlPackage";
 export { SmlPackage } from "./SmlPackage";
 export { PmlPackage } from "./PmlPackage";
 export { OpenXmlRelationship } from "./OpenXmlRelationship";
-export type { Base64String, FlatOpcString, DocxBinary } from "./OpenXmlPackage";
+export type { Base64String, FlatOpcString, OpcBinary } from "./OpenXmlPackage";
 export { Utility } from "./Utility";
 export { OpenXmlPart } from "./OpenXmlPart";
 export { WmlPart } from "./WmlPart";

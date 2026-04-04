@@ -8,7 +8,7 @@
  */
 
 import { ContentType } from "./ContentType";
-import { OpenXmlPackage, Base64String, FlatOpcString, DocxBinary } from "./OpenXmlPackage";
+import { OpenXmlPackage, Base64String, FlatOpcString, OpcBinary } from "./OpenXmlPackage";
 import { PartType } from "./OpenXmlPart";
 import { WmlPart } from "./WmlPart";
 
@@ -51,7 +51,7 @@ export class WmlPackage extends OpenXmlPackage {
    * @param document - The document to open (Blob, Base64 string, or Flat OPC XML string).
    * @returns A promise resolving to a {@link WmlPackage} instance.
    */
-  static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<WmlPackage> {
+  static async open(document: Base64String | FlatOpcString | OpcBinary): Promise<WmlPackage> {
     return OpenXmlPackage.openInto(new WmlPackage(), document);
   }
 

@@ -26,7 +26,7 @@ const doc = await WmlPackage.open(new Blob([buffer]));
 const blob = await doc.saveToBlobAsync();
 ```
 
-The type alias `DocxBinary` (and corresponding `XlsxBinary`, `PptxBinary`) represents binary document data.
+The type alias `OpcBinary` represents binary document data.
 
 ### Flat OPC XML
 

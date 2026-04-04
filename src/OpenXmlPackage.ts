@@ -35,7 +35,7 @@ export type FlatOpcString = string;
  *
  * @category Class and Type Reference
  */
-export type DocxBinary = Blob;
+export type OpcBinary = Blob;
 
 /**
  * Base class for all Open XML document packages.
@@ -482,7 +482,7 @@ export class OpenXmlPackage {
    * fs.writeFileSync("output.docx", buffer);
    * ```
    */
-  async saveToBlobAsync(): Promise<DocxBinary> {
+  async saveToBlobAsync(): Promise<OpcBinary> {
     const zip = await this.saveToZip();
     return zip.generateAsync({ type: "blob", compression: "DEFLATE" });
   }
@@ -597,7 +597,7 @@ export class OpenXmlPackage {
     return zip;
   }
 
-  protected static async openInto<T extends OpenXmlPackage>(pkg: T, document: Base64String | FlatOpcString | DocxBinary): Promise<T> {
+  protected static async openInto<T extends OpenXmlPackage>(pkg: T, document: Base64String | FlatOpcString | OpcBinary): Promise<T> {
     if (typeof document === "string") {
       if (Utility.isBase64(document)) {
         await OpenXmlPackage.openFromBase64Internal(pkg, document);
@@ -607,7 +607,7 @@ export class OpenXmlPackage {
     } else if (document instanceof Blob) {
       await OpenXmlPackage.openFromBlobInternal(pkg, document);
     } else {
-      throw new Error("Invalid argument: document must be a Base64String, FlatOpcString, or DocxBinary (Blob).");
+      throw new Error("Invalid argument: document must be a Base64String, FlatOpcString, or OpcBinary (Blob).");
     }
     return pkg;
   }
@@ -638,7 +638,7 @@ export class OpenXmlPackage {
    * const pkg3 = await OpenXmlPackage.open(flatOpc);
    * ```
    */
-  static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<OpenXmlPackage> {
+  static async open(document: Base64String | FlatOpcString | OpcBinary): Promise<OpenXmlPackage> {
     return OpenXmlPackage.openInto(new OpenXmlPackage(), document);
   }
 
@@ -711,7 +711,7 @@ export class OpenXmlPackage {
     OpenXmlPackage.openFlatOpcFromXDoc(pkg, xDoc);
   }
 
-  private static async openFromBlobInternal(pkg: OpenXmlPackage, document: DocxBinary): Promise<void> {
+  private static async openFromBlobInternal(pkg: OpenXmlPackage, document: OpcBinary): Promise<void> {
     const arrayBuffer = await document.arrayBuffer();
     const zip = await JSZip.loadAsync(arrayBuffer);
     await OpenXmlPackage.openFromZip(zip, pkg);

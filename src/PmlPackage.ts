@@ -8,7 +8,7 @@
  */
 
 import { ContentType } from "./ContentType";
-import { OpenXmlPackage, Base64String, FlatOpcString, DocxBinary } from "./OpenXmlPackage";
+import { OpenXmlPackage, Base64String, FlatOpcString, OpcBinary } from "./OpenXmlPackage";
 import { PartType } from "./OpenXmlPart";
 import { PmlPart } from "./PmlPart";
 
@@ -40,7 +40,7 @@ export class PmlPackage extends OpenXmlPackage {
    * @param document - The document to open (Blob, Base64 string, or Flat OPC XML string).
    * @returns A promise resolving to a {@link PmlPackage} instance.
    */
-  static async open(document: Base64String | FlatOpcString | DocxBinary): Promise<PmlPackage> {
+  static async open(document: Base64String | FlatOpcString | OpcBinary): Promise<PmlPackage> {
     return OpenXmlPackage.openInto(new PmlPackage(), document);
   }
 
