@@ -2,6 +2,18 @@
 
 A TypeScript library for reading, writing, and manipulating Office Open XML documents (`.docx`, `.xlsx`, `.pptx`) in Node.js and browser environments. Inspired by the .NET [Open-Xml-Sdk](https://github.com/dotnet/Open-Xml-Sdk), this library brings the same familiar programming model to the TypeScript ecosystem.
 
+## Documentation
+
+Full API reference and guides are published at **[ericwhitedev.github.io/OpenXmlSdkTs](https://ericwhitedev.github.io/OpenXmlSdkTs/)**.
+
+To build the documentation locally:
+
+```bash
+npm run docs
+```
+
+Output is written to `docs/api/`. Open `docs/api/index.html` in a browser.
+
 ## Why OpenXmlSdkTs?
 
 - **Full document format support** — Work with Word, Excel, and PowerPoint files at the XML level.
@@ -12,10 +24,6 @@ A TypeScript library for reading, writing, and manipulating Office Open XML docu
 - **Intuitive part navigation** — Navigate from the package to the main document part, then from part to part using typed methods that mirror the .NET SDK: `mainDocumentPart()`, `styleDefinitionsPart()`, `worksheetParts()`, `slideParts()`, and many more.
 - **Lightweight** — Only two runtime dependencies: `jszip` and `ltxmlts`.
 - **MIT licensed** — Free for commercial and open-source use.  This is the same license as the C#/dotnet Open-Xml-Sdk.
-
-## Documentation
-
-Full API documentation and guides are available at [ericwhitedev.github.io/OpenXmlSdkTs](https://ericwhitedev.github.io/OpenXmlSdkTs/).
 
 ## Installation
 
