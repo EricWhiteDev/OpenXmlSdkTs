@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "jszip": "^3.10.1",
-    "ltxmlts": "^1.0.9"
+    "ltxmlts": "^1.0.10"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",

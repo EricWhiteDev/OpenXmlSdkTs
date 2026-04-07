@@ -1,0 +1,58 @@
+Add two static methods to WmlPackage class:
+
+function coalesceRunsInParagraph(para: XElement): XElement {
+  const charRuns = para.elements(w + 'r');
+  const groups = xseq(charRuns).groupAdjacent(
+    run => run.element(w + 'rPr')?.toString() ?? ''
+  );
+
+  const coalescedRuns: XElement[] = groups.map(group => {
+    const runs = group.items.toArray() as XElement[];
+    const rPr = runs[0].element(w + 'rPr');
+    const text = runs.map(r => r.element(w + 't')!.value).join('');
+    const tElement = text.startsWith(' ') || text.endsWith(' ')
+      ? new XElement(w + 't', new XAttribute(xmlNs + 'space', 'preserve'), text)
+      : new XElement(w + 't', text);
+    return new XElement(w + 'r',
+      rPr ? new XElement(rPr) : undefined,
+      tElement
+    );
+  });
+
+  const pPr = para.element(w + 'pPr');
+  return new XElement(w + 'p',
+    new XAttribute(XNamespace.xmlns + 'w', 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'),
+    pPr ? new XElement(pPr) : undefined,
+    ...coalescedRuns
+  );
+}
+
+function atomizeRunsInParagraph(para: XElement): XElement {
+  const pPr = para.element(w + 'pPr');
+
+  const newRuns: XElement[] = [];
+  for (const run of para.elements(w + 'r')) {
+    const rPr = run.element(w + 'rPr');
+    const text = run.element(w + 't')?.value ?? '';
+    for (const ch of [...text]) {
+      const tElement = ch === ' '
+        ? new XElement(w + 't', new XAttribute(xmlNs + 'space', 'preserve'), ch)
+        : new XElement(w + 't', ch);
+      const newRun = new XElement(w + 'r',
+        rPr ? new XElement(rPr) : undefined,
+        tElement
+      );
+      newRuns.push(newRun);
+    }
+  }
+
+  return new XElement(w + 'p',
+    new XAttribute(XNamespace.xmlns + 'w', 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'),
+    pPr ? new XElement(pPr) : undefined,
+    ...newRuns
+  );
+}
+
+Add unit tests for this functionality.  Base the unit tests on those found in /Users/ericwhite/LtXmlTs/tests/OpenXmlIntegration.test.ts.  Use the same inputXml and characterLevelExpected as in those tests.
+
+Ask me questions to clarify the product requirements, technical requirements, engineering principles, and hard constraints.
