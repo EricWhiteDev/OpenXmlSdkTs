@@ -15,6 +15,29 @@ import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 
+const blankDocumentFlatOpcWithPreservedSpaceRun = blankDocumentFlatOpc.replace(
+  `<w:p w14:paraId="74FC25F3" w14:textId="77777777" w:rsidR="008F1B95"
+                        w:rsidRDefault="008F1B95" />`,
+  `<w:p w14:paraId="74FC25F3" w14:textId="77777777" w:rsidR="008F1B95"
+                        w:rsidRDefault="008F1B95">
+                        <w:r>
+                            <w:t>Hello</w:t>
+                        </w:r>
+                        <w:r>
+                            <w:t xml:space="preserve"> </w:t>
+                        </w:r>
+                        <w:r>
+                            <w:t>World</w:t>
+                        </w:r>
+                    </w:p>`,
+);
+
+const supportsPreserveWhitespace = (() => {
+  const parseWithWhitespace = XDocument.parse as unknown as (xml: string, options?: { preserveWhitespace?: boolean }) => XDocument;
+
+  return parseWithWhitespace("<root><a>x</a> <b>y</b></root>", { preserveWhitespace: true }).toString().includes("</a> <b>");
+})();
+
 describe("OpenXmlPackage", () => {
   it("does not throw when opening a docx blob", async () => {
     const srcFile = path.resolve(__dirname, "../test-files/TemplateDocument.docx");
@@ -41,6 +64,20 @@ describe("OpenXmlPackage", () => {
     const spy = vi.spyOn(JSZip, "loadAsync");
     await expect(OpenXmlPackage.open(blankDocumentFlatOpc)).resolves.toBeDefined();
     expect(spy).not.toHaveBeenCalled();
+  });
+
+  (supportsPreserveWhitespace ? it : it.skip)("preserves xml:space text runs across package round-trips", async () => {
+    const pkg = await OpenXmlPackage.open(blankDocumentFlatOpcWithPreservedSpaceRun);
+    const savedBlob = await pkg.saveToBlobAsync();
+    const blobPkg = await OpenXmlPackage.open(savedBlob);
+    const savedFlatOpc = await blobPkg.saveToFlatOpcAsync();
+    const roundTrippedPkg = await OpenXmlPackage.open(savedFlatOpc);
+    const docPart = roundTrippedPkg.getParts().find((p) => p.getUri() === "/word/document.xml")!;
+    const xml = (await docPart.getXDocument()).toString();
+
+    expect(xml).toContain("<w:t>Hello</w:t>");
+    expect(xml).toContain("xml:space='preserve'> </w:t>");
+    expect(xml).toContain("<w:t>World</w:t>");
   });
 
   it("opens a docx blob with the correct parts", async () => {

@@ -12,6 +12,7 @@ import { OpenXmlPackage } from "./OpenXmlPackage";
 import { OpenXmlRelationship } from "./OpenXmlRelationship";
 import { Utility } from "./Utility";
 import { RelationshipType } from "./RelationshipType";
+import { parseXmlPreservingWhitespace } from "./XmlParsing";
 
 /**
  * Describes the data format of a part's content.
@@ -227,7 +228,7 @@ export class OpenXmlPart {
       return this.data;
     }
     const xmlStr = await (this.data as { async(type: string): Promise<string> }).async("string");
-    const xDoc = XDocument.parse(xmlStr);
+    const xDoc = parseXmlPreservingWhitespace(xmlStr);
     this.data = xDoc;
     return xDoc;
   }
