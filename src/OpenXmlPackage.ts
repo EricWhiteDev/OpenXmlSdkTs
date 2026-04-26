@@ -15,6 +15,7 @@ import { Utility } from "./Utility";
 import { CT, FLATOPC, PKGREL } from "./OpenXmlNamespacesAndNames";
 import { ContentType } from "./ContentType";
 import { RelationshipType } from "./RelationshipType";
+import { parseXmlPreservingWhitespace } from "./XmlParsing";
 
 /**
  * A string containing a Base64-encoded Open XML document.
@@ -140,7 +141,7 @@ export class OpenXmlPackage {
         relsXDoc = relsData;
       } else {
         const xmlStr = await (relsData as { async(type: string): Promise<string> }).async("string");
-        relsXDoc = XDocument.parse(xmlStr);
+        relsXDoc = parseXmlPreservingWhitespace(xmlStr);
         relsPart.setData(relsXDoc);
         relsPart.setPartType("xml");
       }
@@ -424,7 +425,7 @@ export class OpenXmlPackage {
           root = data.root;
         } else {
           const xmlStr = await (data as { async(type: string): Promise<string> }).async("string");
-          root = XDocument.parse(xmlStr).root;
+          root = parseXmlPreservingWhitespace(xmlStr).root;
         }
         dataElement = new XElement(FLATOPC.xmlData, root);
       } else {
@@ -505,7 +506,7 @@ export class OpenXmlPackage {
       relsXDoc = data;
     } else {
       const xmlStr = await (data as { async(type: string): Promise<string> }).async("string");
-      relsXDoc = XDocument.parse(xmlStr);
+      relsXDoc = parseXmlPreservingWhitespace(xmlStr);
       relsPart.setData(relsXDoc);
       relsPart.setPartType("xml");
     }
@@ -532,7 +533,7 @@ export class OpenXmlPackage {
       relsXDoc = data;
     } else {
       const xmlStr = await (data as { async(type: string): Promise<string> }).async("string");
-      relsXDoc = XDocument.parse(xmlStr);
+      relsXDoc = parseXmlPreservingWhitespace(xmlStr);
       relsPart.setData(relsXDoc);
       relsPart.setPartType("xml");
     }
@@ -556,7 +557,7 @@ export class OpenXmlPackage {
       relsXDoc = data;
     } else {
       const xmlStr = await (data as { async(type: string): Promise<string> }).async("string");
-      relsXDoc = XDocument.parse(xmlStr);
+      relsXDoc = parseXmlPreservingWhitespace(xmlStr);
     }
     return relsXDoc.root!.elements(PKGREL.Relationship).map((r) => {
       const targetMode = r.attribute("TargetMode")?.value ?? null;
@@ -707,7 +708,7 @@ export class OpenXmlPackage {
   }
 
   private static async openFromFlatOpcInternal(pkg: OpenXmlPackage, document: FlatOpcString): Promise<void> {
-    const xDoc = XDocument.parse(document);
+    const xDoc = parseXmlPreservingWhitespace(document);
     OpenXmlPackage.openFlatOpcFromXDoc(pkg, xDoc);
   }
 
@@ -723,7 +724,7 @@ export class OpenXmlPackage {
       throw new Error("Invalid Open XML document: no [Content_Types].xml");
     }
     const ctData = await ctZipFile.async("string");
-    pkg.ctXDoc = XDocument.parse(ctData);
+    pkg.ctXDoc = parseXmlPreservingWhitespace(ctData);
 
     for (const f in zip.files) {
       const zipFile = zip.files[f];
