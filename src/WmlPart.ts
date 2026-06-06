@@ -53,6 +53,21 @@ export class WmlPart extends OpenXmlPart {
     return this.getPartByRelationshipType(RelationshipType.wordprocessingComments) as Promise<WmlPart | undefined>;
   }
 
+  /** Returns the comments extended part, or `undefined` if not present. */
+  async wordprocessingCommentsExtendedPart(): Promise<WmlPart | undefined> {
+    return this.getPartByRelationshipType(RelationshipType.wordprocessingCommentsExtended) as Promise<WmlPart | undefined>;
+  }
+
+  /** Returns the comments ids part, or `undefined` if not present. */
+  async wordprocessingCommentsIdsPart(): Promise<WmlPart | undefined> {
+    return this.getPartByRelationshipType(RelationshipType.wordprocessingCommentsIds) as Promise<WmlPart | undefined>;
+  }
+
+  /** Returns the comments extensible part, or `undefined` if not present. */
+  async wordprocessingCommentsExtensiblePart(): Promise<WmlPart | undefined> {
+    return this.getPartByRelationshipType(RelationshipType.wordprocessingCommentsExtensible) as Promise<WmlPart | undefined>;
+  }
+
   /** Returns the font table part, or `undefined` if not present. */
   async fontTablePart(): Promise<WmlPart | undefined> {
     return this.getPartByRelationshipType(RelationshipType.fontTable) as Promise<WmlPart | undefined>;
