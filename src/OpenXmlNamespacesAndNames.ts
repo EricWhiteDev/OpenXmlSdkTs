@@ -3639,6 +3639,63 @@ export class W14 {
 }
 
 /**
+ * WordprocessingML 2012 extensions namespace (`http://schemas.microsoft.com/office/word/2012/wordml`).
+ *
+ * @remarks
+ * Contains the extended comment markup found in the `commentsExtended` part
+ * (`commentsExtended.xml`), which records comment threading (parent/child
+ * relationships) and resolved (done) state.
+ *
+ * @category OpenXml Namespaces and Names
+ */
+export class W15 {
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/word/2012/wordml");
+
+  static readonly commentEx: XName = W15.namespace.getName("commentEx");
+  static readonly commentsEx: XName = W15.namespace.getName("commentsEx");
+  static readonly done: XName = W15.namespace.getName("done");
+  static readonly paraId: XName = W15.namespace.getName("paraId");
+  static readonly paraIdParent: XName = W15.namespace.getName("paraIdParent");
+}
+
+/**
+ * WordprocessingML 2018 comments-extensible namespace (`http://schemas.microsoft.com/office/word/2018/wordml/cex`).
+ *
+ * @remarks
+ * Contains the markup found in the `commentsExtensible` part
+ * (`commentsExtensible.xml`), which associates a durable comment id with
+ * additional comment metadata such as the UTC creation date.
+ *
+ * @category OpenXml Namespaces and Names
+ */
+export class W16CEX {
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/word/2018/wordml/cex");
+
+  static readonly commentExtensible: XName = W16CEX.namespace.getName("commentExtensible");
+  static readonly commentsExtensible: XName = W16CEX.namespace.getName("commentsExtensible");
+  static readonly dateUtc: XName = W16CEX.namespace.getName("dateUtc");
+  static readonly durableId: XName = W16CEX.namespace.getName("durableId");
+}
+
+/**
+ * WordprocessingML 2016 comments-ids namespace (`http://schemas.microsoft.com/office/word/2016/wordml/cid`).
+ *
+ * @remarks
+ * Contains the markup found in the `commentsIds` part (`commentsIds.xml`),
+ * which maps a comment's paragraph id to its durable id.
+ *
+ * @category OpenXml Namespaces and Names
+ */
+export class W16CID {
+  static readonly namespace: XNamespace = XNamespace.get("http://schemas.microsoft.com/office/word/2016/wordml/cid");
+
+  static readonly commentId: XName = W16CID.namespace.getName("commentId");
+  static readonly commentsIds: XName = W16CID.namespace.getName("commentsIds");
+  static readonly durableId: XName = W16CID.namespace.getName("durableId");
+  static readonly paraId: XName = W16CID.namespace.getName("paraId");
+}
+
+/**
  * W3C Digital Signature namespace (`http://www.w3.org/2000/09/xmldsig#`).
  *
  * @category OpenXml Namespaces and Names
