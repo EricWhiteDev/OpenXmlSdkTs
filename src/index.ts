@@ -17,22 +17,22 @@
  * @packageDocumentation
  */
 
-export { OpenXmlPackage } from "./OpenXmlPackage";
-export { WmlPackage } from "./WmlPackage";
-export { SmlPackage } from "./SmlPackage";
-export { PmlPackage } from "./PmlPackage";
-export { OpenXmlRelationship } from "./OpenXmlRelationship";
-export type { Base64String, FlatOpcString, OpcBinary } from "./OpenXmlPackage";
-export { Utility } from "./Utility";
-export { OpenXmlPart } from "./OpenXmlPart";
-export { WmlPart } from "./WmlPart";
-export { SmlPart } from "./SmlPart";
-export { PmlPart } from "./PmlPart";
-export type { PartType } from "./OpenXmlPart";
-export { ContentType } from "./ContentType";
-export type { ContentTypeKey, ContentTypeValue } from "./ContentType";
-export { RelationshipType } from "./RelationshipType";
-export type { RelationshipTypeKey, RelationshipTypeValue } from "./RelationshipType";
+export { OpenXmlPackage } from "./OpenXmlPackage.js";
+export { WmlPackage } from "./WmlPackage.js";
+export { SmlPackage } from "./SmlPackage.js";
+export { PmlPackage } from "./PmlPackage.js";
+export { OpenXmlRelationship } from "./OpenXmlRelationship.js";
+export type { Base64String, FlatOpcString, OpcBinary } from "./OpenXmlPackage.js";
+export { Utility } from "./Utility.js";
+export { OpenXmlPart } from "./OpenXmlPart.js";
+export { WmlPart } from "./WmlPart.js";
+export { SmlPart } from "./SmlPart.js";
+export { PmlPart } from "./PmlPart.js";
+export type { PartType } from "./OpenXmlPart.js";
+export { ContentType } from "./ContentType.js";
+export type { ContentTypeKey, ContentTypeValue } from "./ContentType.js";
+export { RelationshipType } from "./RelationshipType.js";
+export type { RelationshipTypeKey, RelationshipTypeValue } from "./RelationshipType.js";
 export { XDocument, XDeclaration, XElement, XAttribute, XName, XNamespace, XProcessingInstruction, xseq } from "ltxmlts";
 export {
   A,
@@ -86,4 +86,4 @@ export {
   XDR14,
   XM,
   XSI,
-} from "./OpenXmlNamespacesAndNames";
+} from "./OpenXmlNamespacesAndNames.js";

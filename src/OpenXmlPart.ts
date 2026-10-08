@@ -8,10 +8,10 @@
  */
 
 import { XDocument } from "ltxmlts";
-import { OpenXmlPackage } from "./OpenXmlPackage";
-import { OpenXmlRelationship } from "./OpenXmlRelationship";
-import { Utility } from "./Utility";
-import { RelationshipType } from "./RelationshipType";
+import { OpenXmlPackage } from "./OpenXmlPackage.js";
+import { OpenXmlRelationship } from "./OpenXmlRelationship.js";
+import { Utility } from "./Utility.js";
+import { RelationshipType } from "./RelationshipType.js";
 
 /**
  * Describes the data format of a part's content.

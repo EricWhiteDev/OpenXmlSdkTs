@@ -7,10 +7,10 @@
  * Licensed under the MIT License
  */
 
-import { ContentType } from "./ContentType";
-import { OpenXmlPackage, Base64String, FlatOpcString, OpcBinary } from "./OpenXmlPackage";
-import { PartType } from "./OpenXmlPart";
-import { SmlPart } from "./SmlPart";
+import { ContentType } from "./ContentType.js";
+import { OpenXmlPackage, Base64String, FlatOpcString, OpcBinary } from "./OpenXmlPackage.js";
+import { PartType } from "./OpenXmlPart.js";
+import { SmlPart } from "./SmlPart.js";
 
 /**
  * Excel spreadsheet package — opens, navigates, and saves `.xlsx` files.

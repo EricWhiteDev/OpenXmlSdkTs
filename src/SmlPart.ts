@@ -7,8 +7,8 @@
  * Licensed under the MIT License
  */
 
-import { OpenXmlPart } from "./OpenXmlPart";
-import { RelationshipType } from "./RelationshipType";
+import { OpenXmlPart } from "./OpenXmlPart.js";
+import { RelationshipType } from "./RelationshipType.js";
 
 /**
  * Excel-specific part with convenience methods for navigating workbook structure.

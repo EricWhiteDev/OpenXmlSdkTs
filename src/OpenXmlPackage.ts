@@ -9,12 +9,12 @@
 
 import { XDocument, XDeclaration, XElement, XAttribute, XNamespace, XProcessingInstruction } from "ltxmlts";
 import JSZip from "jszip";
-import { OpenXmlPart, PartType } from "./OpenXmlPart";
-import { OpenXmlRelationship } from "./OpenXmlRelationship";
-import { Utility } from "./Utility";
-import { CT, FLATOPC, PKGREL } from "./OpenXmlNamespacesAndNames";
-import { ContentType } from "./ContentType";
-import { RelationshipType } from "./RelationshipType";
+import { OpenXmlPart, PartType } from "./OpenXmlPart.js";
+import { OpenXmlRelationship } from "./OpenXmlRelationship.js";
+import { Utility } from "./Utility.js";
+import { CT, FLATOPC, PKGREL } from "./OpenXmlNamespacesAndNames.js";
+import { ContentType } from "./ContentType.js";
+import { RelationshipType } from "./RelationshipType.js";
 
 /**
  * A string containing a Base64-encoded Open XML document.

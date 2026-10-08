@@ -7,7 +7,7 @@
  * Licensed under the MIT License
  */
 
-import type { OpenXmlPart } from "./OpenXmlPart";
+import type { OpenXmlPart } from "./OpenXmlPart.js";
 
 /**
  * Static helper utilities for working with Open XML packages.

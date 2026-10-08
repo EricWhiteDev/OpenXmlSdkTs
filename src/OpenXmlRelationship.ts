@@ -7,8 +7,8 @@
  * Licensed under the MIT License
  */
 
-import type { OpenXmlPackage } from "./OpenXmlPackage";
-import type { OpenXmlPart } from "./OpenXmlPart";
+import type { OpenXmlPackage } from "./OpenXmlPackage.js";
+import type { OpenXmlPart } from "./OpenXmlPart.js";
 
 /**
  * Represents a single relationship within an Open XML package.

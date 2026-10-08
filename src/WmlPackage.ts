@@ -8,11 +8,11 @@
  */
 
 import { XElement, XAttribute, XNamespace, xseq } from "ltxmlts";
-import { ContentType } from "./ContentType";
-import { W } from "./OpenXmlNamespacesAndNames";
-import { OpenXmlPackage, Base64String, FlatOpcString, OpcBinary } from "./OpenXmlPackage";
-import { PartType } from "./OpenXmlPart";
-import { WmlPart } from "./WmlPart";
+import { ContentType } from "./ContentType.js";
+import { W } from "./OpenXmlNamespacesAndNames.js";
+import { OpenXmlPackage, Base64String, FlatOpcString, OpcBinary } from "./OpenXmlPackage.js";
+import { PartType } from "./OpenXmlPart.js";
+import { WmlPart } from "./WmlPart.js";
 
 /**
  * Word document package — opens, navigates, and saves `.docx` files.
